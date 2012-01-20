@@ -24,6 +24,7 @@ namespace PEAR2\Cache\SHM\Adapter;
  * Implements the adapter interface. 
  */
 use PEAR2\Cache\SHM\Adapter;
+use PEAR2\Cache\SHM;
 
 class APC implements Adapter
 {
@@ -81,5 +82,37 @@ class APC implements Adapter
     public function unlock($key)
     {
         return apc_delete($this->persistentId . 'locks ' . $key);
+    }
+    
+    public function add($key, $value, $ttl = 0)
+    {
+        return apc_add($this->persistentId . 'values ' . $key, $value, $ttl);
+    }
+    
+    public function set($key, $value, $ttl = 0)
+    {
+        return apc_store($this->persistentId . 'values ' . $key, $value, $ttl);
+    }
+    
+    public function get($key)
+    {
+        $fullKey = $this->persistentId . 'values ' . $key;
+        if (apc_exists($fullKey)) {
+            $value = apc_fetch($fullKey, $success);
+            if (!$success) {
+                throw new SHM\InvalidArgumentException(
+                    'Unable to fetch key. ' .
+                    'Key has either just now expired or (if no TTL was set) ' .
+                    'is possibly in a race condition with another request.', 100
+                );
+            }
+            return $value;
+        }
+        throw new SHM\InvalidArgumentException('No such key in cache', 101);
+    }
+    
+    public function delete($key)
+    {
+        return apc_delete($this->persistentId . 'values ' . $key);
     }
 }

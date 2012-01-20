@@ -26,27 +26,53 @@ namespace PEAR2\Cache\SHM\Adapter;
  */
 use PEAR2\Cache\SHM\Adapter;
 
-class Wincache implements Adapter {
+class Wincache implements Adapter
+{
 
     protected $persistentId;
     public function __construct($persistentId)
     {
-        $this->persistentId = str_replace('\\', '/', $persistentId);
-    }
-
-    public function __destruct()
-    {
-        
+        if (strpos($persistentId, '\\') !== false) {
+            throw new SHM\InvalidArgumentException(
+                '$persistentId must not contain "\"', 200
+            );
+        }
+        $this->persistentId = $persistentId;
     }
 
     public function lock($key, $timeout = null)
     {
-        return wincache_lock($this->persistentId . ' ' . $key);
+        if (strpos($key, '\\') !== false) {
+            throw new SHM\InvalidArgumentException(
+                '$key must not contain "\"', 201
+            );
+        }
+        return wincache_lock($this->persistentId . ' ' .$key);
     }
 
     public function unlock($key)
     {
         return wincache_unlock($this->persistentId . ' ' . $key);
+    }
+
+    public function add($key, $value, $ttl = 0)
+    {
+        return wincache_add($this->persistentId . ' ' . $key, $value, $ttl);
+    }
+
+    public function set($key, $value, $ttl = 0)
+    {
+        return wincache_set($this->persistentId . ' ' . $key, $value, $ttl);
+    }
+
+    public function delete($key)
+    {
+        return wincache_delete($this->persistentId . ' ' . $key);
+    }
+
+    public function get($key)
+    {
+        return wincache_get($this->persistentId . ' ' . $key);
     }
 
 }

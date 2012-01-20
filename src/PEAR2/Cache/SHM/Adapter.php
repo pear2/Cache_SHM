@@ -25,5 +25,8 @@ interface Adapter
     public function __construct($persistentId);
     public function lock($key, $timeout = null);
     public function unlock($key);
-    public function __destruct();
+    public function add($key, $value, $ttl = 0);
+    public function set($key, $value, $ttl = 0);
+    public function get($key);
+    public function delete($key);
 }

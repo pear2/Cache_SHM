@@ -33,7 +33,7 @@ class SHM
             } elseif (version_compare(phpversion('wincache'), '1.1.0', '>=')) {
                 $this->adapter = new SHM\Adapter\Wincache($persistendId);
             } else {
-                throw new \InvalidArgumentException(
+                throw new SHM\InvalidArgumentException(
                     'No appropriate adapter available', 1
                 );
             }
