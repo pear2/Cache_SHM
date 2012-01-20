@@ -31,6 +31,15 @@ use PEAR2\Cache\SHM\Adapter;
  */
 use PEAR2\Cache\SHM;
 
+/**
+ * Shared memory adapter for the WinCache extension.
+ * 
+ * @category Cache
+ * @package  PEAR2_Cache_SHM
+ * @author   Vasil Rangelov <boen.robot@gmail.com>
+ * @license  http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
+ * @link     http://pear2.php.net/PEAR2_Cache_SHM
+ */
 class Wincache implements Adapter
 {
     /**

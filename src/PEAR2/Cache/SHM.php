@@ -20,18 +20,39 @@
  */
 namespace PEAR2\Cache;
 
+/**
+ * Main class for this package.
+ * 
+ * Automatically chooses an adapter based on the available extensions.
+ * 
+ * @category Cache
+ * @package  PEAR2_Cache_SHM
+ * @author   Vasil Rangelov <boen.robot@gmail.com>
+ * @license  http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
+ * @link     http://pear2.php.net/PEAR2_Cache_SHM
+ */
 class SHM
 {
     protected $adapter;
-    public function __construct($persistendId)
+    
+    /**
+     * Creates a new shared memory storage.
+     * 
+     * Estabilishes a separate persistent storage.
+     * 
+     * @param string|SHM\Adapter $persistentId The ID for the storage or an
+     * already instanciated storage adapter. If an ID is specified, an adapter
+     * will automatically be chosen based on the available extensions.
+     */
+    public function __construct($persistentId)
     {
-        if ($persistendId instanceof SHM\Adapter) {
-            $this->adapter = $persistendId;
+        if ($persistentId instanceof SHM\Adapter) {
+            $this->adapter = $persistentId;
         } else {
             if (version_compare(phpversion('apc'), '3.0.13', '>=')) {
-                $this->adapter = new SHM\Adapter\APC($persistendId);
+                $this->adapter = new SHM\Adapter\APC($persistentId);
             } elseif (version_compare(phpversion('wincache'), '1.1.0', '>=')) {
-                $this->adapter = new SHM\Adapter\Wincache($persistendId);
+                $this->adapter = new SHM\Adapter\Wincache($persistentId);
             } else {
                 throw new SHM\InvalidArgumentException(
                     'No appropriate adapter available', 1
@@ -40,11 +61,29 @@ class SHM
         }
     }
     
+    /**
+     * Get the currently set SHM adapter.
+     * 
+     * @return SHM\Adapter The currently set adapter 
+     */
     public function getAdapter()
     {
         return $this->adapter;
     }
     
+    /**
+     * Calls a method from the adapter.
+     * 
+     * This is a magic method, thanks to which any method you call will be
+     * redirected to the adapter. Every adapter implements at minimum the
+     * {@link SHM\Adapter} interface, so check it out for what you can expect as
+     * common functionality.
+     * 
+     * @param string $method The adapter method to call/
+     * @param array  $args   The arguments to the method.
+     * 
+     * @return mixed Whatever the adapter method returns.
+     */
     public function __call($method, $args)
     {
         return call_user_func_array(
