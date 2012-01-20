@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package version="2.1" xmlns="http://pear.php.net/dtd/package-2.1" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.1     http://pear.php.net/dtd/package-2.1.xsd">
+ <name>PEAR2_Cache_SHM</name>
+ <channel>pear2.php.net</channel>
+ <summary>Wrapper for shared memory and locking functionality across different extensions.
+</summary>
+ <description>Allows you to share data across requests as long as the PHP process is running. One of APC or WinCache is required to accomplish this, with other extensions being potentially pluggable as adapters.</description>
+ <lead>
+  <name>Vasil Rangelov</name>
+  <user>boen_robot</user>
+  <email>boen.robot@gmail.com</email>
+  <active>yes</active>
+ </lead>
+ <date>2012-01-20</date>
+ <time>21:24:17</time>
+ <version>
+  <release>0.1.0</release>
+  <api>0.1.0</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL License 2.1</license>
+ <notes>First PEAR2 compatible release.</notes>
+ <contents>
+  <dir name="/">
+   <dir name="src" baseinstalldir="/">
+    <dir name="PEAR2">
+     <dir name="Cache">
+      <dir name="SHM">
+       <dir name="Adapter">
+        <file role="php" name="APC.php"/>
+        <file role="php" name="Wincache.php"/>
+       </dir>
+       <file role="php" name="Adapter.php"/>
+      </dir>
+      <file role="php" name="SHM.php"/>
+     </dir>
+    </dir>
+   </dir>
+   <dir name="tests" baseinstalldir="/">
+    <file role="test" name="ApcTest.php"/>
+    <file role="test" name="bootstrap.php"/>
+    <file role="test" name="phpunit.xml"/>
+   </dir>
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.3.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install name="src/PEAR2/Cache/SHM.php" as="PEAR2/Cache/SHM.php"/>
+   <install name="src/PEAR2/Cache/SHM/Adapter.php" as="PEAR2/Cache/SHM/Adapter.php"/>
+   <install name="src/PEAR2/Cache/SHM/Adapter/APC.php" as="PEAR2/Cache/SHM/Adapter/APC.php"/>
+   <install name="src/PEAR2/Cache/SHM/Adapter/Wincache.php" as="PEAR2/Net/Cache/SHM/Adapter/Wincache.php"/>
+   <install name="tests/ApcTest.php" as="ApcTest.php"/>
+   <install name="tests/bootstrap.php" as="bootstrap.php"/>
+   <install name="tests/phpunit.xml" as="phpunit.xml"/>
+  </filelist>
+ </phprelease>
+</package>

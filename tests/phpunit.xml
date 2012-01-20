@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+    bootstrap="bootstrap.php"
+    colors="false"
+    stopOnFailure="false"
+    verbose="true"
+    strict="true"
+    
+    convertErrorsToExceptions="true"
+    convertNoticesToExceptions="true"
+    convertWarningsToExceptions="true"
+>
+    <!--
+    convertErrorsToExceptions="false"
+    convertNoticesToExceptions="false"
+    convertWarningsToExceptions="false"
+>
+    -->
+    <php>
+        <!--
+        The hostname and port of secondaryPeer.xml
+        -->
+        <const name="REMOTE_HOSTNAME" value="::1" />
+        <const name="REMOTE_PORT" value="6666" />
+        <!--
+        The hostname and port secondaryPeer.xml must use.
+        -->
+        <const name="LOCAL_HOSTNAME" value="::1" />
+        <const name="LOCAL_PORT" value="6667" />
+        <!--
+        A hostname which doesn't provide a serive on any port present here.
+        -->
+        <const name="SILENT_HOSTNAME" value="::1" />
+        <!--
+        A port which doesn't provide a serive on any hostname present here.
+        -->
+        <const name="SILENT_PORT" value="6668" />
+    </php>
+    <testsuites>
+        <testsuite name="All tests">
+            <file>ApcTest.php</file>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">../src/PEAR2/Cache/SHM</directory>
+            <file>../src/PEAR2/Cache/SHM.php</file>
+        </whitelist>
+    </filter>
+</phpunit>

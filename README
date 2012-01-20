@@ -1,0 +1,2 @@
+Wrapper for shared memory and locking functionality across different extensions.
+Allows you to share data across requests as long as the PHP process is running. One of APC or WinCache is required to accomplish this, with other extensions being potentially pluggable as adapters.
