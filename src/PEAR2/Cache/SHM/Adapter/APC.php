@@ -77,7 +77,7 @@ class APC implements Adapter
             static::$requestInstances[$this->persistentId] = 1;
         }
         register_shutdown_function(
-            __CLASS__ . '::destroyLocks', $this->persistentId
+            __CLASS__ . '::destroyLocks', $this->persistentId, true
         );
     }
     
@@ -87,18 +87,21 @@ class APC implements Adapter
      * This function is not meant to be used directly. It is implicitly called
      * by the the destructor and as a shutdown function when the request ends.
      * One of these calls ends up destroying any unreleased locks obtained
-     * during the request.
+     * during the request. A lock is also implicitly released as soon as there
+     * are no objects left in the current request using the same persistend ID.
      * 
      * @param string $internalPersistentId The internal persistent ID being
      * destroyed.
+     * @param bool   $isAtShutdown         Whether the function was executed at
+     * shutdown.
      * 
      * @return void
      * @internal
      */
-    public static function destroyLocks($internalPersistentId)
+    public static function destroyLocks($internalPersistentId, $isAtShutdown)
     {
-        if (0 !== static::$requestInstances[$internalPersistentId]) {
-            //Called from a shutdown function. Locks not released normally.
+        $hasInstances = 0 !== static::$requestInstances[$internalPersistentId];
+        if ($isAtShutdown === $hasInstances) {
             foreach (static::$locksBackup as $lock) {
                 apc_delete($lock);
             }
@@ -112,7 +115,7 @@ class APC implements Adapter
     public function __destruct()
     {
         static::$requestInstances[$this->persistentId]--;
-        static::destroyLocks($this->persistentId);
+        static::destroyLocks($this->persistentId, false);
     }
     
     
