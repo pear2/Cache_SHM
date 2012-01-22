@@ -21,6 +21,11 @@
 namespace PEAR2\Cache;
 
 /**
+ * Calls adapters. 
+ */
+use PEAR2\Cache\SHM\Adapter;
+
+/**
  * Main class for this package.
  * 
  * Automatically chooses an adapter based on the available extensions.
@@ -40,19 +45,19 @@ class SHM
      * 
      * Estabilishes a separate persistent storage.
      * 
-     * @param string|SHM\Adapter $persistentId The ID for the storage or an
+     * @param string|Adapter $persistentId The ID for the storage or an
      * already instanciated storage adapter. If an ID is specified, an adapter
      * will automatically be chosen based on the available extensions.
      */
     public function __construct($persistentId)
     {
-        if ($persistentId instanceof SHM\Adapter) {
+        if ($persistentId instanceof Adapter) {
             $this->adapter = $persistentId;
         } else {
             if (version_compare(phpversion('apc'), '3.0.13', '>=')) {
-                $this->adapter = new SHM\Adapter\APC($persistentId);
+                $this->adapter = new Adapter\APC($persistentId);
             } elseif (version_compare(phpversion('wincache'), '1.1.0', '>=')) {
-                $this->adapter = new SHM\Adapter\Wincache($persistentId);
+                $this->adapter = new Adapter\Wincache($persistentId);
             } else {
                 throw new SHM\InvalidArgumentException(
                     'No appropriate adapter available', 1
@@ -64,7 +69,7 @@ class SHM
     /**
      * Get the currently set SHM adapter.
      * 
-     * @return SHM\Adapter The currently set adapter 
+     * @return Adapter The currently set adapter 
      */
     public function getAdapter()
     {
@@ -76,7 +81,7 @@ class SHM
      * 
      * This is a magic method, thanks to which any method you call will be
      * redirected to the adapter. Every adapter implements at minimum the
-     * {@link SHM\Adapter} interface, so check it out for what you can expect as
+     * {@link Adapter} interface, so check it out for what you can expect as
      * common functionality.
      * 
      * @param string $method The adapter method to call/
