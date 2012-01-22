@@ -57,6 +57,9 @@ class APC implements Adapter
      */
     protected static $requestInstances = array();
     
+    /**
+     * @var array Array of lock names obtained during the current request.
+     */
     protected static $locksBackup = array();
 
     /**
@@ -134,9 +137,10 @@ class APC implements Adapter
     public function lock($key, $timeout = null)
     {
         $lock = $this->persistentId . 'locks ' . $key;
+        $hasTimeout = $timeout !== null;
         $start = microtime(true);
         while (!apc_add($lock, 1)) {
-            if ($timeout !== null && (microtime(true) - $start) > $timeout) {
+            if ($hasTimeout && (microtime(true) - $start) > $timeout) {
                 return false;
             }
         }
@@ -218,7 +222,7 @@ class APC implements Adapter
      * 
      * @param string $key Name of key to get the value of.
      * 
-     * @return The current value of the specified key.
+     * @return mixed The current value of the specified key.
      */
     public function get($key)
     {
