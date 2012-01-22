@@ -74,7 +74,7 @@ class APC implements Adapter
     public function __construct($persistentId)
     {
         $this->persistentId = __NAMESPACE__ . '\APC ' . $persistentId;
-        if (isset(static::$destructables[$this->persistentId])) {
+        if (isset(static::$requestInstances[$this->persistentId])) {
             static::$requestInstances[$this->persistentId]++;
         } else {
             static::$requestInstances[$this->persistentId] = 1;
@@ -105,15 +105,15 @@ class APC implements Adapter
     {
         $hasInstances = 0 !== static::$requestInstances[$internalPersistentId];
         if ($isAtShutdown === $hasInstances) {
-            foreach (static::$locksBackup as $lock) {
-                apc_delete($lock);
+            foreach (static::$locksBackup[$internalPersistentId] as $key) {
+                apc_delete($internalPersistentId . 'locks ' . $key);
             }
         }
     }
     
     /**
-     * Destroys any locks set by this instance, or the storage itself if
-     * necessary.
+     * Releases any locks obtained by this instance as soon as there are no more
+     * references to the object's persistent ID.
      */
     public function __destruct()
     {
@@ -144,7 +144,7 @@ class APC implements Adapter
                 return false;
             }
         }
-        static::$locksBackup[] = $lock;
+        static::$locksBackup[$this->persistentId] = $key;
         return true;
     }
     
@@ -161,8 +161,8 @@ class APC implements Adapter
         $lock = $this->persistentId . 'locks ' . $key;
         $success = apc_delete($lock);
         if ($success) {
-            unset(static::$locksBackup[array_search(
-                $lock, static::$locksBackup, true
+            unset(static::$locksBackup[$this->persistentId][array_search(
+                $key, static::$locksBackup[$this->persistentId], true
             )]);
             return true;
         }

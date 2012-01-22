@@ -48,6 +48,21 @@ class Wincache implements Adapter
     protected $persistentId;
     
     /**
+     * List of persistent IDs.
+     * 
+     * A list of persistent IDs within the current request (as keys) with an int
+     * (as a value) specifying the number of instances in the current request.
+     * Used as an attempt to ensure implicit lock releases on destruction.
+     * @var array 
+     */
+    protected static $requestInstances = array();
+    
+    /**
+     * @var array Array of lock names obtained during the current request.
+     */
+    protected static $locksBackup = array();
+    
+    /**
      * Creates a new shared memory storage.
      * 
      * Estabilishes a separate persistent storage.
@@ -64,6 +79,24 @@ class Wincache implements Adapter
             );
         }
         $this->persistentId = $persistentId . ' ';
+        if (isset(static::$requestInstances[$this->persistentId])) {
+            static::$requestInstances[$this->persistentId]++;
+        } else {
+            static::$requestInstances[$this->persistentId] = 1;
+        }
+    }
+    
+    /**
+     * Releases any locks obtained by this instance as soon as there are no more
+     * references to the object's persistent ID.
+     */
+    public function __destruct()
+    {
+        if (0 === --static::$requestInstances[$this->persistentId]) {
+            foreach (static::$locksBackup[$this->persistentId] as $key) {
+                wincache_unlock($this->persistentId . $key);
+            }
+        }
     }
 
     
@@ -84,7 +117,11 @@ class Wincache implements Adapter
                 '$key must not contain "\"', 201
             );
         }
-        return wincache_lock($this->persistentId . $key);
+        $result = wincache_lock($this->persistentId . $key);
+        if ($result) {
+            static::$locksBackup[$this->persistentId] = $key;
+        }
+        return $result;
     }
     
     /**
@@ -97,7 +134,13 @@ class Wincache implements Adapter
      */
     public function unlock($key)
     {
-        return wincache_unlock($this->persistentId . $key);
+        $result = wincache_unlock($this->persistentId . $key);
+        if ($result) {
+            unset(static::$locksBackup[$this->persistentId][array_search(
+                $key, static::$locksBackup[$this->persistentId], true
+            )]);
+        }
+        return $result;
     }
     
     /**
