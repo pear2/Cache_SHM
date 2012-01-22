@@ -78,7 +78,9 @@ class Wincache implements Adapter
                 '$persistentId must not contain "\"', 200
             );
         }
-        $this->persistentId = $persistentId . ' ';
+        $this->persistentId
+            = str_replace('\\', '/', __NAMESPACE__) . '/Wincache ' .
+            $persistentId . ' ';
         if (isset(static::$requestInstances[$this->persistentId])) {
             static::$requestInstances[$this->persistentId]++;
         } else {
