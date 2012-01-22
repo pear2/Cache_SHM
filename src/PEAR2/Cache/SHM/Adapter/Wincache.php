@@ -153,7 +153,7 @@ class Wincache implements Adapter
      * 
      * @param string $key Name of key to get the value of.
      * 
-     * @return The current value of the specified key.
+     * @return mixed The current value of the specified key.
      */
     public function get($key)
     {

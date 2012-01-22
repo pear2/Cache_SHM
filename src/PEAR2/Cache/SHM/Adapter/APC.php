@@ -49,10 +49,10 @@ class APC implements Adapter
     /**
      * List of persistent IDs.
      * 
-     * A list of persistent IDs within the current request with a boolean
-     * indicating whether their locks can be destroyed. Used as an attempt to
-     * ensure implicit lock releases even on errors in the critical sections,
-     * since APC doesn't have an actual locking function.
+     * A list of persistent IDs within the current request (as keys) with an int
+     * (as a value) specifying the number of instances in the current request.
+     * Used as an attempt to ensure implicit lock releases even on errors in the
+     * critical sections, since APC doesn't have an actual locking function.
      * @var array 
      */
     protected static $requestInstances = array();

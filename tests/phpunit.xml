@@ -16,26 +16,6 @@
     convertWarningsToExceptions="false"
 >
     -->
-    <php>
-        <!--
-        The hostname and port of secondaryPeer.xml
-        -->
-        <const name="REMOTE_HOSTNAME" value="::1" />
-        <const name="REMOTE_PORT" value="6666" />
-        <!--
-        The hostname and port secondaryPeer.xml must use.
-        -->
-        <const name="LOCAL_HOSTNAME" value="::1" />
-        <const name="LOCAL_PORT" value="6667" />
-        <!--
-        A hostname which doesn't provide a serive on any port present here.
-        -->
-        <const name="SILENT_HOSTNAME" value="::1" />
-        <!--
-        A port which doesn't provide a serive on any hostname present here.
-        -->
-        <const name="SILENT_PORT" value="6668" />
-    </php>
     <testsuites>
         <testsuite name="All tests">
             <file>ApcTest.php</file>
