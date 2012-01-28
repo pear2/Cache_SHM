@@ -54,10 +54,12 @@ class SHM
         if ($persistentId instanceof Adapter) {
             $this->adapter = $persistentId;
         } else {
-            if (version_compare(phpversion('apc'), '3.0.13', '>=')) {
-                $this->adapter = new Adapter\APC($persistentId);
+            if ('cli' === PHP_SAPI) {
+                $this->adapter = new Adapter\Placebo($persistentId);
             } elseif (version_compare(phpversion('wincache'), '1.1.0', '>=')) {
                 $this->adapter = new Adapter\Wincache($persistentId);
+            }elseif (version_compare(phpversion('apc'), '3.0.13', '>=')) {
+                $this->adapter = new Adapter\APC($persistentId);
             } else {
                 throw new SHM\InvalidArgumentException(
                     'No appropriate adapter available', 1
