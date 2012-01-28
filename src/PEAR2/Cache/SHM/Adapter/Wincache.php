@@ -73,19 +73,32 @@ class Wincache implements Adapter
      */
     public function __construct($persistentId)
     {
-        if (strpos($persistentId, '\\') !== false) {
-            throw new SHM\InvalidArgumentException(
-                '$persistentId must not contain "\"', 200
-            );
-        }
         $this->persistentId
-            = str_replace('\\', '/', __NAMESPACE__) . '/Wincache ' .
-            $persistentId . ' ';
+            = 'PEAR2%5CCache%5CSHM%5CAdapter%5CWincache ' .
+            static::encodeLockName($persistentId) . ' ';
         if (isset(static::$requestInstances[$this->persistentId])) {
             static::$requestInstances[$this->persistentId]++;
         } else {
             static::$requestInstances[$this->persistentId] = 1;
         }
+    }
+    
+    /**
+     * Encodes a lock name
+     * 
+     * Encodes a lock name, so that it can be properly obtained. The scheme used
+     * is a subset of URL encoding, with only the "%" and "\" characters being
+     * escaped. The encoding itself is necessary, since lock names can't contain
+     * the "\" character.
+     * 
+     * @param string $name The lock name to encode.
+     * 
+     * @return string The encoded name.
+     * @link http://msdn.microsoft.com/en-us/library/ms682411(VS.85).aspx
+     */
+    protected static function encodeLockName($name)
+    {
+        return str_replace(array('%', '\\'), array('%25', '%5C'), $name);
     }
     
     /**
@@ -96,7 +109,9 @@ class Wincache implements Adapter
     {
         if (0 === --static::$requestInstances[$this->persistentId]) {
             foreach (static::$locksBackup[$this->persistentId] as $key) {
-                wincache_unlock($this->persistentId . $key);
+                wincache_unlock(
+                    $this->persistentId . static::encodeLockName($key)
+                );
             }
         }
     }
@@ -114,12 +129,9 @@ class Wincache implements Adapter
      */
     public function lock($key, $timeout = null)
     {
-        if (strpos($key, '\\') !== false) {
-            throw new SHM\InvalidArgumentException(
-                '$key must not contain "\"', 201
-            );
-        }
-        $result = wincache_lock($this->persistentId . $key);
+        $result = wincache_lock(
+            $this->persistentId . static::encodeLockName($key)
+        );
         if ($result) {
             static::$locksBackup[$this->persistentId] = $key;
         }
@@ -136,7 +148,9 @@ class Wincache implements Adapter
      */
     public function unlock($key)
     {
-        $result = wincache_unlock($this->persistentId . $key);
+        $result = wincache_unlock(
+            $this->persistentId . static::encodeLockName($key)
+        );
         if ($result) {
             unset(static::$locksBackup[$this->persistentId][array_search(
                 $key, static::$locksBackup[$this->persistentId], true
@@ -154,7 +168,7 @@ class Wincache implements Adapter
      */
     public function exists($key)
     {
-        return wincache_exists($this->persistentId . $key);
+        return wincache_ucache_exists($this->persistentId . $key);
     }
     
     /**
@@ -171,7 +185,7 @@ class Wincache implements Adapter
      */
     public function add($key, $value, $ttl = 0)
     {
-        return wincache_add($this->persistentId . $key, $value, $ttl);
+        return wincache_ucache_add($this->persistentId . $key, $value, $ttl);
     }
     
     /**
@@ -188,7 +202,7 @@ class Wincache implements Adapter
      */
     public function set($key, $value, $ttl = 0)
     {
-        return wincache_set($this->persistentId . $key, $value, $ttl);
+        return wincache_ucache_set($this->persistentId . $key, $value, $ttl);
     }
     
     /**
@@ -202,7 +216,13 @@ class Wincache implements Adapter
      */
     public function get($key)
     {
-        return wincache_get($this->persistentId . $key);
+        $value = wincache_ucache_get($this->persistentId . $key, $success);
+        if (!$success) {
+            throw new SHM\InvalidArgumentException(
+                'Unable to fetch key. No such key, or key has expired.', 300
+            );
+        }
+        return $value;
     }
     
     /**
@@ -214,7 +234,7 @@ class Wincache implements Adapter
      */
     public function delete($key)
     {
-        return wincache_delete($this->persistentId . $key);
+        return wincache_ucache_delete($this->persistentId . $key);
     }
 
 }

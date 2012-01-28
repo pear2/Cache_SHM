@@ -58,7 +58,8 @@ class APC implements Adapter
     protected static $requestInstances = array();
     
     /**
-     * @var array Array of lock names obtained during the current request.
+     * @var array Array of lock names (as values) for each persistent ID (as
+     * key) obtained during the current request.
      */
     protected static $locksBackup = array();
 
@@ -73,11 +74,12 @@ class APC implements Adapter
      */
     public function __construct($persistentId)
     {
-        $this->persistentId = __NAMESPACE__ . '\APC ' . $persistentId;
+        $this->persistentId = 'PEAR2\Cache\SHM\Adapter\APC ' . $persistentId;
         if (isset(static::$requestInstances[$this->persistentId])) {
             static::$requestInstances[$this->persistentId]++;
         } else {
             static::$requestInstances[$this->persistentId] = 1;
+            static::$locksBackup[$this->persistentId] = array();
         }
         register_shutdown_function(
             __CLASS__ . '::destroyLocks', $this->persistentId, true
@@ -85,23 +87,23 @@ class APC implements Adapter
     }
     
     /**
-     * Destroys locks in a storage.
+     * Releases all locks in a storage.
      * 
      * This function is not meant to be used directly. It is implicitly called
      * by the the destructor and as a shutdown function when the request ends.
-     * One of these calls ends up destroying any unreleased locks obtained
+     * One of these calls ends up releasing any unreleased locks obtained
      * during the request. A lock is also implicitly released as soon as there
      * are no objects left in the current request using the same persistend ID.
      * 
-     * @param string $internalPersistentId The internal persistent ID being
-     * destroyed.
+     * @param string $internalPersistentId The internal persistent ID, the locks
+     * of which are being released.
      * @param bool   $isAtShutdown         Whether the function was executed at
      * shutdown.
      * 
      * @return void
      * @internal
      */
-    public static function destroyLocks($internalPersistentId, $isAtShutdown)
+    public static function releaseLocks($internalPersistentId, $isAtShutdown)
     {
         $hasInstances = 0 !== static::$requestInstances[$internalPersistentId];
         if ($isAtShutdown === $hasInstances) {
@@ -118,7 +120,7 @@ class APC implements Adapter
     public function __destruct()
     {
         static::$requestInstances[$this->persistentId]--;
-        static::destroyLocks($this->persistentId, false);
+        static::releaseLocks($this->persistentId, false);
     }
     
     
