@@ -58,7 +58,7 @@ class SHM
                 $this->adapter = new Adapter\Placebo($persistentId);
             } elseif (version_compare(phpversion('wincache'), '1.1.0', '>=')) {
                 $this->adapter = new Adapter\Wincache($persistentId);
-            }elseif (version_compare(phpversion('apc'), '3.0.13', '>=')) {
+            } elseif (version_compare(phpversion('apc'), '3.0.13', '>=')) {
                 $this->adapter = new Adapter\APC($persistentId);
             } else {
                 throw new SHM\InvalidArgumentException(
