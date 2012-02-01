@@ -82,7 +82,7 @@ class APC implements Adapter
             static::$locksBackup[$this->persistentId] = array();
         }
         register_shutdown_function(
-            __CLASS__ . '::destroyLocks', $this->persistentId, true
+            __CLASS__ . '::releaseLocks', $this->persistentId, true
         );
     }
     

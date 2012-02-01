@@ -3,7 +3,7 @@
     <type>org.netbeans.modules.php.project</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/php-project/1">
-            <name>PEAR2_Cache_SHM.git</name>
+            <name>PEAR2_Cache_SHM</name>
         </data>
     </configuration>
 </project>

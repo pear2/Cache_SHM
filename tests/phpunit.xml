@@ -18,6 +18,7 @@
     -->
     <testsuites>
         <testsuite name="All tests">
+            <file>CliCompatibleTest.php</file>
             <file>ApcTest.php</file>
         </testsuite>
     </testsuites>

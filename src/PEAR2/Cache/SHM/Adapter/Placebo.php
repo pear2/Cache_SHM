@@ -110,7 +110,7 @@ class Placebo implements Adapter
     public function unlock($key)
     {
         $key = (string) $key;
-        if (in_array($key, static::$locksBackup[$this->persistentId], true)) {
+        if (!in_array($key, static::$locksBackup[$this->persistentId], true)) {
             return false;
         }
         unset(static::$locksBackup[$this->persistentId][array_search(

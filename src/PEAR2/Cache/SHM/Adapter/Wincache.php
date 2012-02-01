@@ -80,6 +80,7 @@ class Wincache implements Adapter
             static::$requestInstances[$this->persistentId]++;
         } else {
             static::$requestInstances[$this->persistentId] = 1;
+            static::$locksBackup[$this->persistentId] = array();
         }
     }
     
