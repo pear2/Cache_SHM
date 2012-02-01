@@ -61,6 +61,12 @@ class Placebo implements Adapter
     protected static $data = array();
     
     /**
+     * @var array Array of lock names (as values) for each persistent ID (as
+     * key) obtained during the current request.
+     */
+    protected static $locksBackup = array();
+    
+    /**
      * Creates a new shared memory storage.
      * 
      * Estabilishes a separate persistent storage.
@@ -81,10 +87,15 @@ class Placebo implements Adapter
      * @param string $key     Ignored.
      * @param double $timeout Ignored.
      * 
-     * @return bool TRUE, always.
+     * @return bool TRUE on success, FALSE on failure.
      */
     public function lock($key, $timeout = null)
     {
+        $key = (string) $key;
+        if (in_array(static::$locksBackup[$this->persistentId], $key, true)) {
+            return false;
+        }
+        static::$locksBackup[$this->persistentId][] = $key;
         return true;
     }
     
@@ -93,10 +104,17 @@ class Placebo implements Adapter
      * 
      * @param string $key Ignored
      * 
-     * @return bool TRUE, always.
+     * @return bool TRUE on success, FALSE on failure.
      */
     public function unlock($key)
     {
+        $key = (string) $key;
+        if (in_array(static::$locksBackup[$this->persistentId], $key, true)) {
+            return false;
+        }
+        unset(static::$locksBackup[$this->persistentId][array_search(
+            $key, static::$locksBackup[$this->persistentId], true
+        )]);
         return true;
     }
     
