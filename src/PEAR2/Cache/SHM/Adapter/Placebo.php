@@ -78,6 +78,7 @@ class Placebo implements Adapter
     public function __construct($persistentId)
     {
         static::$data[$persistentId] = array();
+        static::$locksBackup[$persistentId] = array();
         $this->persistentId = $persistentId;
     }
     
@@ -92,7 +93,7 @@ class Placebo implements Adapter
     public function lock($key, $timeout = null)
     {
         $key = (string) $key;
-        if (in_array(static::$locksBackup[$this->persistentId], $key, true)) {
+        if (in_array($key, static::$locksBackup[$this->persistentId], true)) {
             return false;
         }
         static::$locksBackup[$this->persistentId][] = $key;
@@ -109,7 +110,7 @@ class Placebo implements Adapter
     public function unlock($key)
     {
         $key = (string) $key;
-        if (in_array(static::$locksBackup[$this->persistentId], $key, true)) {
+        if (in_array($key, static::$locksBackup[$this->persistentId], true)) {
             return false;
         }
         unset(static::$locksBackup[$this->persistentId][array_search(
