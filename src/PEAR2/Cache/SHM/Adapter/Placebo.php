@@ -130,7 +130,7 @@ class Placebo implements Adapter
     {
         if (array_key_exists($key, static::$data[$this->persistentId])) {
             $item = static::$data[$this->persistentId][$key];
-            if (($item[2] - time()) < $item[1]) {
+            if ($item[1] <= 0 || ($item[2] - time()) < $item[1]) {
                 return true;
             }
             unset(static::$data[$this->persistentId][$key]);
