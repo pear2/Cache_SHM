@@ -1,6 +1,8 @@
 <?php
 require_once 'PEAR2/Autoload.php';
-\PEAR2\Autoload::initialize(realpath(__DIR__ . '../../../src'));
+\PEAR2\Autoload::initialize(
+    realpath(__DIR__ . DIRECTORY_SEPARATOR . '../../src')
+);
 
 function assertSame($expected, $actual, $file) {
     if ($expected !== $actual) {
