@@ -1,7 +1,7 @@
 <?php
 require_once 'PEAR2/Autoload.php';
 \PEAR2\Autoload::initialize(
-    realpath(__DIR__ . DIRECTORY_SEPARATOR . '../../src')
+    realpath(getcwd() . DIRECTORY_SEPARATOR . '../../src')
 );
 
 function assertSame($expected, $actual, $file) {
@@ -14,13 +14,15 @@ function assertSame($expected, $actual, $file) {
     }
 }
 
-foreach (new RecursiveDirectoryIterator(
-        __DIR__ . DIRECTORY_SEPARATOR . 'Common',
-        FilesystemIterator::SKIP_DOTS | FilesystemIterator::CURRENT_AS_PATHNAME
-    ) as $file) {
-    try {
-        require_once $file;
-    }catch (Exception $e) {
-        echo $e;
-    }
-}
+$adapter = isset($_GET['adapter']) ? $_GET['adapter'] : 'Placebo';
+
+//foreach (new RecursiveDirectoryIterator(
+//        __DIR__ . DIRECTORY_SEPARATOR . 'Common',
+//        FilesystemIterator::SKIP_DOTS | FilesystemIterator::CURRENT_AS_PATHNAME
+//    ) as $file) {
+//    try {
+//        require_once $file;
+//    }catch (Exception $e) {
+//        echo $e;
+//    }
+//}

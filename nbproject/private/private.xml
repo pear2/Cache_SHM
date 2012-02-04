@@ -2,15 +2,4 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <coverage xmlns="http://www.netbeans.org/ns/code-coverage/1" enabled="true"/>
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
-        <file>file:/D:/Projects/PEAR2_Cache_SHM.git/src/PEAR2/Cache/SHM/Adapter/Placebo.php</file>
-        <file>file:/D:/Projects/PEAR2_Cache_SHM.git/tests/CliCompatibleTest.php</file>
-        <file>file:/D:/Projects/PEAR2_Cache_SHM.git/tests/phpunit.xml</file>
-        <file>file:/D:/Projects/PEAR2_Cache_SHM.git/src/PEAR2/Cache/SHM/Adapter/APC.php</file>
-        <file>file:/D:/Projects/PEAR2_Cache_SHM.git/src/PEAR2/Cache/SHM/Adapter/Wincache.php</file>
-        <file>file:/D:/Projects/PEAR2_Cache_SHM.git/src/PEAR2/Cache/SHM.php</file>
-        <file>file:/D:/Projects/PEAR2_Cache_SHM.git/tests/PHPT/Common/testAddingValue.phpt</file>
-        <file>file:/D:/Projects/PEAR2_Cache_SHM.git/tests/ApcTest.php</file>
-        <file>file:/D:/Projects/PEAR2_Cache_SHM.git/tests/PHPT/APC/setUp.phpt</file>
-    </open-files>
 </project-private>

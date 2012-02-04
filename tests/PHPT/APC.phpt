@@ -3,10 +3,10 @@ APC tests.
 --DESCRIPTION--
 Sets up the settings for the APC adapter, and executes its tests.
 --CGI--
---FILE--
-<?php
-$adapter = 'APC';
+--GET--
 
-require_once '_runner.inc';
-?>
---EXPECT--
+--REDIRECTTEST--
+return array(
+    'GET' => array('adapter' => 'apc'),
+    'TESTS' => getcwd() . DIRECTORY_SEPARATOR . 'Common'
+);

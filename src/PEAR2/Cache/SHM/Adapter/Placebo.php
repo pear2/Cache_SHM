@@ -128,14 +128,7 @@ class Placebo implements Adapter
      */
     public function exists($key)
     {
-        if (array_key_exists($key, static::$data[$this->persistentId])) {
-            $item = static::$data[$this->persistentId][$key];
-            if ($item[1] <= 0 || (time() - $item[2]) < $item[1]) {
-                return true;
-            }
-            unset(static::$data[$this->persistentId][$key]);
-        }
-        return false;
+        return array_key_exists($key, static::$data[$this->persistentId]);
     }
     
     /**
@@ -145,8 +138,8 @@ class Placebo implements Adapter
      * 
      * @param string $key   Name of key to associate the value with.
      * @param mixed  $value Value for the specified key.
-     * @param int    $ttl   Seconds to store the value. If set to 0 indicates no
-     * time limit.
+     * @param int    $ttl   Because "true" adapters purge the cache at the next
+     * request, this setting is ignored.
      * 
      * @return bool TRUE on success, FALSE on failure.
      */
@@ -165,16 +158,14 @@ class Placebo implements Adapter
      * 
      * @param string $key   Name of key to associate the value with.
      * @param mixed  $value Value for the specified key.
-     * @param int    $ttl   Seconds to store the value. If set to 0 indicates no
-     * time limit.
+     * @param int    $ttl   Because "true" adapters purge the cache at the next
+     * request, this setting is ignored.
      * 
      * @return bool TRUE on success, FALSE on failure.
      */
     public function set($key, $value, $ttl = 0)
     {
-        static::$data[$this->persistentId][$key] = array(
-            $value, $ttl, time()
-        );
+        static::$data[$this->persistentId][$key] = $value;
         return true;
     }
     
@@ -190,10 +181,10 @@ class Placebo implements Adapter
     public function get($key)
     {
         if ($this->exists($key)) {
-            return static::$data[$this->persistentId][$key][0];
+            return static::$data[$this->persistentId][$key];
         }
         throw new SHM\InvalidArgumentException(
-            'Unable to fetch key. No such key, or key has expired.', 200
+            'Unable to fetch key. No such key.', 200
         );
     }
     
