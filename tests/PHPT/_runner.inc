@@ -18,5 +18,9 @@ foreach (new RecursiveDirectoryIterator(
         __DIR__ . DIRECTORY_SEPARATOR . 'Common',
         FilesystemIterator::SKIP_DOTS | FilesystemIterator::CURRENT_AS_PATHNAME
     ) as $file) {
-    require_once $file;
+    try {
+        require_once $file;
+    }catch (Exception $e) {
+        echo $e;
+    }
 }
