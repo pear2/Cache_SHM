@@ -186,7 +186,7 @@ class Wincache implements Adapter
      */
     public function add($key, $value, $ttl = 0)
     {
-        return @wincache_ucache_add($this->persistentId . $key, $value, $ttl);
+        return wincache_ucache_add($this->persistentId . $key, $value, $ttl);
     }
     
     /**
