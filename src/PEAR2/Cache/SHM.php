@@ -86,7 +86,7 @@ class SHM
      * {@link Adapter} interface, so check it out for what you can expect as
      * common functionality.
      * 
-     * @param string $method The adapter method to call/
+     * @param string $method The adapter method to call.
      * @param array  $args   The arguments to the method.
      * 
      * @return mixed Whatever the adapter method returns.
@@ -96,5 +96,70 @@ class SHM
         return call_user_func_array(
             array($this->adapter, $method), $args
         );
+    }
+    
+    /**
+     * Gets a value from the shared memory storage.
+     * 
+     * This is a magic method, thanks to which any property you attempt to get
+     * the value of will be fetched from the adapter, treating the property name
+     * as the key of the value to get.
+     * 
+     * @param string $key Name of key to get.
+     * 
+     * @return mixed The current value of the specified key.
+     */
+    public function __get($key)
+    {
+        return $this->adapter->get($key);
+    }
+    
+    /**
+     * Sets a value in the shared memory storage.
+     * 
+     * This is a magic method, thanks to which any property you attempt to set
+     * the value of will be set by the adapter, treating the property name as
+     * the key of the value to set. The value is set without a TTL.
+     * 
+     * @param string $key   Name of key to associate the value with.
+     * @param mixed  $value Value for the specified key.
+     * 
+     * @return bool TRUE on success, FALSE on failure.
+     */
+    public function __set($key, $value)
+    {
+        return $this->adapter->set($key, $value);
+    }
+    
+    /**
+     * Checks if a specified key is in the storage.
+     * 
+     * This is a magic method, thanks to which any property you call isset() on
+     * will be checked by the adapter, treating the property name as the key
+     * of the value to check.
+     * 
+     * @param string $key Name of key to check.
+     * 
+     * @return bool TRUE if the key is in the storage, FALSE otherwise. 
+     */
+    public function __isset($key)
+    {
+        return $this->adapter->exists($key);
+    }
+    
+    /**
+     * Deletes a value from the shared memory storage.
+     * 
+     * This is a magic method, thanks to which any property you attempt to unset
+     * the value of will be unset by the adapter, treating the property name as
+     * the key of the value to delete.
+     * 
+     * @param string $key Name of key to delete.
+     * 
+     * @return bool TRUE on success, FALSE on failure.
+     */
+    public function __unset($key)
+    {
+        return $this->adapter->delete($key);
     }
 }

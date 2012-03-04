@@ -2,4 +2,23 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <coverage xmlns="http://www.netbeans.org/ns/code-coverage/1" enabled="true"/>
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
+        <file>file:/D:/Projects/PEAR2_Cache_SHM.git/tests/PHPT/APC.phpt</file>
+        <file>file:/D:/Projects/PEAR2_Cache_SHM.git/tests/PHPT/Placebo.phpt</file>
+        <file>file:/D:/Projects/PEAR2_Cache_SHM.git/tests/PHPT/_runner.inc</file>
+        <file>file:/D:/Projects/PEAR2_Cache_SHM.git/src/PEAR2/Cache/SHM/Adapter/APC.php</file>
+        <file>file:/D:/Projects/PEAR2_Cache_SHM.git/src/PEAR2/Cache/SHM/Adapter/Placebo.php</file>
+        <file>file:/D:/Projects/PEAR2_Cache_SHM.git/src/PEAR2/Cache/SHM/InvalidArgumentException.php</file>
+        <file>file:/D:/Projects/PEAR2_Cache_SHM.git/src/PEAR2/Cache/SHM/Exception.php</file>
+        <file>file:/D:/Projects/PEAR2_Cache_SHM.git/src/PEAR2/Cache/SHM/Adapter/Wincache.php</file>
+        <file>file:/D:/Projects/PEAR2_Cache_SHM.git/tests/PHPT/Common/testAddingValue.phpt</file>
+        <file>file:/D:/Projects/PEAR2_Cache_SHM.git/tests/PHPT/Common/testSettingAndDeletingValue.phpt</file>
+        <file>file:/D:/Projects/PEAR2_Cache_SHM.git/tests/PHPT/Common/testSettingAndGettingValue.phpt</file>
+        <file>file:/D:/Projects/PEAR2_Cache_SHM.git/tests/PHPT/Common/testSingleFileLockAndUnlock.phpt</file>
+        <file>file:/D:/Projects/PEAR2_Cache_SHM.git/tests/PHPT/Common/testAddingTtlValue_part1.phpt</file>
+        <file>file:/D:/Projects/PEAR2_Cache_SHM.git/tests/PHPT/Common/testAddingTtlValue_part2.phpt</file>
+        <file>file:/D:/Projects/PEAR2_Cache_SHM.git/tests/PHPT/Common/testAddingTtlValue_part3.phpt</file>
+        <file>file:/D:/Projects/PEAR2_Cache_SHM.git/tests/PHPT/Wincache.phpt</file>
+        <file>file:/D:/Projects/PEAR2_Cache_SHM.git/src/PEAR2/Cache/SHM.php</file>
+    </open-files>
 </project-private>

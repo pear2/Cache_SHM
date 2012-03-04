@@ -237,5 +237,97 @@ class Wincache implements Adapter
     {
         return wincache_ucache_delete($this->persistentId . $key);
     }
+    
+    /**
+     * Increases a value from the shared memory storage.
+     * 
+     * Increases a value from the shared memory storage. Unlike a plain
+     * set($key, get($key)+$step) combination, this function also implicitly
+     * performs locking.
+     * 
+     * @param string $key  Name of key to increase.
+     * @param int    $step Value to increase the key by.
+     * 
+     * @return int The new value.
+     */
+    public function inc($key, $step = 1)
+    {
+        $newValue = wincache_ucache_inc(
+            $this->persistentId . $key, (int) $step, $success
+        );
+        if (!$success) {
+            throw new SHM\InvalidArgumentException(
+                'Unable to increase the value. Are you sure the value is int?',
+                301
+            );
+        }
+        return $newValue;
+    }
+    
+    /**
+     * Decreases a value from the shared memory storage.
+     * 
+     * Decreases a value from the shared memory storage. Unlike a plain
+     * set($key, get($key)-$step) combination, this function also implicitly
+     * performs locking.
+     * 
+     * @param string $key  Name of key to decrease.
+     * @param int    $step Value to decrease the key by.
+     * 
+     * @return int The new value.
+     */
+    public function dec($key, $step = 1)
+    {
+        $newValue = wincache_ucache_dec(
+            $this->persistentId . $key, (int) $step, $success
+        );
+        if (!$success) {
+            throw new SHM\InvalidArgumentException(
+                'Unable to decrease the value. Are you sure the value is int?',
+                302
+            );
+        }
+        return $newValue;
+    }
+
+    /**
+     * Sets a new value if a key has a certain value.
+     * 
+     * Sets a new value if a key has a certain value. This function only works
+     * when $old and $new are longs.
+     * 
+     * @param string $key Key of the value to compare and set.
+     * @param int    $old The value to compare the key against.
+     * @param int    $new The value to set the key to.
+     * 
+     * @return bool TRUE on success, FALSE on failure. 
+     */
+    public function cas($key, $old, $new)
+    {
+        return wincache_ucache_cas($this->persistentId . $key, $old, $new);
+    }
+    
+    /**
+     * Clears the persistent storage.
+     * 
+     * Clears the persistent storage, i.e. removes all keys. Locks are left
+     * intact.
+     * 
+     * @return void
+     */
+    public function clear()
+    {
+        $info = wincache_ucache_info();
+        foreach ($info['ucache_entries'] as $entry) {
+            if (!$entry['is_session']
+                && preg_match(
+                    '/^' . preg_quote($this->persistentId, '/') . '/',
+                    $entry['key_name']
+                )
+            ) {
+                wincache_ucache_delete($entry['key_name']);
+            }
+        }
+    }
 
 }
