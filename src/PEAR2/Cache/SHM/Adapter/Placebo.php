@@ -77,8 +77,12 @@ class Placebo implements Adapter
      */
     public function __construct($persistentId)
     {
-        static::$data[$persistentId] = array();
-        static::$locksBackup[$persistentId] = array();
+        if (!isset(static::$data[$persistentId])) {
+            static::$data[$persistentId] = array();
+        }
+        if (!isset(static::$locksBackup[$persistentId])) {
+            static::$locksBackup[$persistentId] = array();
+        }
         $this->persistentId = $persistentId;
     }
     
@@ -283,5 +287,35 @@ class Placebo implements Adapter
     public function clear()
     {
         static::$data[$this->persistentId] = array();
+    }
+    
+    /**
+     * Retrieve an external iterator
+     * 
+     * Returns an external iterator.
+     * 
+     * @param string $filter   A PCRE regular expression. Only matching keys
+     * will be iterated over. Setting this to NULL matches all keys of this
+     * instance.
+     * @param bool   $keysOnly Whether to return only the keys, or return both
+     * the keys and values.
+     * 
+     * @return An array or instance of an object implementing {@link \Iterator}
+     * or {@link \Traversable}.
+     */
+    public function getIterator($filter = null, $keysOnly = false)
+    {
+        if (null === $filter) {
+            return $keysOnly ? array_keys(static::$data[$this->persistentId])
+                : static::$data[$this->persistentId];
+        }
+        
+        $result = array();
+        foreach (static::$data[$this->persistentId] as $key => $value) {
+            if (preg_match($filter, $key)) {
+                $result[$key] = $value;
+            }
+        }
+        return $keysOnly ? array_keys($result) : $result;
     }
 }

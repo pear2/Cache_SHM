@@ -344,4 +344,40 @@ class APC implements Adapter
             apc_delete($key);
         }
     }
+    
+    /**
+     * Retrieve an external iterator
+     * 
+     * Returns an external iterator.
+     * 
+     * @param string $filter   A PCRE regular expression. Only matching keys
+     * will be iterated over. Setting this to NULL matches all keys of this
+     * instance.
+     * @param bool   $keysOnly Whether to return only the keys, or return both
+     * the keys and values.
+     * 
+     * @return An array or instance of an object implementing {@link \Iterator}
+     * or {@link \Traversable}.
+     */
+    public function getIterator($filter = null, $keysOnly = false)
+    {
+        $result = array();
+        foreach (new APCIterator(
+            'user',
+            '/^' . preg_quote($this->persistentId, '/') . 'values /',
+            APC_ITER_KEY,
+            100,
+            APC_LIST_ACTIVE
+        ) as $key) {
+            $localKey = strstr($key, $this->persistentId . 'values ');
+            if (null === $filter || preg_match($filter, $localKey)) {
+                if ($keysOnly) {
+                    $result[] = $localKey;
+                } else {
+                    $result[$localKey] = apc_fetch($localKey);
+                }
+            }
+        }
+        return $result;
+    }
 }

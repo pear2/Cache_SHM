@@ -29,7 +29,7 @@ namespace PEAR2\Cache\SHM;
  * @license  http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
  * @link     http://pear2.php.net/PEAR2_Cache_SHM
  */
-interface Adapter
+interface Adapter extends \IteratorAggregate
 {
     /**
      * Creates a new shared memory storage.
@@ -174,4 +174,20 @@ interface Adapter
      * @return void
      */
     public function clear();
+    
+    /**
+     * Retrieve an external iterator
+     * 
+     * Returns an external iterator.
+     * 
+     * @param string $filter   A PCRE regular expression. Only matching keys
+     * will be iterated over. Setting this to NULL matches all keys of this
+     * instance.
+     * @param bool   $keysOnly Whether to return only the keys, or return both
+     * the keys and values.
+     * 
+     * @return An array or instance of an object implementing {@link \Iterator}
+     * or {@link \Traversable}.
+     */
+    public function getIterator($filter = null, $keysOnly = false);
 }

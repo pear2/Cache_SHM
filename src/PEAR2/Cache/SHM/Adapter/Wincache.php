@@ -320,14 +320,46 @@ class Wincache implements Adapter
         $info = wincache_ucache_info();
         foreach ($info['ucache_entries'] as $entry) {
             if (!$entry['is_session']
-                && preg_match(
-                    '/^' . preg_quote($this->persistentId, '/') . '/',
-                    $entry['key_name']
-                )
+                && 0 === strpos($entry['key_name'], $this->persistentId)
             ) {
                 wincache_ucache_delete($entry['key_name']);
             }
         }
+    }
+    
+    /**
+     * Retrieve an external iterator
+     * 
+     * Returns an external iterator.
+     * 
+     * @param string $filter   A PCRE regular expression. Only matching keys
+     * will be iterated over. Setting this to NULL matches all keys of this
+     * instance.
+     * @param bool   $keysOnly Whether to return only the keys, or return both
+     * the keys and values.
+     * 
+     * @return An array or instance of an object implementing {@link \Iterator}
+     * or {@link \Traversable}.
+     */
+    public function getIterator($filter = null, $keysOnly = false)
+    {
+        $info = wincache_ucache_info();
+        $result = array();
+        foreach ($info['ucache_entries'] as $entry) {
+            if (!$entry['is_session']
+                && 0 === strpos($entry['key_name'], $this->persistentId)
+            ) {
+                $localKey = strstr($entry['key_name'], $this->persistentId);
+                if (null === $filter || preg_match($filter, $localKey)) {
+                    if ($keysOnly) {
+                        $result[] = $localKey;
+                    } else {
+                        $result[$localKey] = apc_fetch($localKey);
+                    }
+                }
+            }
+        }
+        return $result;
     }
 
 }
