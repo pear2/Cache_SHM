@@ -29,7 +29,7 @@ namespace PEAR2\Cache\SHM;
  * @license  http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
  * @link     http://pear2.php.net/PEAR2_Cache_SHM
  */
-interface Adapter extends \IteratorAggregate
+interface Adapter
 {
     /**
      * Creates a new shared memory storage.
