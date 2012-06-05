@@ -50,6 +50,22 @@ class Placebo implements Adapter
     protected $persistentId;
     
     /**
+     * List of persistent IDs.
+     * 
+     * A list of persistent IDs within the current request (as keys) with an int
+     * (as a value) specifying the number of instances in the current request.
+     * Used as an attempt to ensure implicit lock releases on destruction.
+     * @var array 
+     */
+    protected static $requestInstances = array();
+    
+    /**
+     * @var array Array of lock names (as values) for each persistent ID (as
+     * key) obtained during the current request.
+     */
+    protected static $locksBackup = array();
+    
+    /**
      * The data storage.
      * 
      * Each persistent ID is a key, and the value is an array.
@@ -59,12 +75,6 @@ class Placebo implements Adapter
      * @var array 
      */
     protected static $data = array();
-    
-    /**
-     * @var array Array of lock names (as values) for each persistent ID (as
-     * key) obtained during the current request.
-     */
-    protected static $locksBackup = array();
     
     /**
      * Creates a new shared memory storage.
@@ -77,13 +87,21 @@ class Placebo implements Adapter
      */
     public function __construct($persistentId)
     {
-        if (!isset(static::$data[$persistentId])) {
+        if (isset(static::$requestInstances[$persistentId])) {
+            ++static::$requestInstances[$persistentId];
+        } else {
+            static::$requestInstances[$persistentId] = 1;
+            static::$locksBackup[$persistentId] = array();
             static::$data[$persistentId] = array();
         }
-        if (!isset(static::$locksBackup[$persistentId])) {
-            static::$locksBackup[$persistentId] = array();
-        }
         $this->persistentId = $persistentId;
+    }
+    
+    public function __destruct()
+    {
+        if (0 === --static::$requestInstances[$this->persistentId]) {
+            static::$locksBackup[$this->persistentId] = array();
+        }
     }
     
     /**

@@ -38,6 +38,9 @@ use PEAR2\Cache\SHM\Adapter;
  */
 class SHM implements \IteratorAggregate
 {
+    /**
+     * @var Adapter The adapter of this instance. 
+     */
     protected $adapter;
     
     /**
