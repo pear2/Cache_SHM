@@ -97,6 +97,9 @@ class Placebo implements Adapter
         $this->persistentId = $persistentId;
     }
     
+    /**
+     * Releases any unreleased locks. 
+     */
     public function __destruct()
     {
         if (0 === --static::$requestInstances[$this->persistentId]) {

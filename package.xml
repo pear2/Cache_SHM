@@ -11,8 +11,8 @@
   <email>boen.robot@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2012-01-20</date>
- <time>21:24:17</time>
+ <date>2012-07-11</date>
+ <time>00:07:49</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -25,23 +25,80 @@
  <notes>First PEAR2 compatible release.</notes>
  <contents>
   <dir name="/">
+   <dir name="docs" baseinstalldir="/">
+    <file role="doc" name="doxygen.ini">
+     <tasks:replace from="../src" to="php_dir" type="pear-config"/>
+     <tasks:replace from="GIT: $Id$" to="version" type="package-info"/>
+    </file>
+    <file role="doc" name="phpdoc.dist.xml">
+     <tasks:replace from="../src" to="php_dir" type="pear-config"/>
+    </file>
+   </dir>
    <dir name="src" baseinstalldir="/">
     <dir name="PEAR2">
      <dir name="Cache">
       <dir name="SHM">
        <dir name="Adapter">
-        <file role="php" name="APC.php"/>
-        <file role="php" name="Wincache.php"/>
+        <file role="php" name="APC.php">
+         <tasks:replace from="~~summary~~" to="summary" type="package-info"/>
+         <tasks:replace from="~~description~~" to="description" type="package-info"/>
+         <tasks:replace from="GIT: $Id$" to="version" type="package-info"/>
+        </file>
+        <file role="php" name="Placebo.php">
+         <tasks:replace from="~~summary~~" to="summary" type="package-info"/>
+         <tasks:replace from="~~description~~" to="description" type="package-info"/>
+         <tasks:replace from="GIT: $Id$" to="version" type="package-info"/>
+        </file>
+        <file role="php" name="Wincache.php">
+         <tasks:replace from="~~summary~~" to="summary" type="package-info"/>
+         <tasks:replace from="~~description~~" to="description" type="package-info"/>
+         <tasks:replace from="GIT: $Id$" to="version" type="package-info"/>
+        </file>
        </dir>
-       <file role="php" name="Adapter.php"/>
+       <file role="php" name="Adapter.php">
+        <tasks:replace from="~~summary~~" to="summary" type="package-info"/>
+        <tasks:replace from="~~description~~" to="description" type="package-info"/>
+        <tasks:replace from="GIT: $Id$" to="version" type="package-info"/>
+       </file>
+       <file role="php" name="Exception.php">
+        <tasks:replace from="~~summary~~" to="summary" type="package-info"/>
+        <tasks:replace from="~~description~~" to="description" type="package-info"/>
+        <tasks:replace from="GIT: $Id$" to="version" type="package-info"/>
+       </file>
+       <file role="php" name="InvalidArgumentException.php">
+        <tasks:replace from="~~summary~~" to="summary" type="package-info"/>
+        <tasks:replace from="~~description~~" to="description" type="package-info"/>
+        <tasks:replace from="GIT: $Id$" to="version" type="package-info"/>
+       </file>
       </dir>
-      <file role="php" name="SHM.php"/>
+      <file role="php" name="SHM.php">
+       <tasks:replace from="~~summary~~" to="summary" type="package-info"/>
+       <tasks:replace from="~~description~~" to="description" type="package-info"/>
+       <tasks:replace from="GIT: $Id$" to="version" type="package-info"/>
+      </file>
      </dir>
     </dir>
    </dir>
    <dir name="tests" baseinstalldir="/">
-    <file role="test" name="ApcTest.php"/>
-    <file role="test" name="bootstrap.php"/>
+    <dir name="PHPT">
+     <dir name="Common">
+      <file role="test" name="testAddingTtlValue_part1.phpt"/>
+      <file role="test" name="testAddingTtlValue_part2.phpt"/>
+      <file role="test" name="testAddingTtlValue_part3.phpt"/>
+      <file role="test" name="testAddingValue.phpt"/>
+      <file role="test" name="testSettingAndDeletingValue.phpt"/>
+      <file role="test" name="testSettingAndGettingValue.phpt"/>
+      <file role="test" name="testSingleFileLockAndUnlock.phpt"/>
+     </dir>
+     <file role="test" name="APC.phpt"/>
+     <file role="test" name="Placebo.phpt"/>
+     <file role="test" name="Wincache.phpt"/>
+     <file role="test" name="_runner.inc"/>
+    </dir>
+    <file role="test" name="bootstrap.php">
+     <tasks:replace from="../src" to="php_dir" type="pear-config"/>
+    </file>
+    <file role="test" name="CliCompatibleTest.php"/>
     <file role="test" name="phpunit.xml"/>
    </dir>
   </dir>
@@ -62,7 +119,6 @@
    <install name="src/PEAR2/Cache/SHM/Adapter.php" as="PEAR2/Cache/SHM/Adapter.php"/>
    <install name="src/PEAR2/Cache/SHM/Adapter/APC.php" as="PEAR2/Cache/SHM/Adapter/APC.php"/>
    <install name="src/PEAR2/Cache/SHM/Adapter/Wincache.php" as="PEAR2/Net/Cache/SHM/Adapter/Wincache.php"/>
-   <install name="tests/ApcTest.php" as="ApcTest.php"/>
    <install name="tests/bootstrap.php" as="bootstrap.php"/>
    <install name="tests/phpunit.xml" as="phpunit.xml"/>
   </filelist>
