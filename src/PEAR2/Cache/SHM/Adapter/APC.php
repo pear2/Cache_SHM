@@ -21,12 +21,7 @@
 namespace PEAR2\Cache\SHM\Adapter;
 
 /**
- * Implements the adapter interface. 
- */
-use PEAR2\Cache\SHM\Adapter;
-
-/**
- * Throws exceptions from this namespace. 
+ * Throws exceptions from this namespace, and extends from this class.
  */
 use PEAR2\Cache\SHM;
 
@@ -39,7 +34,7 @@ use PEAR2\Cache\SHM;
  * @license  http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
  * @link     http://pear2.php.net/PEAR2_Cache_SHM
  */
-class APC implements Adapter
+class APC extends SHM
 {
     /**
      * @var string ID of the current storage. 
@@ -74,7 +69,7 @@ class APC implements Adapter
      */
     public function __construct($persistentId)
     {
-        $this->persistentId = 'PEAR2\Cache\SHM\Adapter\APC ' . $persistentId;
+        $this->persistentId = __CLASS__ . ' ' . $persistentId;
         if (isset(static::$requestInstances[$this->persistentId])) {
             static::$requestInstances[$this->persistentId]++;
         } else {
@@ -82,7 +77,7 @@ class APC implements Adapter
             static::$locksBackup[$this->persistentId] = array();
         }
         register_shutdown_function(
-            __CLASS__ . '::releaseLocks', $this->persistentId, true
+            get_called_class() . '::releaseLocks', $this->persistentId, true
         );
     }
     
@@ -108,7 +103,7 @@ class APC implements Adapter
         $hasInstances = 0 !== static::$requestInstances[$internalPersistentId];
         if ($isAtShutdown === $hasInstances) {
             foreach (static::$locksBackup[$internalPersistentId] as $key) {
-                apc_delete($internalPersistentId . 'locks ' . $key);
+                apc_delete($internalPersistentId . 'l ' . $key);
             }
         }
     }
@@ -138,7 +133,7 @@ class APC implements Adapter
      */
     public function lock($key, $timeout = null)
     {
-        $lock = $this->persistentId . 'locks ' . $key;
+        $lock = $this->persistentId . 'l ' . $key;
         $hasTimeout = $timeout !== null;
         $start = microtime(true);
         while (!apc_add($lock, 1)) {
@@ -160,7 +155,7 @@ class APC implements Adapter
      */
     public function unlock($key)
     {
-        $lock = $this->persistentId . 'locks ' . $key;
+        $lock = $this->persistentId . 'l ' . $key;
         $success = apc_delete($lock);
         if ($success) {
             unset(static::$locksBackup[$this->persistentId][array_search(
@@ -180,7 +175,7 @@ class APC implements Adapter
      */
     public function exists($key)
     {
-        return apc_exists($this->persistentId . 'values ' . $key);
+        return apc_exists($this->persistentId . 'd ' . $key);
     }
     
     /**
@@ -197,7 +192,7 @@ class APC implements Adapter
      */
     public function add($key, $value, $ttl = 0)
     {
-        return apc_add($this->persistentId . 'values ' . $key, $value, $ttl);
+        return apc_add($this->persistentId . 'd ' . $key, $value, $ttl);
     }
     
     /**
@@ -214,7 +209,7 @@ class APC implements Adapter
      */
     public function set($key, $value, $ttl = 0)
     {
-        return apc_store($this->persistentId . 'values ' . $key, $value, $ttl);
+        return apc_store($this->persistentId . 'd ' . $key, $value, $ttl);
     }
     
     /**
@@ -228,7 +223,7 @@ class APC implements Adapter
      */
     public function get($key)
     {
-        $fullKey = $this->persistentId . 'values ' . $key;
+        $fullKey = $this->persistentId . 'd ' . $key;
         if (apc_exists($fullKey)) {
             $value = apc_fetch($fullKey, $success);
             if (!$success) {
@@ -252,7 +247,7 @@ class APC implements Adapter
      */
     public function delete($key)
     {
-        return apc_delete($this->persistentId . 'values ' . $key);
+        return apc_delete($this->persistentId . 'd ' . $key);
     }
     
     /**
@@ -270,7 +265,7 @@ class APC implements Adapter
     public function inc($key, $step = 1)
     {
         $newValue = apc_inc(
-            $this->persistentId . 'values ' . $key, (int) $step, $success
+            $this->persistentId . 'd ' . $key, (int) $step, $success
         );
         if (!$success) {
             throw new SHM\InvalidArgumentException(
@@ -296,7 +291,7 @@ class APC implements Adapter
     public function dec($key, $step = 1)
     {
         $newValue = apc_dec(
-            $this->persistentId . 'values ' . $key, (int) $step, $success
+            $this->persistentId . 'd ' . $key, (int) $step, $success
         );
         if (!$success) {
             throw new SHM\InvalidArgumentException(
@@ -321,7 +316,7 @@ class APC implements Adapter
      */
     public function cas($key, $old, $new)
     {
-        return apc_cas($this->persistentId . 'values ' . $key, $old, $new);
+        return apc_cas($this->persistentId . 'd ' . $key, $old, $new);
     }
     
     /**
@@ -336,7 +331,7 @@ class APC implements Adapter
     {
         foreach (new APCIterator(
             'user',
-            '/^' . preg_quote($this->persistentId, '/') . 'values /',
+            '/^' . preg_quote($this->persistentId, '/') . 'd /',
             APC_ITER_KEY,
             100,
             APC_LIST_ACTIVE
@@ -356,25 +351,26 @@ class APC implements Adapter
      * @param bool   $keysOnly Whether to return only the keys, or return both
      * the keys and values.
      * 
-     * @return An array or instance of an object implementing {@link \Iterator}
-     * or {@link \Traversable}.
+     * @return array An array with all matching keys as array keys, and values
+     * as array values. If $keysOnly is TRUE, the array keys are numeric, and
+     * the array values are key names.
      */
     public function getIterator($filter = null, $keysOnly = false)
     {
         $result = array();
         foreach (new APCIterator(
             'user',
-            '/^' . preg_quote($this->persistentId, '/') . 'values /',
+            '/^' . preg_quote($this->persistentId, '/') . 'd /',
             APC_ITER_KEY,
             100,
             APC_LIST_ACTIVE
         ) as $key) {
-            $localKey = strstr($key, $this->persistentId . 'values ');
+            $localKey = strstr($key, $this->persistentId . 'd ');
             if (null === $filter || preg_match($filter, $localKey)) {
                 if ($keysOnly) {
                     $result[] = $localKey;
                 } else {
-                    $result[$localKey] = apc_fetch($localKey);
+                    $result[$localKey] = apc_fetch($key);
                 }
             }
         }

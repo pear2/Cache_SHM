@@ -22,12 +22,7 @@
 namespace PEAR2\Cache\SHM\Adapter;
 
 /**
- * Implements the adapter interface. 
- */
-use PEAR2\Cache\SHM\Adapter;
-
-/**
- * Throws exceptions from this namespace. 
+ * Throws exceptions from this namespace, and extends from this class.
  */
 use PEAR2\Cache\SHM;
 
@@ -40,7 +35,7 @@ use PEAR2\Cache\SHM;
  * @license  http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
  * @link     http://pear2.php.net/PEAR2_Cache_SHM
  */
-class Wincache implements Adapter
+class Wincache extends SHM
 {
     /**
      * @var string ID of the current storage. 
@@ -74,8 +69,7 @@ class Wincache implements Adapter
     public function __construct($persistentId)
     {
         $this->persistentId
-            = 'PEAR2%5CCache%5CSHM%5CAdapter%5CWincache ' .
-            static::encodeLockName($persistentId) . ' ';
+            = static::encodeLockName(__CLASS__ . ' ' . $persistentId) . ' ';
         if (isset(static::$requestInstances[$this->persistentId])) {
             static::$requestInstances[$this->persistentId]++;
         } else {
@@ -338,8 +332,9 @@ class Wincache implements Adapter
      * @param bool   $keysOnly Whether to return only the keys, or return both
      * the keys and values.
      * 
-     * @return An array or instance of an object implementing {@link \Iterator}
-     * or {@link \Traversable}.
+     * @return array An array with all matching keys as array keys, and values
+     * as array values. If $keysOnly is TRUE, the array keys are numeric, and
+     * the array values are key names.
      */
     public function getIterator($filter = null, $keysOnly = false)
     {

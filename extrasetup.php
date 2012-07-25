@@ -19,10 +19,10 @@ foreach (
         }
         
         if (0 === strpos($filename, 'php/')) {
-//            $newFileName = 'src/' . substr($filename, strlen('php/'));
-//            $info['name'] = $newFileName;
-//            $pkg->files[$newFileName] = $info;
-//            unset($pkg->files[$filename]);
+            //$newFileName = 'src/' . substr($filename, strlen('php/'));
+            //$info['name'] = $newFileName;
+            //$pkg->files[$newFileName] = $info;
+            //unset($pkg->files[$filename]);
         }
     }
     $extrafiles[] = $pkg;

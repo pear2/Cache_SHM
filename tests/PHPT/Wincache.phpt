@@ -2,6 +2,10 @@
 Wincache tests.
 --DESCRIPTION--
 Sets up the settings for the Wincache adapter, and executes its tests.
+--SKIPIF--
+<?php if (!version_compare(phpversion('wincache'), '1.1.0', '>=')) {
+    die('Skip WinCache 1.1.0 or greather is required.');
+?>
 --CGI--
 --GET--
 

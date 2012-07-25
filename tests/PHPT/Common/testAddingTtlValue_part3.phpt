@@ -4,11 +4,11 @@ Tests adding a TTL-ed value, part 3
 In part 3, we check to verify we no longer have a value.
 --FILE--
 <?php
-namespace PEAR2\Cache;
+namespace PEAR2\Cache\SHM\Adapter;
 require_once '_runner.inc';
 
-$adapterName = __NAMESPACE__ . '\SHM\Adapter\\' . $adapter;
-$object = new SHM(new $adapterName('TEST'));
+$adapterName = __NAMESPACE__ . '\\' . $adapter;
+$object = new $adapterName('TEST');
 
 try {
     $object->get('key');

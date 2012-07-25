@@ -112,6 +112,21 @@
     <min>1.4.0</min>
    </pearinstaller>
   </required>
+  <optional>
+   <package>
+    <name>PEAR2_Autoload</name>
+    <channel>pear2.php.net</channel>
+    <min>0.2.4</min>
+   </package>
+   <extension>
+    <name>apc</name>
+    <min>3.0.13</min>
+   </extension>
+   <extension>
+    <name>wincache</name>
+    <min>1.1.0</min>
+   </extension>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
