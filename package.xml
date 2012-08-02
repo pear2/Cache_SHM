@@ -11,8 +11,8 @@
   <email>boen.robot@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2012-07-14</date>
- <time>20:16:30</time>
+ <date>2012-08-03</date>
+ <time>00:53:00</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -55,11 +55,6 @@
          <tasks:replace from="GIT: $Id$" to="version" type="package-info"/>
         </file>
        </dir>
-       <file role="php" name="Adapter.php">
-        <tasks:replace from="~~summary~~" to="summary" type="package-info"/>
-        <tasks:replace from="~~description~~" to="description" type="package-info"/>
-        <tasks:replace from="GIT: $Id$" to="version" type="package-info"/>
-       </file>
        <file role="php" name="Exception.php">
         <tasks:replace from="~~summary~~" to="summary" type="package-info"/>
         <tasks:replace from="~~description~~" to="description" type="package-info"/>
@@ -92,6 +87,9 @@
      </dir>
      <file role="test" name="APC.phpt"/>
      <file role="test" name="Placebo.phpt"/>
+     <file role="test" name="SHM-factory.inc"/>
+     <file role="test" name="SHM-factory_CGI.phpt"/>
+     <file role="test" name="SHM-factory_CLI.phpt"/>
      <file role="test" name="Wincache.phpt"/>
      <file role="test" name="_runner.inc"/>
     </dir>
@@ -131,7 +129,6 @@
  <phprelease>
   <filelist>
    <install name="src/PEAR2/Cache/SHM.php" as="PEAR2/Cache/SHM.php"/>
-   <install name="src/PEAR2/Cache/SHM/Adapter.php" as="PEAR2/Cache/SHM/Adapter.php"/>
    <install name="src/PEAR2/Cache/SHM/Adapter/APC.php" as="PEAR2/Cache/SHM/Adapter/APC.php"/>
    <install name="src/PEAR2/Cache/SHM/Adapter/Wincache.php" as="PEAR2/Net/Cache/SHM/Adapter/Wincache.php"/>
    <install name="tests/bootstrap.php" as="bootstrap.php"/>
