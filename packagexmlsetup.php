@@ -115,6 +115,7 @@ foreach (
         $package->files[$filename] = array_merge_recursive(
             $package->files[$filename]->getArrayCopy(), $srcFileTasks
         );
+        
         if ($hasCompatible) {
             $compatibleFilename = str_replace('src/', 'php/', $filename);
             $compatible->files[$compatibleFilename] = array_merge_recursive(
