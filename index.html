@@ -1,74 +1,104 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
 
-  <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Cache shm : Wrapper for shared memory and locking functionality across different PHP extensions." />
+        <title>pear2/Cache_SHM @ GitHub</title>
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+        <style type="text/css">
+            body {
+                margin-top: 1.0em;
+                background-color: rgb(80, 127, 53);
+                font-family: Helvetica, Arial, FreeSans, san-serif;
+                color: #FFFFFF;
+            }
+            #container {
+                margin: 0 auto;
+                min-width: 500px;
+                width:80%;
+            }
+            #container > h1 { font-size: 3.8em; color: #FFFFFF; margin-bottom: 3px; }
+            #container > h1 .small { font-size: 0.4em; }
+            #container > h1 a { text-decoration: none }
+            #container > div > h2 { font-size: 1.5em; color: #FFFFFF; }
+            #container > div > div > h3 { text-align: center; color: #FFFFFF; }
+            a { color: #FFFFFF; }
+            .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
+            .download { float: right; }
+            pre { background: #000; color: #fff; padding: 15px;}
+            hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
+            .footer { text-align:center; padding-top:30px; font-style: italic; }
+            img {border:0;}
+            #container > div {background:rgb(100, 159, 67);padding:1%;border-top-left-radius:2% 8%;border-bottom-right-radius:2% 8%;border-bottom-left-radius:2% 8%;border-top-right-radius:2% 8%;border:2px solid rgb(175, 213, 223)}
+            
+            .version, .date {font-style:italic;}
+            .version {font-weight:bold;}
+            
+            .gadget, .ohloh {background-color:#FFFFFF; color:#000000;}
+            .ohloh {overflow:hidden;}
+            .ohloh > * {width:400px;height:80%;float:left;}
+            .gadget a {color:#0000FF;}
+        </style>
+    </head>
 
-    <title>Cache shm</title>
-  </head>
+    <body>
 
-  <body>
+        <div id="container">
+            <a href="http://github.com/pear2/Cache_SHM">
+                <img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" />
+            </a>
+            
+            <div class="download">
+                <a href="https://github.com/downloads/pear2/Cache_SHM/PEAR2_Cache_SHM-0.1.0.phar"><img alt="TGZ" width="90" src="phar.png" /></a>
+                <a href="https://github.com/downloads/pear2/Cache_SHM/PEAR2_Cache_SHM-0.1.0.tgz"><img alt="TGZ" width="90" src="tgz.png" /></a>
+                <a href="https://github.com/downloads/pear2/Cache_SHM/PEAR2_Cache_SHM-0.1.0.zip"><img alt="ZIP" width="90" src="http://github.com/images/modules/download/zip.png" /></a>
+            </div>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/boenrobot/Cache_SHM">View on GitHub</a>
+            <h1>
+                <a href="http://github.com/pear2/Cache_SHM">PEAR2_Cache_SHM</a>
+                <span class="small">by <a href="http://github.com/boenrobot">boenrobot</a></span>
+            </h1>
 
-          <h1 id="project_title">Cache shm</h1>
-          <h2 id="project_tagline">Wrapper for shared memory and locking functionality across different PHP extensions.</h2>
+            <div class="description">
+                Allows you to share data across requests as long as the PHP process is running. One of APC or WinCache is required to accomplish this, with other extensions being potentially pluggable as adapters.
+            </div>
+            <div>
+                <h2>Latest version</h2>
+                <p><span class="version">0.1.0</span> released on <span class="date">3 August 2012</span></p>
+            </div>
+            <div>
+                <h2>Install</h2>
+                <p>If you have <a href="http://pear2.php.net/">Pyrus</a>, without downloading anything:</p>
+                <pre>pyrus install -o PEAR2_Cache_SHM-alpha</pre>
+                <p>And in your PHP, load it with any PSR-0 compatible autoloader (e.g. PEAR2_Autoload).</p>
+                <p>Alternatively, if you download the PHAR archive from this page, you can just include it, like:</p>
+                <pre>&lt;?php
+require_once 'PEAR2_Cache_SHM-0.1.0.phar';
+//Rest of your code</pre>
+                <p>See <a href="https://github.com/pear2/Cache_SHM/wiki/Getting-started">the page in the project's wiki</a> for details and other ways of installation.</p>
+            </div>
+            <div>
+                <h2>License</h2>
+                <p>LGPL 2.1</p>
+            </div>
+            <div>
+                <h2>Download</h2>
+                <p>
+                    You can download this project in either
+                    <a href="https://github.com/downloads/pear2/Cache_SHM/PEAR2_Cache_SHM-0.1.0.phar">phar</a>,
+                    <a href="https://github.com/downloads/pear2/Cache_SHM/PEAR2_Cache_SHM-0.1.0.tgz">tgz</a> or
+                    <a href="https://github.com/downloads/pear2/Cache_SHM/PEAR2_Cache_SHM-0.1.0.zip">zip</a> formats.
+                    The contents of the archives are equivalent.
+                </p>
+                <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
+                    by running:</p>
+                <pre>$ git clone git://github.com/pear2/Cache_SHM</pre>
+            </div>
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/boenrobot/Cache_SHM/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/boenrobot/Cache_SHM/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h3>Welcome to GitHub Pages.</h3>
-
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
-
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
-
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
-
-<h3>Designer Templates</h3>
-
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
-
-<h3>Rather Drive Stick?</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-      </section>
-    </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Cache shm maintained by <a href="https://github.com/boenrobot">boenrobot</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
-
-    
-
-  </body>
+            <div class="footer">
+                get the source code on GitHub : <a href="http://github.com/pear2/Cache_SHM">pear2/Cache_SHM</a>
+            </div>
+        </div>
+    </body>
 </html>

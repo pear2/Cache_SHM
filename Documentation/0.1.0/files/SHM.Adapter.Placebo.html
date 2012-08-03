@@ -1,0 +1,695 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>PEAR2_Cache_SHM documentation</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><link rel="stylesheet" href="../css/template.css" type="text/css"></link><script type="text/javascript" src="../js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="../js/jquery.tools.min.js"></script><script type="text/javascript" src="../js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="../js/template.js"></script></head><body><div xmlns="" id="content">
+<h1 class="file">SHM\Adapter\Placebo.php</h1>
+<div id="file-nav-box">
+<div id="file-nav-options">
+              Show:
+              <img src="../images/icons/visibility_public.png" id="show-public"><img src="../images/icons/visibility_protected.png" id="show-protected"><img src="../images/icons/visibility_private.png" id="show-private"><span class="attribute" id="show-inherited">inherited</span>
+</div>
+<div id="file-nav-container">
+<ul id="file-nav"><li>
+<a href="#classes"><img src="../images/icons/class.png" height="14">
+                          Classes
+                      </a><ul><li><a href="#%5CPEAR2%5CCache%5CSHM%5CAdapter%5CPlacebo">\PEAR2\Cache\SHM\Adapter\Placebo</a></li></ul>
+</li></ul>
+<div style="clear: left;"></div>
+</div>
+<div id="file-nav-tab">
+              Table of Contents
+          </div>
+</div>
+<a name="top" class="anchor"></a><div id="file-description">
+<div xmlns="http://www.w3.org/1999/xhtml" class="short-description">Wrapper for shared memory and locking functionality across different extensions.</div><div xmlns="http://www.w3.org/1999/xhtml" class="long-description"><p>Allows you to share data across requests as long as the PHP process is running. One of APC or WinCache is required to accomplish this, with other extensions being potentially pluggable as adapters.</p>
+
+<p>PHP version 5</p></div>
+</div>
+<dl class="file-info">
+<dt xmlns="http://www.w3.org/1999/xhtml">Author</dt><dd xmlns="http://www.w3.org/1999/xhtml"><a href="mailto:boen.robot@gmail.com">Vasil Rangelov</a>
+         
+    </dd><dt xmlns="http://www.w3.org/1999/xhtml">Category</dt><dd xmlns="http://www.w3.org/1999/xhtml">Cache
+         
+    </dd><dt xmlns="http://www.w3.org/1999/xhtml">Copyright</dt><dd xmlns="http://www.w3.org/1999/xhtml">2011 Vasil Rangelov
+         
+    </dd><dt xmlns="http://www.w3.org/1999/xhtml">License</dt><dd xmlns="http://www.w3.org/1999/xhtml"><a href="http://www.gnu.org/copyleft/lesser.html">LGPL License 2.1</a>
+         
+    </dd><dt xmlns="http://www.w3.org/1999/xhtml">Link</dt><dd xmlns="http://www.w3.org/1999/xhtml"><a href="http://pear2.php.net/PEAR2_Cache_SHM">http://pear2.php.net/PEAR2_Cache_SHM</a>
+         
+    </dd><dt xmlns="http://www.w3.org/1999/xhtml">Package</dt><dd xmlns="http://www.w3.org/1999/xhtml">PEAR2_Cache_SHM
+         
+    </dd><dt xmlns="http://www.w3.org/1999/xhtml">Version</dt><dd xmlns="http://www.w3.org/1999/xhtml">0.1.0
+         
+    </dd>
+</dl>
+<a name="classes" class="anchor"></a><a id="\PEAR2\Cache\SHM\Adapter\Placebo" class="anchor"></a><h2 class="class">\PEAR2\Cache\SHM\Adapter\Placebo<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div class="class">
+<small class="package"><b>Package: </b>PEAR2\Cache\SHM</small><div xmlns="http://www.w3.org/1999/xhtml" class="short-description">This adapter is not truly persistent.</div><div xmlns="http://www.w3.org/1999/xhtml" class="long-description"><p>It is intended to emulate persistency
+in non persistent environments, so that upper level applications can use a
+single code path for persistent and non persistent code.</p></div><dl class="class-info">
+<dt>Parent(s)</dt>
+<dd><a href="../files/SHM.html#%5CPEAR2%5CCache%5CSHM">\PEAR2\Cache\SHM</a></dd>
+<dt xmlns="http://www.w3.org/1999/xhtml">Author</dt><dd xmlns="http://www.w3.org/1999/xhtml"><a href="mailto:boen.robot@gmail.com">Vasil Rangelov</a>
+         
+    </dd><dt xmlns="http://www.w3.org/1999/xhtml">Category</dt><dd xmlns="http://www.w3.org/1999/xhtml">Cache
+         
+    </dd><dt xmlns="http://www.w3.org/1999/xhtml">License</dt><dd xmlns="http://www.w3.org/1999/xhtml"><a href="http://www.gnu.org/copyleft/lesser.html">LGPL License 2.1</a>
+         
+    </dd><dt xmlns="http://www.w3.org/1999/xhtml">Link</dt><dd xmlns="http://www.w3.org/1999/xhtml"><a href="http://pear2.php.net/PEAR2_Cache_SHM">http://pear2.php.net/PEAR2_Cache_SHM</a>
+         
+    </dd>
+</dl>
+<h3>Properties</h3>
+<div>
+<a id="\PEAR2\Cache\SHM\Adapter\Placebo::$data" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="../images/icons/arrow_right.png"><img src="../images/icons/arrow_down.png" style="display: none;"></a><code class="title"><img src="../images/icons/property.png" alt="Property"><img src="../images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array <span class="highlight">$data</span> = array()</code><div class="description">
+<span class="attribute">static</span><div xmlns="http://www.w3.org/1999/xhtml" class="short-description">The data storage.</div>
+</div>
+<div class="code-tabs">
+<div xmlns="http://www.w3.org/1999/xhtml" class="long-description"><p>Each persistent ID is a key, and the value is an array.
+Each such array has data keys as its keys, and an array as a value.
+Each such array has as its elements the value, the timeout and the time
+the data was set.</p></div><strong>Default value</strong><code>array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\PEAR2\Cache\SHM\Adapter\Placebo::$locksBackup" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="../images/icons/arrow_right.png"><img src="../images/icons/arrow_down.png" style="display: none;"></a><code class="title"><img src="../images/icons/property.png" alt="Property"><img src="../images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array <span class="highlight">$locksBackup</span> = array()</code><div class="description">
+<span class="attribute">static</span><div xmlns="http://www.w3.org/1999/xhtml" class="short-description"><p>Array of lock names (as values) for each persistent ID (as key) obtained during the current request.</p>
+</div>
+</div>
+<div class="code-tabs">
+<div xmlns="http://www.w3.org/1999/xhtml" class="long-description"></div><strong>Default value</strong><code>array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\PEAR2\Cache\SHM\Adapter\Placebo::$persistentId" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="../images/icons/arrow_right.png"><img src="../images/icons/arrow_down.png" style="display: none;"></a><code class="title"><img src="../images/icons/property.png" alt="Property"><img src="../images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string <span class="highlight">$persistentId</span></code><div class="description"><div xmlns="http://www.w3.org/1999/xhtml" class="short-description"><p>ID of the current storage.</p></div></div>
+<div class="code-tabs">
+<div xmlns="http://www.w3.org/1999/xhtml" class="long-description"></div><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\PEAR2\Cache\SHM\Adapter\Placebo::$requestInstances" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="../images/icons/arrow_right.png"><img src="../images/icons/arrow_down.png" style="display: none;"></a><code class="title"><img src="../images/icons/property.png" alt="Property"><img src="../images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array <span class="highlight">$requestInstances</span> = array()</code><div class="description">
+<span class="attribute">static</span><div xmlns="http://www.w3.org/1999/xhtml" class="short-description">List of persistent IDs.</div>
+</div>
+<div class="code-tabs">
+<div xmlns="http://www.w3.org/1999/xhtml" class="long-description"><p>A list of persistent IDs within the current request (as keys) with an int
+(as a value) specifying the number of instances in the current request.
+Used as an attempt to ensure implicit lock releases on destruction.</p></div><strong>Default value</strong><code>array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\PEAR2\Cache\SHM\Adapter\Placebo::__construct()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="../images/icons/arrow_right.png"><img src="../images/icons/arrow_down.png" style="display: none;"></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"><img src="../images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__construct</span><span class="nb-faded-text">(string $persistentId)</span> : void</code><div class="description"><p class="short_description">Creates a new shared memory storage.</p></div>
+<div class="code-tabs">
+<div xmlns="http://www.w3.org/1999/xhtml" class="long-description"><p>Estabilishes a separate persistent storage.</p></div><strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$persistentId</th>
+<td>string</td>
+<td><em><p>The ID for the storage. The storage will be reused if it exists, or created if it doesn't exist. Data and locks are namespaced by this ID.</p>
+</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\PEAR2\Cache\SHM\Adapter\Placebo::__destruct()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="../images/icons/arrow_right.png"><img src="../images/icons/arrow_down.png" style="display: none;"></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"><img src="../images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__destruct</span><span class="nb-faded-text">()</span> : void</code><div class="description"><p class="short_description">Releases any unreleased locks.</p></div>
+<div class="code-tabs"><div xmlns="http://www.w3.org/1999/xhtml" class="long-description"></div></div>
+<div class="clear"></div>
+</div>
+<a id="\PEAR2\Cache\SHM\Adapter\Placebo::__get()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="../images/icons/arrow_right.png"><img src="../images/icons/arrow_down.png" style="display: none;"></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"><img src="../images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__get</span><span class="nb-faded-text">(string $key)</span> : mixed</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Gets a value from the shared memory storage.</p>
+<small class="inherited_from">Inherited from:
+                    <a xmlns="http://www.w3.org/1999/xhtml" href="../files/SHM.html#\PEAR2\Cache\SHM::__get()">\PEAR2\Cache\SHM::__get()</a></small>
+</div>
+<div class="code-tabs">
+<div xmlns="http://www.w3.org/1999/xhtml" class="long-description"><p>This is a magic method, thanks to which any property you attempt to get
+the value of will be fetched from the adapter, treating the property name
+as the key of the value to get.</p></div><strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$key</th>
+<td>string</td>
+<td><em><p>Name of key to get.</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>mixed</td>
+<td>The current value of the specified key.</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\PEAR2\Cache\SHM\Adapter\Placebo::__isset()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="../images/icons/arrow_right.png"><img src="../images/icons/arrow_down.png" style="display: none;"></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"><img src="../images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__isset</span><span class="nb-faded-text">(string $key)</span> : bool</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Checks if a specified key is in the storage.</p>
+<small class="inherited_from">Inherited from:
+                    <a xmlns="http://www.w3.org/1999/xhtml" href="../files/SHM.html#\PEAR2\Cache\SHM::__isset()">\PEAR2\Cache\SHM::__isset()</a></small>
+</div>
+<div class="code-tabs">
+<div xmlns="http://www.w3.org/1999/xhtml" class="long-description"><p>This is a magic method, thanks to which any property you call isset() on
+will be checked by the adapter, treating the property name as the key
+of the value to check.</p></div><strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$key</th>
+<td>string</td>
+<td><em><p>Name of key to check.</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td>TRUE if the key is in the storage, FALSE otherwise.</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\PEAR2\Cache\SHM\Adapter\Placebo::__set()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="../images/icons/arrow_right.png"><img src="../images/icons/arrow_down.png" style="display: none;"></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"><img src="../images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__set</span><span class="nb-faded-text">(string $key, mixed $value)</span> : bool</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Sets a value in the shared memory storage.</p>
+<small class="inherited_from">Inherited from:
+                    <a xmlns="http://www.w3.org/1999/xhtml" href="../files/SHM.html#\PEAR2\Cache\SHM::__set()">\PEAR2\Cache\SHM::__set()</a></small>
+</div>
+<div class="code-tabs">
+<div xmlns="http://www.w3.org/1999/xhtml" class="long-description"><p>This is a magic method, thanks to which any property you attempt to set
+the value of will be set by the adapter, treating the property name as
+the key of the value to set. The value is set without a TTL.</p></div><strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$key</th>
+<td>string</td>
+<td><em><p>Name of key to associate the value with.</p></em></td>
+</tr>
+<tr>
+<th>$value</th>
+<td>mixed</td>
+<td><em><p>Value for the specified key.</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td>TRUE on success, FALSE on failure.</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\PEAR2\Cache\SHM\Adapter\Placebo::__unset()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="../images/icons/arrow_right.png"><img src="../images/icons/arrow_down.png" style="display: none;"></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"><img src="../images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__unset</span><span class="nb-faded-text">(string $key)</span> : bool</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Deletes a value from the shared memory storage.</p>
+<small class="inherited_from">Inherited from:
+                    <a xmlns="http://www.w3.org/1999/xhtml" href="../files/SHM.html#\PEAR2\Cache\SHM::__unset()">\PEAR2\Cache\SHM::__unset()</a></small>
+</div>
+<div class="code-tabs">
+<div xmlns="http://www.w3.org/1999/xhtml" class="long-description"><p>This is a magic method, thanks to which any property you attempt to unset
+the value of will be unset by the adapter, treating the property name as
+the key of the value to delete.</p></div><strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$key</th>
+<td>string</td>
+<td><em><p>Name of key to delete.</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td>TRUE on success, FALSE on failure.</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\PEAR2\Cache\SHM\Adapter\Placebo::add()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="../images/icons/arrow_right.png"><img src="../images/icons/arrow_down.png" style="display: none;"></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"><img src="../images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">add</span><span class="nb-faded-text">(string $key, mixed $value, int $ttl = 0)</span> : bool</code><div class="description"><p class="short_description">Adds a value to the shared memory storage.</p></div>
+<div class="code-tabs">
+<div xmlns="http://www.w3.org/1999/xhtml" class="long-description"><p>Adds a value to the storage if it doesn't exist, or fails if it does.</p></div><strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$key</th>
+<td>string</td>
+<td><em><p>Name of key to associate the value with.</p></em></td>
+</tr>
+<tr>
+<th>$value</th>
+<td>mixed</td>
+<td><em><p>Value for the specified key.</p></em></td>
+</tr>
+<tr>
+<th>$ttl</th>
+<td>int</td>
+<td><em><p>Because "true" adapters purge the cache at the next request, this setting is ignored.</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td>TRUE on success, FALSE on failure.</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\PEAR2\Cache\SHM\Adapter\Placebo::cas()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="../images/icons/arrow_right.png"><img src="../images/icons/arrow_down.png" style="display: none;"></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"><img src="../images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">cas</span><span class="nb-faded-text">(string $key, int $old, int $new)</span> : bool</code><div class="description"><p class="short_description">Sets a new value if a key has a certain value.</p></div>
+<div class="code-tabs">
+<div xmlns="http://www.w3.org/1999/xhtml" class="long-description"><p>Sets a new value if a key has a certain value. This function only works
+when $old and $new are longs.</p></div><strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$key</th>
+<td>string</td>
+<td><em><p>Key of the value to compare and set.</p></em></td>
+</tr>
+<tr>
+<th>$old</th>
+<td>int</td>
+<td><em><p>The value to compare the key against.</p></em></td>
+</tr>
+<tr>
+<th>$new</th>
+<td>int</td>
+<td><em><p>The value to set the key to.</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td>TRUE on success, FALSE on failure.</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\PEAR2\Cache\SHM\Adapter\Placebo::clear()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="../images/icons/arrow_right.png"><img src="../images/icons/arrow_down.png" style="display: none;"></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"><img src="../images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">clear</span><span class="nb-faded-text">()</span> : void</code><div class="description"><p class="short_description">Clears the persistent storage.</p></div>
+<div class="code-tabs"><div xmlns="http://www.w3.org/1999/xhtml" class="long-description"><p>Clears the persistent storage, i.e. removes all keys. Locks are left
+intact.</p></div></div>
+<div class="clear"></div>
+</div>
+<a id="\PEAR2\Cache\SHM\Adapter\Placebo::dec()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="../images/icons/arrow_right.png"><img src="../images/icons/arrow_down.png" style="display: none;"></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"><img src="../images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">dec</span><span class="nb-faded-text">(string $key, int $step = 1)</span> : int</code><div class="description"><p class="short_description">Decreases a value from the shared memory storage.</p></div>
+<div class="code-tabs">
+<div xmlns="http://www.w3.org/1999/xhtml" class="long-description"><p>Decreases a value from the shared memory storage. Unlike a plain
+set($key, get($key)-$step) combination, this function also implicitly
+performs locking.</p></div><strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$key</th>
+<td>string</td>
+<td><em><p>Name of key to decrease.</p></em></td>
+</tr>
+<tr>
+<th>$step</th>
+<td>int</td>
+<td><em><p>Value to decrease the key by.</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>int</td>
+<td>The new value.</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\PEAR2\Cache\SHM\Adapter\Placebo::delete()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="../images/icons/arrow_right.png"><img src="../images/icons/arrow_down.png" style="display: none;"></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"><img src="../images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">delete</span><span class="nb-faded-text">(string $key)</span> : bool</code><div class="description"><p class="short_description">Deletes a value from the shared memory storage.</p></div>
+<div class="code-tabs">
+<div xmlns="http://www.w3.org/1999/xhtml" class="long-description"></div><strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$key</th>
+<td>string</td>
+<td><em><p>Name of key to delete.</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td>TRUE on success, FALSE on failure.</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\PEAR2\Cache\SHM\Adapter\Placebo::exists()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="../images/icons/arrow_right.png"><img src="../images/icons/arrow_down.png" style="display: none;"></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"><img src="../images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">exists</span><span class="nb-faded-text">(string $key)</span> : bool</code><div class="description"><p class="short_description">Checks if a specified key is in the storage.</p></div>
+<div class="code-tabs">
+<div xmlns="http://www.w3.org/1999/xhtml" class="long-description"></div><strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$key</th>
+<td>string</td>
+<td><em><p>Name of key to check.</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td>TRUE if the key is in the storage, FALSE otherwise.</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\PEAR2\Cache\SHM\Adapter\Placebo::factory()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="../images/icons/arrow_right.png"><img src="../images/icons/arrow_down.png" style="display: none;"></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"><img src="../images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">factory</span><span class="nb-faded-text">(string $persistentId)</span> : \PEAR2\Cache\self | <a xmlns="http://www.w3.org/1999/xhtml" href="../files/SHM.html#\PEAR2\Cache\SHM">\PEAR2\Cache\SHM</a></code><div class="description">
+<span class="attribute">static</span><span class="attribute">inherited</span><p class="short_description">Creates a new shared memory storage.</p>
+<small class="inherited_from">Inherited from:
+                    <a xmlns="http://www.w3.org/1999/xhtml" href="../files/SHM.html#\PEAR2\Cache\SHM::factory()">\PEAR2\Cache\SHM::factory()</a></small>
+</div>
+<div class="code-tabs">
+<div xmlns="http://www.w3.org/1999/xhtml" class="long-description"><p>Estabilishes a separate persistent storage. Adapter is automatically
+chosen based on the available extensions.</p></div><strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$persistentId</th>
+<td>string</td>
+<td><em><p>The ID for the storage.</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>\PEAR2\Cache\self | <a xmlns="http://www.w3.org/1999/xhtml" href="../files/SHM.html#\PEAR2\Cache\SHM">\PEAR2\Cache\SHM</a>
+</td>
+<td>A new instance of an SHM adapter (child of this class).</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\PEAR2\Cache\SHM\Adapter\Placebo::get()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="../images/icons/arrow_right.png"><img src="../images/icons/arrow_down.png" style="display: none;"></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"><img src="../images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">get</span><span class="nb-faded-text">(string $key)</span> : mixed</code><div class="description"><p class="short_description">Gets a value from the shared memory storage.</p></div>
+<div class="code-tabs">
+<div xmlns="http://www.w3.org/1999/xhtml" class="long-description"><p>Gets the current value, or throws an exception if it's not stored.</p></div><strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$key</th>
+<td>string</td>
+<td><em><p>Name of key to get the value of.</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>mixed</td>
+<td>The current value of the specified key.</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\PEAR2\Cache\SHM\Adapter\Placebo::getIterator()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="../images/icons/arrow_right.png"><img src="../images/icons/arrow_down.png" style="display: none;"></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"><img src="../images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getIterator</span><span class="nb-faded-text">(string $filter = null, bool $keysOnly = false)</span> : array</code><div class="description"><p class="short_description">Retrieve an external iterator</p></div>
+<div class="code-tabs">
+<div xmlns="http://www.w3.org/1999/xhtml" class="long-description"><p>Returns an external iterator.</p></div><strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$filter</th>
+<td>string</td>
+<td><em><p>A PCRE regular expression. Only matching keys will be iterated over. Setting this to NULL matches all keys of this instance.</p></em></td>
+</tr>
+<tr>
+<th>$keysOnly</th>
+<td>bool</td>
+<td><em><p>Whether to return only the keys, or return both the keys and values.</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td>An array with all matching keys as array keys, and values as array values. If $keysOnly is TRUE, the array keys are numeric, and the array values are key names.</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\PEAR2\Cache\SHM\Adapter\Placebo::inc()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="../images/icons/arrow_right.png"><img src="../images/icons/arrow_down.png" style="display: none;"></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"><img src="../images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">inc</span><span class="nb-faded-text">(string $key, int $step = 1)</span> : int</code><div class="description"><p class="short_description">Increases a value from the shared memory storage.</p></div>
+<div class="code-tabs">
+<div xmlns="http://www.w3.org/1999/xhtml" class="long-description"><p>Increases a value from the shared memory storage. Unlike a plain
+set($key, get($key)+$step) combination, this function also implicitly
+performs locking.</p></div><strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$key</th>
+<td>string</td>
+<td><em><p>Name of key to increase.</p></em></td>
+</tr>
+<tr>
+<th>$step</th>
+<td>int</td>
+<td><em><p>Value to increase the key by.</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>int</td>
+<td>The new value.</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\PEAR2\Cache\SHM\Adapter\Placebo::lock()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="../images/icons/arrow_right.png"><img src="../images/icons/arrow_down.png" style="display: none;"></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"><img src="../images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">lock</span><span class="nb-faded-text">(string $key, double $timeout = null)</span> : bool</code><div class="description"><p class="short_description">Pretends to obtain a lock.</p></div>
+<div class="code-tabs">
+<div xmlns="http://www.w3.org/1999/xhtml" class="long-description"></div><strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$key</th>
+<td>string</td>
+<td><em><p>Ignored.</p></em></td>
+</tr>
+<tr>
+<th>$timeout</th>
+<td>double</td>
+<td><em><p>Ignored.</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td>TRUE on success, FALSE on failure.</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\PEAR2\Cache\SHM\Adapter\Placebo::set()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="../images/icons/arrow_right.png"><img src="../images/icons/arrow_down.png" style="display: none;"></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"><img src="../images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">set</span><span class="nb-faded-text">(string $key, mixed $value, int $ttl = 0)</span> : bool</code><div class="description"><p class="short_description">Sets a value in the shared memory storage.</p></div>
+<div class="code-tabs">
+<div xmlns="http://www.w3.org/1999/xhtml" class="long-description"><p>Adds a value to the storage if it doesn't exist, overwrites it otherwise.</p></div><strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$key</th>
+<td>string</td>
+<td><em><p>Name of key to associate the value with.</p></em></td>
+</tr>
+<tr>
+<th>$value</th>
+<td>mixed</td>
+<td><em><p>Value for the specified key.</p></em></td>
+</tr>
+<tr>
+<th>$ttl</th>
+<td>int</td>
+<td><em><p>Because "true" adapters purge the cache at the next request, this setting is ignored.</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td>TRUE on success, FALSE on failure.</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\PEAR2\Cache\SHM\Adapter\Placebo::unlock()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="../images/icons/arrow_right.png"><img src="../images/icons/arrow_down.png" style="display: none;"></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"><img src="../images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">unlock</span><span class="nb-faded-text">(string $key)</span> : bool</code><div class="description"><p class="short_description">Pretends to release a lock.</p></div>
+<div class="code-tabs">
+<div xmlns="http://www.w3.org/1999/xhtml" class="long-description"></div><strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$key</th>
+<td>string</td>
+<td><em><p>Ignored</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td>TRUE on success, FALSE on failure.</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">
+            Documentation was generated by
+            <a href="http://phpdoc.org">phpDocumentor
+                2.0.0a8</a>.
+        </small></body></html>
