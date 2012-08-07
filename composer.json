@@ -1,0 +1,26 @@
+{
+    "name": "pear2/cache_shm",
+    "description": "Wrapper for shared memory and locking functionality across different PHP extensions.",
+    "keywords": ["abstraction", "lock", "shm", "apc", "pear2", "cache", "wincache", "caching", "locking"],
+    "homepage": "http://pear2.github.com/Cache_SHM/",
+    "license": "LGPL-2.1",
+    "authors": [
+        {
+            "name": "Vasil Rangelov",
+            "email": "boen.robot@gmail.com",
+            "role": "lead"
+        }
+    ],
+    "support": {
+        "issues": "http://github.com/pear2/Cache_SHM/issues",
+        "wiki": "http://github.com/pear2/Cache_SHM/wiki"
+    },
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "PEAR2\\Cache\\SHM": "src/"
+        }
+    }
+}
