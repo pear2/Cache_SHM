@@ -1,0 +1,14 @@
+source: ../src
+
+destination: PEAR2_Cache_SHM__ApiGen_Documentation
+
+extensions: php
+
+charset: UTF-8
+
+title: PEAR2_Cache_SHM documentation
+
+autocomplete:
+    - classes
+    - methods
+    - classconstants
