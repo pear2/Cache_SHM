@@ -5,8 +5,8 @@ if (count(get_included_files()) > 1) {
         '@PACKAGE_NAME@-@PACKAGE_VERSION@' . DIRECTORY_SEPARATOR . 'src'
         . DIRECTORY_SEPARATOR . 'PEAR2' . DIRECTORY_SEPARATOR . 'Autoload.php';
 } else {
-    $isNotCli = PHP_SAPI !== 'cli';
-    if ($isNotCli) {
+    $isHttp = isset($_SERVER['REQUEST_URI']);
+    if ($isHttp) {
         header('Content-Type: text/plain;charset=UTF-8');
     }
     echo "PEAR2_Cache_SHM @PACKAGE_VERSION@\n";
@@ -17,30 +17,32 @@ if (count(get_included_files()) > 1) {
     }
     
     $available_extensions = array();
-    foreach (array('phar', 'apc', 'wincache') as $ext) {
+    foreach (array('apc', 'wincache') as $ext) {
         if (extension_loaded($ext)) {
             $available_extensions[] = $ext;
         }
     }
     
-    if (in_array('phar', $available_extensions)) {
+    if (extension_loaded('phar')) {
         $phar = new Phar(__FILE__);
         $sig = $phar->getSignature();
         echo "{$sig['hash_type']} hash: {$sig['hash']}\n\n";
-        
-        unset($available_extensions[
-            array_search('phar', $available_extensions)
-            ]);
+    } else {
+        echo <<<HEREDOC
+If you wish to use this package from this archive, you need to install and
+enable the PHAR extension. Otherwise, you must extract this archive, and include
+the autoloader instead.
+HEREDOC;
     }
     
     if (in_array('apc', $available_extensions)) {
         if (version_compare(phpversion('apc'), '3.0.13', '>=')) {
             echo "A compatible APC version is available on this server.\n";
-            if ($isNotCli || 1 == ini_get('apc.enable_cli')) {
+            if ($isHttp || 1 == ini_get('apc.enable_cli')) {
                 echo "You should be able to use it under this SAPI (", PHP_SAPI,
                     ").\n";
             } else {
-                echo "You can't use it under this SAPI (cli).\n";
+                echo "You can't use it under this SAPI (", PHP_SAPI, ").\n";
             }
             echo "\n";
         }
@@ -49,24 +51,25 @@ if (count(get_included_files()) > 1) {
     if (in_array('wincache', $available_extensions)) {
         if (version_compare(phpversion('wincache'), '1.1.0', '>=')) {
             echo "A compatible WinCache version is available on this server.\n";
-            if ($isNotCli) {
+            if ($isHttp) {
                 echo "You should be able to use it under this SAPI (", PHP_SAPI,
                     ").\n";
             } else {
-                echo "You can't use it under this SAPI (cli).\n";
+                echo "You can't use it under this SAPI (", PHP_SAPI, ").\n";
             }
             echo "\n";
         }
     }
     
-    if ($isNotCli) {
+    if ($isHttp) {
         if (empty($available_extensions)) {
             echo "You don't have any compatible extensions for this SAPI (",
                 PHP_SAPI,
                 ").\nInstall one of APC (>= 3.0.13) or WinCache (>= 1.1.0).";
         }
     } else {
-        echo "You can use the Placebo adapter under this SAPI (cli).\n";
+        echo "You should be able to use the Placebo adapter under this SAPI (",
+            PHP_SAPI, ").\n";
     }
 }
 
