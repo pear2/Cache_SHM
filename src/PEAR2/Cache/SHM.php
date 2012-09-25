@@ -87,13 +87,32 @@ abstract class SHM implements \IteratorAggregate
             && $adapter::isMeetingRequirements()
         ) {
             if ($prepend) {
-                self::$_adapters = array_merge(array($adapter), self::$_adapters);
+                self::$_adapters = array_merge(
+                    array($adapter), self::$_adapters
+                );
             } else {
                 self::$_adapters[] = $adapter;
             }
             return true;
         }
         return false;
+    }
+    
+    /**
+     * Adds a value to the shared memory storage.
+     * 
+     * Adds a value to the storage if it doesn't exist, or fails if it does.
+     * 
+     * @param string $key   Name of key to associate the value with.
+     * @param mixed  $value Value for the specified key.
+     * @param int    $ttl   Seconds to store the value. If set to 0 indicates no
+     * time limit.
+     * 
+     * @return bool TRUE on success, FALSE on failure.
+     */
+    public function __invoke($key, $value, $ttl = 0)
+    {
+        return $this->add($key, $value, $ttl);
     }
     
     /**

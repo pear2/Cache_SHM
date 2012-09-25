@@ -11,10 +11,10 @@
   <email>boen.robot@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2012-08-03</date>
- <time>00:53:00</time>
+ <date>2012-09-25</date>
+ <time>23:15:45</time>
  <version>
-  <release>0.1.0</release>
+  <release>0.1.1</release>
   <api>0.1.0</api>
  </version>
  <stability>
@@ -22,10 +22,14 @@
   <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL License 2.1</license>
- <notes>First PEAR2 compatible release.</notes>
+ <notes>* Fixed the PHAR stub.
+* Removed the warnings APC would trigger when using SHM::factory().
+* Allowed registering of external adapters with the new SHM::registerAdapter() method.
+* Added SHM::__invoke() as a shortcut to SHM::add().</notes>
  <contents>
   <dir name="/">
    <dir name="docs" baseinstalldir="/">
+    <file role="doc" name="apigen.neon"/>
     <file role="doc" name="doxygen.ini">
      <tasks:replace from="../src" to="php_dir" type="pear-config"/>
      <tasks:replace from="GIT: $Id$" to="version" type="package-info"/>
