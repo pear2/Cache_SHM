@@ -12,7 +12,7 @@
   <active>yes</active>
  </lead>
  <date>2012-09-25</date>
- <time>23:15:45</time>
+ <time>23:33:38</time>
  <version>
   <release>0.1.1</release>
   <api>0.1.0</api>
@@ -134,8 +134,25 @@
   <filelist>
    <install name="src/PEAR2/Cache/SHM.php" as="PEAR2/Cache/SHM.php"/>
    <install name="src/PEAR2/Cache/SHM/Adapter/APC.php" as="PEAR2/Cache/SHM/Adapter/APC.php"/>
-   <install name="src/PEAR2/Cache/SHM/Adapter/Wincache.php" as="PEAR2/Net/Cache/SHM/Adapter/Wincache.php"/>
+   <install name="src/PEAR2/Cache/SHM/Adapter/Placebo.php" as="PEAR2/Cache/SHM/Adapter/Placebo.php"/>
+   <install name="src/PEAR2/Cache/SHM/Adapter/Wincache.php" as="PEAR2/Cache/SHM/Adapter/Wincache.php"/>
+   <install name="src/PEAR2/Cache/SHM/Exception.php" as="PEAR2/Cache/SHM/Exception.php"/>
+   <install name="src/PEAR2/Cache/SHM/InvalidArgumentException.php" as="PEAR2/Cache/SHM/InvalidArgumentException.php"/>
    <install name="tests/bootstrap.php" as="bootstrap.php"/>
+   <install name="tests/PHPT/APC.phpt" as="PHPT/APC.phpt"/>
+   <install name="tests/PHPT/Common/testAddingTtlValue_part1.phpt" as="PHPT/Common/testAddingTtlValue_part1.phpt"/>
+   <install name="tests/PHPT/Common/testAddingTtlValue_part2.phpt" as="PHPT/Common/testAddingTtlValue_part2.phpt"/>
+   <install name="tests/PHPT/Common/testAddingTtlValue_part3.phpt" as="PHPT/Common/testAddingTtlValue_part3.phpt"/>
+   <install name="tests/PHPT/Common/testAddingValue.phpt" as="PHPT/Common/testAddingValue.phpt"/>
+   <install name="tests/PHPT/Common/testSettingAndDeletingValue.phpt" as="PHPT/Common/testSettingAndDeletingValue.phpt"/>
+   <install name="tests/PHPT/Common/testSettingAndGettingValue.phpt" as="PHPT/Common/testSettingAndGettingValue.phpt"/>
+   <install name="tests/PHPT/Common/testSingleFileLockAndUnlock.phpt" as="PHPT/Common/testSingleFileLockAndUnlock.phpt"/>
+   <install name="tests/PHPT/Placebo.phpt" as="PHPT/Placebo.phpt"/>
+   <install name="tests/PHPT/SHM-factory.inc" as="PHPT/SHM-factory.inc"/>
+   <install name="tests/PHPT/SHM-factory_CGI.phpt" as="PHPT/SHM-factory_CGI.phpt"/>
+   <install name="tests/PHPT/SHM-factory_CLI.phpt" as="PHPT/SHM-factory_CLI.phpt"/>
+   <install name="tests/PHPT/Wincache.phpt" as="PHPT/Wincache.phpt"/>
+   <install name="tests/PHPT/_runner.inc" as="PHPT/_runner.inc"/>
    <install name="tests/phpunit.xml" as="phpunit.xml"/>
   </filelist>
  </phprelease>
