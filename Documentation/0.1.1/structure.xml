@@ -1,0 +1,1891 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project version="2.0.0a10" title="PEAR2_Cache_SHM documentation">
+  <file path="SHM.php" hash="0096d246b24113ef484ae3fecb350ebe" package="PEAR2\Cache\SHM">
+    <docblock line="3">
+      <description><![CDATA[Wrapper for shared memory and locking functionality across different extensions.]]></description>
+      <long-description><![CDATA[<p>Allows you to share data across requests as long as the PHP process is running. One of APC or WinCache is required to accomplish this, with other extensions being potentially pluggable as adapters.</p>
+
+<p>PHP version 5</p>]]></long-description>
+      <tag line="3" name="category" description="Cache"/>
+      <tag line="3" name="package" description="PEAR2_Cache_SHM"/>
+      <tag line="3" name="author" description="Vasil Rangelov &lt;boen.robot@gmail.com&gt;"/>
+      <tag line="3" name="copyright" description="2011 Vasil Rangelov"/>
+      <tag line="3" name="license" description="http://www.gnu.org/copyleft/lesser.html LGPL License 2.1"/>
+      <tag line="3" name="version" description="0.1.1"/>
+      <tag line="3" name="link" description="http://pear2.php.net/PEAR2_Cache_SHM" link="http://pear2.php.net/PEAR2_Cache_SHM"/>
+    </docblock>
+    <class final="false" abstract="false" namespace="PEAR2\Cache" line="35" package="PEAR2\Cache\SHM">
+      <extends/>
+      <implements>\IteratorAggregate</implements>
+      <name>SHM</name>
+      <full_name>\PEAR2\Cache\SHM</full_name>
+      <docblock line="24">
+        <description><![CDATA[Main class for this package.]]></description>
+        <long-description><![CDATA[<p>Automatically chooses an adapter based on the available extensions.</p>]]></long-description>
+        <tag line="24" name="category" description="Cache"/>
+        <tag line="24" name="package" description="PEAR2_Cache_SHM"/>
+        <tag line="24" name="author" description="Vasil Rangelov &lt;boen.robot@gmail.com&gt;"/>
+        <tag line="24" name="license" description="http://www.gnu.org/copyleft/lesser.html LGPL License 2.1"/>
+        <tag line="24" name="link" description="http://pear2.php.net/PEAR2_Cache_SHM" link="http://pear2.php.net/PEAR2_Cache_SHM"/>
+      </docblock>
+      <property final="false" static="true" visibility="private" line="40" namespace="PEAR2\Cache" package="Default">
+        <name>$_adapters</name>
+        <default><![CDATA[array()]]></default>
+        <docblock line="37">
+          <description><![CDATA[]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="37" name="var" description="An array of adapter names that meet their requirements." type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </property>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="PEAR2\Cache" line="53" package="PEAR2\Cache\SHM">
+        <name>factory</name>
+        <full_name>factory</full_name>
+        <docblock line="42">
+          <description><![CDATA[Creates a new shared memory storage.]]></description>
+          <long-description><![CDATA[<p>Estabilishes a separate persistent storage. Adapter is automatically
+chosen based on the available extensions.</p>]]></long-description>
+          <tag line="42" name="param" description="The ID for the storage." type="string" variable="$persistentId">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="42" name="return" description="A new instance of an SHM adapter (child of this class)." type="\PEAR2\Cache\static|\PEAR2\Cache\SHM">
+            <type by_reference="false">\PEAR2\Cache\static</type>
+            <type by_reference="false">\PEAR2\Cache\SHM</type>
+          </tag>
+        </docblock>
+        <argument line="53">
+          <name>$persistentId</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="true" static="true" visibility="public" namespace="PEAR2\Cache" line="71" package="PEAR2\Cache\SHM">
+        <name>isMeetingRequirements</name>
+        <full_name>isMeetingRequirements</full_name>
+        <docblock line="66">
+          <description><![CDATA[Checks if the adapter meets its requirements.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="66" name="return" description="TRUE on success, FALSE on failure." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="PEAR2\Cache" line="85" package="PEAR2\Cache\SHM">
+        <name>registerAdapter</name>
+        <full_name>registerAdapter</full_name>
+        <docblock line="73">
+          <description><![CDATA[Registers an adapter.]]></description>
+          <long-description><![CDATA[<p>Registers an SHM adapter, allowing you to call it with {@link factory()}.</p>]]></long-description>
+          <tag line="73" name="param" description="FQCN of adapter. A valid adapter is one that&#13;&#10;extends this class." type="string" variable="$adapter">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="73" name="param" description="Whether to prepend this adapter into the list of&#13;&#10;possible adapters, instead of appending to it." type="bool" variable="$prepend">
+            <type by_reference="false">bool</type>
+          </tag>
+          <tag line="73" name="return" description="TRUE on success, FALSE on failure." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+        <argument line="85">
+          <name>$adapter</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="85">
+          <name>$prepend</name>
+          <default><![CDATA[false]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache" line="114" package="PEAR2\Cache\SHM">
+        <name>__invoke</name>
+        <full_name>__invoke</full_name>
+        <docblock line="102">
+          <description><![CDATA[Adds a value to the shared memory storage.]]></description>
+          <long-description><![CDATA[<p>Adds a value to the storage if it doesn't exist, or fails if it does.</p>]]></long-description>
+          <tag line="102" name="param" description="Name of key to associate the value with." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="102" name="param" description="Value for the specified key." type="mixed" variable="$value">
+            <type by_reference="false">mixed</type>
+          </tag>
+          <tag line="102" name="param" description="Seconds to store the value. If set to 0 indicates no&#13;&#10;time limit." type="int" variable="$ttl">
+            <type by_reference="false">int</type>
+          </tag>
+          <tag line="102" name="return" description="TRUE on success, FALSE on failure." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+        <argument line="114">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="114">
+          <name>$value</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="114">
+          <name>$ttl</name>
+          <default><![CDATA[0]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache" line="130" package="PEAR2\Cache\SHM">
+        <name>__get</name>
+        <full_name>__get</full_name>
+        <docblock line="119">
+          <description><![CDATA[Gets a value from the shared memory storage.]]></description>
+          <long-description><![CDATA[<p>This is a magic method, thanks to which any property you attempt to get
+the value of will be fetched from the adapter, treating the property name
+as the key of the value to get.</p>]]></long-description>
+          <tag line="119" name="param" description="Name of key to get." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="119" name="return" description="The current value of the specified key." type="mixed">
+            <type by_reference="false">mixed</type>
+          </tag>
+        </docblock>
+        <argument line="130">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache" line="147" package="PEAR2\Cache\SHM">
+        <name>__set</name>
+        <full_name>__set</full_name>
+        <docblock line="135">
+          <description><![CDATA[Sets a value in the shared memory storage.]]></description>
+          <long-description><![CDATA[<p>This is a magic method, thanks to which any property you attempt to set
+the value of will be set by the adapter, treating the property name as
+the key of the value to set. The value is set without a TTL.</p>]]></long-description>
+          <tag line="135" name="param" description="Name of key to associate the value with." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="135" name="param" description="Value for the specified key." type="mixed" variable="$value">
+            <type by_reference="false">mixed</type>
+          </tag>
+          <tag line="135" name="return" description="TRUE on success, FALSE on failure." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+        <argument line="147">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="147">
+          <name>$value</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache" line="163" package="PEAR2\Cache\SHM">
+        <name>__isset</name>
+        <full_name>__isset</full_name>
+        <docblock line="152">
+          <description><![CDATA[Checks if a specified key is in the storage.]]></description>
+          <long-description><![CDATA[<p>This is a magic method, thanks to which any property you call isset() on
+will be checked by the adapter, treating the property name as the key
+of the value to check.</p>]]></long-description>
+          <tag line="152" name="param" description="Name of key to check." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="152" name="return" description="TRUE if the key is in the storage, FALSE otherwise." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+        <argument line="163">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache" line="179" package="PEAR2\Cache\SHM">
+        <name>__unset</name>
+        <full_name>__unset</full_name>
+        <docblock line="168">
+          <description><![CDATA[Deletes a value from the shared memory storage.]]></description>
+          <long-description><![CDATA[<p>This is a magic method, thanks to which any property you attempt to unset
+the value of will be unset by the adapter, treating the property name as
+the key of the value to delete.</p>]]></long-description>
+          <tag line="168" name="param" description="Name of key to delete." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="168" name="return" description="TRUE on success, FALSE on failure." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+        <argument line="179">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="true" static="false" visibility="public" namespace="PEAR2\Cache" line="193" package="PEAR2\Cache\SHM">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+        <docblock line="184">
+          <description><![CDATA[Creates a new shared memory storage.]]></description>
+          <long-description><![CDATA[<p>Estabilishes a separate persistent storage.</p>]]></long-description>
+          <tag line="184" name="param" description="The ID for the storage. The storage will be&#13;&#10;reused if it exists, or created if it doesn't exist. Data and locks are&#13;&#10;namespaced by this ID." type="string" variable="$persistentId">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="193">
+          <name>$persistentId</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="true" static="false" visibility="public" namespace="PEAR2\Cache" line="207" package="PEAR2\Cache\SHM">
+        <name>lock</name>
+        <full_name>lock</full_name>
+        <docblock line="195">
+          <description><![CDATA[Obtains a named lock.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="195" name="param" description="Name of the key to obtain. Note that $key may&#13;&#10;repeat for each distinct $persistentId." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="195" name="param" description="If the lock can't be immediatly obtained, the&#13;&#10;script will block for at most the specified amount of seconds. Setting&#13;&#10;this to 0 makes lock obtaining non blocking, and setting it to NULL makes&#13;&#10;it block without a time limit." type="double" variable="$timeout">
+            <type by_reference="false">double</type>
+          </tag>
+          <tag line="195" name="return" description="TRUE on success, FALSE on failure." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+        <argument line="207">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="207">
+          <name>$timeout</name>
+          <default><![CDATA[null]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="true" static="false" visibility="public" namespace="PEAR2\Cache" line="217" package="PEAR2\Cache\SHM">
+        <name>unlock</name>
+        <full_name>unlock</full_name>
+        <docblock line="209">
+          <description><![CDATA[Releases a named lock.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="209" name="param" description="Name of the key to release. Note that $key may&#13;&#10;repeat for each distinct $persistentId." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="209" name="return" description="TRUE on success, FALSE on failure." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+        <argument line="217">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="true" static="false" visibility="public" namespace="PEAR2\Cache" line="226" package="PEAR2\Cache\SHM">
+        <name>exists</name>
+        <full_name>exists</full_name>
+        <docblock line="219">
+          <description><![CDATA[Checks if a specified key is in the storage.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="219" name="param" description="Name of key to check." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="219" name="return" description="TRUE if the key is in the storage, FALSE otherwise." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+        <argument line="226">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="true" static="false" visibility="public" namespace="PEAR2\Cache" line="240" package="PEAR2\Cache\SHM">
+        <name>add</name>
+        <full_name>add</full_name>
+        <docblock line="228">
+          <description><![CDATA[Adds a value to the shared memory storage.]]></description>
+          <long-description><![CDATA[<p>Adds a value to the storage if it doesn't exist, or fails if it does.</p>]]></long-description>
+          <tag line="228" name="param" description="Name of key to associate the value with." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="228" name="param" description="Value for the specified key." type="mixed" variable="$value">
+            <type by_reference="false">mixed</type>
+          </tag>
+          <tag line="228" name="param" description="Seconds to store the value. If set to 0 indicates no&#13;&#10;time limit." type="int" variable="$ttl">
+            <type by_reference="false">int</type>
+          </tag>
+          <tag line="228" name="return" description="TRUE on success, FALSE on failure." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+        <argument line="240">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="240">
+          <name>$value</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="240">
+          <name>$ttl</name>
+          <default><![CDATA[0]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="true" static="false" visibility="public" namespace="PEAR2\Cache" line="254" package="PEAR2\Cache\SHM">
+        <name>set</name>
+        <full_name>set</full_name>
+        <docblock line="242">
+          <description><![CDATA[Sets a value in the shared memory storage.]]></description>
+          <long-description><![CDATA[<p>Adds a value to the storage if it doesn't exist, overwrites it otherwise.</p>]]></long-description>
+          <tag line="242" name="param" description="Name of key to associate the value with." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="242" name="param" description="Value for the specified key." type="mixed" variable="$value">
+            <type by_reference="false">mixed</type>
+          </tag>
+          <tag line="242" name="param" description="Seconds to store the value. If set to 0 indicates no&#13;&#10;time limit." type="int" variable="$ttl">
+            <type by_reference="false">int</type>
+          </tag>
+          <tag line="242" name="return" description="TRUE on success, FALSE on failure." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+        <argument line="254">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="254">
+          <name>$value</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="254">
+          <name>$ttl</name>
+          <default><![CDATA[0]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="true" static="false" visibility="public" namespace="PEAR2\Cache" line="265" package="PEAR2\Cache\SHM">
+        <name>get</name>
+        <full_name>get</full_name>
+        <docblock line="256">
+          <description><![CDATA[Gets a value from the shared memory storage.]]></description>
+          <long-description><![CDATA[<p>Gets the current value, or throws an exception if it's not stored.</p>]]></long-description>
+          <tag line="256" name="param" description="Name of key to get the value of." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="256" name="return" description="The current value of the specified key." type="mixed">
+            <type by_reference="false">mixed</type>
+          </tag>
+        </docblock>
+        <argument line="265">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="true" static="false" visibility="public" namespace="PEAR2\Cache" line="274" package="PEAR2\Cache\SHM">
+        <name>delete</name>
+        <full_name>delete</full_name>
+        <docblock line="267">
+          <description><![CDATA[Deletes a value from the shared memory storage.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="267" name="param" description="Name of key to delete." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="267" name="return" description="TRUE on success, FALSE on failure." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+        <argument line="274">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="true" static="false" visibility="public" namespace="PEAR2\Cache" line="288" package="PEAR2\Cache\SHM">
+        <name>inc</name>
+        <full_name>inc</full_name>
+        <docblock line="276">
+          <description><![CDATA[Increases a value from the shared memory storage.]]></description>
+          <long-description><![CDATA[<p>Increases a value from the shared memory storage. Unlike a plain
+set($key, get($key)+$step) combination, this function also implicitly
+performs locking.</p>]]></long-description>
+          <tag line="276" name="param" description="Name of key to increase." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="276" name="param" description="Value to increase the key by." type="int" variable="$step">
+            <type by_reference="false">int</type>
+          </tag>
+          <tag line="276" name="return" description="The new value." type="int">
+            <type by_reference="false">int</type>
+          </tag>
+        </docblock>
+        <argument line="288">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="288">
+          <name>$step</name>
+          <default><![CDATA[1]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="true" static="false" visibility="public" namespace="PEAR2\Cache" line="302" package="PEAR2\Cache\SHM">
+        <name>dec</name>
+        <full_name>dec</full_name>
+        <docblock line="290">
+          <description><![CDATA[Decreases a value from the shared memory storage.]]></description>
+          <long-description><![CDATA[<p>Decreases a value from the shared memory storage. Unlike a plain
+set($key, get($key)-$step) combination, this function also implicitly
+performs locking.</p>]]></long-description>
+          <tag line="290" name="param" description="Name of key to decrease." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="290" name="param" description="Value to decrease the key by." type="int" variable="$step">
+            <type by_reference="false">int</type>
+          </tag>
+          <tag line="290" name="return" description="The new value." type="int">
+            <type by_reference="false">int</type>
+          </tag>
+        </docblock>
+        <argument line="302">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="302">
+          <name>$step</name>
+          <default><![CDATA[1]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="true" static="false" visibility="public" namespace="PEAR2\Cache" line="316" package="PEAR2\Cache\SHM">
+        <name>cas</name>
+        <full_name>cas</full_name>
+        <docblock line="304">
+          <description><![CDATA[Sets a new value if a key has a certain value.]]></description>
+          <long-description><![CDATA[<p>Sets a new value if a key has a certain value. This function only works
+when $old and $new are longs.</p>]]></long-description>
+          <tag line="304" name="param" description="Key of the value to compare and set." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="304" name="param" description="The value to compare the key against." type="int" variable="$old">
+            <type by_reference="false">int</type>
+          </tag>
+          <tag line="304" name="param" description="The value to set the key to." type="int" variable="$new">
+            <type by_reference="false">int</type>
+          </tag>
+          <tag line="304" name="return" description="TRUE on success, FALSE on failure." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+        <argument line="316">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="316">
+          <name>$old</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="316">
+          <name>$new</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="true" static="false" visibility="public" namespace="PEAR2\Cache" line="326" package="PEAR2\Cache\SHM">
+        <name>clear</name>
+        <full_name>clear</full_name>
+        <docblock line="318">
+          <description><![CDATA[Clears the persistent storage.]]></description>
+          <long-description><![CDATA[<p>Clears the persistent storage, i.e. removes all keys. Locks are left
+intact.</p>]]></long-description>
+          <tag line="318" name="return" description="" type="void">
+            <type by_reference="false">void</type>
+          </tag>
+        </docblock>
+      </method>
+    </class>
+  </file>
+  <file path="SHM\Adapter\APC.php" hash="6f01e55ccfe61f18c7ae48bee0f9bca6" package="PEAR2\Cache\SHM">
+    <docblock line="3">
+      <description><![CDATA[Wrapper for shared memory and locking functionality across different extensions.]]></description>
+      <long-description><![CDATA[<p>Allows you to share data across requests as long as the PHP process is running. One of APC or WinCache is required to accomplish this, with other extensions being potentially pluggable as adapters.</p>
+
+<p>PHP version 5</p>]]></long-description>
+      <tag line="3" name="category" description="Cache"/>
+      <tag line="3" name="package" description="PEAR2_Cache_SHM"/>
+      <tag line="3" name="author" description="Vasil Rangelov &lt;boen.robot@gmail.com&gt;"/>
+      <tag line="3" name="copyright" description="2011 Vasil Rangelov"/>
+      <tag line="3" name="license" description="http://www.gnu.org/copyleft/lesser.html LGPL License 2.1"/>
+      <tag line="3" name="version" description="0.1.1"/>
+      <tag line="3" name="link" description="http://pear2.php.net/PEAR2_Cache_SHM" link="http://pear2.php.net/PEAR2_Cache_SHM"/>
+    </docblock>
+    <namespace-alias name="SHM">PEAR2\Cache\SHM</namespace-alias>
+    <class final="false" abstract="false" namespace="PEAR2\Cache\SHM\Adapter" line="38" package="PEAR2\Cache\SHM">
+      <extends>\PEAR2\Cache\SHM</extends>
+      <name>APC</name>
+      <full_name>\PEAR2\Cache\SHM\Adapter\APC</full_name>
+      <docblock line="29">
+        <description><![CDATA[Shared memory adapter for the APC extension.]]></description>
+        <long-description><![CDATA[]]></long-description>
+        <tag line="29" name="category" description="Cache"/>
+        <tag line="29" name="package" description="PEAR2_Cache_SHM"/>
+        <tag line="29" name="author" description="Vasil Rangelov &lt;boen.robot@gmail.com&gt;"/>
+        <tag line="29" name="license" description="http://www.gnu.org/copyleft/lesser.html LGPL License 2.1"/>
+        <tag line="29" name="link" description="http://pear2.php.net/PEAR2_Cache_SHM" link="http://pear2.php.net/PEAR2_Cache_SHM"/>
+      </docblock>
+      <property final="false" static="false" visibility="protected" line="43" namespace="PEAR2\Cache\SHM\Adapter" package="Default">
+        <name>$persistentId</name>
+        <default><![CDATA[]]></default>
+        <docblock line="40">
+          <description><![CDATA[]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="40" name="var" description="ID of the current storage." type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="true" visibility="protected" line="54" namespace="PEAR2\Cache\SHM\Adapter" package="Default">
+        <name>$requestInstances</name>
+        <default><![CDATA[array()]]></default>
+        <docblock line="45">
+          <description><![CDATA[List of persistent IDs.]]></description>
+          <long-description><![CDATA[<p>A list of persistent IDs within the current request (as keys) with an int
+(as a value) specifying the number of instances in the current request.
+Used as an attempt to ensure implicit lock releases even on errors in the
+critical sections, since APC doesn't have an actual locking function.</p>]]></long-description>
+          <tag line="45" name="var" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="true" visibility="protected" line="60" namespace="PEAR2\Cache\SHM\Adapter" package="Default">
+        <name>$locksBackup</name>
+        <default><![CDATA[array()]]></default>
+        <docblock line="56">
+          <description><![CDATA[]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="56" name="var" description="Array of lock names (as values) for each persistent ID (as key) obtained during the current request." type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="71" package="PEAR2\Cache\SHM">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+        <docblock line="62">
+          <description><![CDATA[Creates a new shared memory storage.]]></description>
+          <long-description><![CDATA[<p>Estabilishes a separate persistent storage.</p>]]></long-description>
+          <tag line="62" name="param" description="The ID for the storage. The storage will be&#13;&#10;reused if it exists, or created if it doesn't exist. Data and locks are&#13;&#10;namespaced by this ID." type="string" variable="$persistentId">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="71">
+          <name>$persistentId</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="90" package="PEAR2\Cache\SHM">
+        <name>isMeetingRequirements</name>
+        <full_name>isMeetingRequirements</full_name>
+        <docblock line="85">
+          <description><![CDATA[Checks if the adapter meets its requirements.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="85" name="return" description="TRUE on success, FALSE on failure." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="113" package="PEAR2\Cache\SHM">
+        <name>releaseLocks</name>
+        <full_name>releaseLocks</full_name>
+        <docblock line="96">
+          <description><![CDATA[Releases all locks in a storage.]]></description>
+          <long-description><![CDATA[<p>This function is not meant to be used directly. It is implicitly called
+by the the destructor and as a shutdown function when the request ends.
+One of these calls ends up releasing any unreleased locks obtained
+during the request. A lock is also implicitly released as soon as there
+are no objects left in the current request using the same persistent ID.</p>]]></long-description>
+          <tag line="96" name="param" description="The internal persistent ID, the locks&#13;&#10;of which are being released." type="string" variable="$internalPersistentId">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="96" name="param" description="Whether the function was executed at&#13;&#10;shutdown." type="bool" variable="$isAtShutdown">
+            <type by_reference="false">bool</type>
+          </tag>
+          <tag line="96" name="return" description="" type="void">
+            <type by_reference="false">void</type>
+          </tag>
+          <tag line="96" name="internal" description=""/>
+        </docblock>
+        <argument line="113">
+          <name>$internalPersistentId</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="113">
+          <name>$isAtShutdown</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="127" package="PEAR2\Cache\SHM">
+        <name>__destruct</name>
+        <full_name>__destruct</full_name>
+        <docblock line="123">
+          <description><![CDATA[Releases any locks obtained by this instance as soon as there are no more
+references to the object's persistent ID.]]></description>
+          <long-description><![CDATA[]]></long-description>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="146" package="PEAR2\Cache\SHM">
+        <name>lock</name>
+        <full_name>lock</full_name>
+        <docblock line="134">
+          <description><![CDATA[Obtains a named lock.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="134" name="param" description="Name of the key to obtain. Note that $key may&#13;&#10;repeat for each distinct $persistentId." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="134" name="param" description="If the lock can't be immediatly obtained, the&#13;&#10;script will block for at most the specified amount of seconds. Setting&#13;&#10;this to 0 makes lock obtaining non blocking, and setting it to NULL makes&#13;&#10;it block without a time limit." type="double" variable="$timeout">
+            <type by_reference="false">double</type>
+          </tag>
+          <tag line="134" name="return" description="TRUE on success, FALSE on failure." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+        <argument line="146">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="146">
+          <name>$timeout</name>
+          <default><![CDATA[null]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="168" package="PEAR2\Cache\SHM">
+        <name>unlock</name>
+        <full_name>unlock</full_name>
+        <docblock line="160">
+          <description><![CDATA[Releases a named lock.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="160" name="param" description="Name of the key to release. Note that $key may&#13;&#10;repeat for each distinct $persistentId." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="160" name="return" description="TRUE on success, FALSE on failure." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+        <argument line="168">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="188" package="PEAR2\Cache\SHM">
+        <name>exists</name>
+        <full_name>exists</full_name>
+        <docblock line="181">
+          <description><![CDATA[Checks if a specified key is in the storage.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="181" name="param" description="Name of key to check." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="181" name="return" description="TRUE if the key is in the storage, FALSE otherwise." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+        <argument line="188">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="205" package="PEAR2\Cache\SHM">
+        <name>add</name>
+        <full_name>add</full_name>
+        <docblock line="193">
+          <description><![CDATA[Adds a value to the shared memory storage.]]></description>
+          <long-description><![CDATA[<p>Adds a value to the storage if it doesn't exist, or fails if it does.</p>]]></long-description>
+          <tag line="193" name="param" description="Name of key to associate the value with." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="193" name="param" description="Value for the specified key." type="mixed" variable="$value">
+            <type by_reference="false">mixed</type>
+          </tag>
+          <tag line="193" name="param" description="Seconds to store the value. If set to 0 indicates no&#13;&#10;time limit." type="int" variable="$ttl">
+            <type by_reference="false">int</type>
+          </tag>
+          <tag line="193" name="return" description="TRUE on success, FALSE on failure." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+        <argument line="205">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="205">
+          <name>$value</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="205">
+          <name>$ttl</name>
+          <default><![CDATA[0]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="222" package="PEAR2\Cache\SHM">
+        <name>set</name>
+        <full_name>set</full_name>
+        <docblock line="210">
+          <description><![CDATA[Sets a value in the shared memory storage.]]></description>
+          <long-description><![CDATA[<p>Adds a value to the storage if it doesn't exist, overwrites it otherwise.</p>]]></long-description>
+          <tag line="210" name="param" description="Name of key to associate the value with." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="210" name="param" description="Value for the specified key." type="mixed" variable="$value">
+            <type by_reference="false">mixed</type>
+          </tag>
+          <tag line="210" name="param" description="Seconds to store the value. If set to 0 indicates no&#13;&#10;time limit." type="int" variable="$ttl">
+            <type by_reference="false">int</type>
+          </tag>
+          <tag line="210" name="return" description="TRUE on success, FALSE on failure." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+        <argument line="222">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="222">
+          <name>$value</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="222">
+          <name>$ttl</name>
+          <default><![CDATA[0]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="236" package="PEAR2\Cache\SHM">
+        <name>get</name>
+        <full_name>get</full_name>
+        <docblock line="227">
+          <description><![CDATA[Gets a value from the shared memory storage.]]></description>
+          <long-description><![CDATA[<p>Gets the current value, or throws an exception if it's not stored.</p>]]></long-description>
+          <tag line="227" name="param" description="Name of key to get the value of." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="227" name="return" description="The current value of the specified key." type="mixed">
+            <type by_reference="false">mixed</type>
+          </tag>
+        </docblock>
+        <argument line="236">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="260" package="PEAR2\Cache\SHM">
+        <name>delete</name>
+        <full_name>delete</full_name>
+        <docblock line="253">
+          <description><![CDATA[Deletes a value from the shared memory storage.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="253" name="param" description="Name of key to delete." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="253" name="return" description="TRUE on success, FALSE on failure." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+        <argument line="260">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="277" package="PEAR2\Cache\SHM">
+        <name>inc</name>
+        <full_name>inc</full_name>
+        <docblock line="265">
+          <description><![CDATA[Increases a value from the shared memory storage.]]></description>
+          <long-description><![CDATA[<p>Increases a value from the shared memory storage. Unlike a plain
+set($key, get($key)+$step) combination, this function also implicitly
+performs locking.</p>]]></long-description>
+          <tag line="265" name="param" description="Name of key to increase." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="265" name="param" description="Value to increase the key by." type="int" variable="$step">
+            <type by_reference="false">int</type>
+          </tag>
+          <tag line="265" name="return" description="The new value." type="int">
+            <type by_reference="false">int</type>
+          </tag>
+        </docblock>
+        <argument line="277">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="277">
+          <name>$step</name>
+          <default><![CDATA[1]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="303" package="PEAR2\Cache\SHM">
+        <name>dec</name>
+        <full_name>dec</full_name>
+        <docblock line="291">
+          <description><![CDATA[Decreases a value from the shared memory storage.]]></description>
+          <long-description><![CDATA[<p>Decreases a value from the shared memory storage. Unlike a plain
+set($key, get($key)-$step) combination, this function also implicitly
+performs locking.</p>]]></long-description>
+          <tag line="291" name="param" description="Name of key to decrease." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="291" name="param" description="Value to decrease the key by." type="int" variable="$step">
+            <type by_reference="false">int</type>
+          </tag>
+          <tag line="291" name="return" description="The new value." type="int">
+            <type by_reference="false">int</type>
+          </tag>
+        </docblock>
+        <argument line="303">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="303">
+          <name>$step</name>
+          <default><![CDATA[1]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="329" package="PEAR2\Cache\SHM">
+        <name>cas</name>
+        <full_name>cas</full_name>
+        <docblock line="317">
+          <description><![CDATA[Sets a new value if a key has a certain value.]]></description>
+          <long-description><![CDATA[<p>Sets a new value if a key has a certain value. This function only works
+when $old and $new are longs.</p>]]></long-description>
+          <tag line="317" name="param" description="Key of the value to compare and set." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="317" name="param" description="The value to compare the key against." type="int" variable="$old">
+            <type by_reference="false">int</type>
+          </tag>
+          <tag line="317" name="param" description="The value to set the key to." type="int" variable="$new">
+            <type by_reference="false">int</type>
+          </tag>
+          <tag line="317" name="return" description="TRUE on success, FALSE on failure." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+        <argument line="329">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="329">
+          <name>$old</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="329">
+          <name>$new</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="342" package="PEAR2\Cache\SHM">
+        <name>clear</name>
+        <full_name>clear</full_name>
+        <docblock line="334">
+          <description><![CDATA[Clears the persistent storage.]]></description>
+          <long-description><![CDATA[<p>Clears the persistent storage, i.e. removes all keys. Locks are left
+intact.</p>]]></long-description>
+          <tag line="334" name="return" description="" type="void">
+            <type by_reference="false">void</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="370" package="PEAR2\Cache\SHM">
+        <name>getIterator</name>
+        <full_name>getIterator</full_name>
+        <docblock line="355">
+          <description><![CDATA[Retrieve an external iterator]]></description>
+          <long-description><![CDATA[<p>Returns an external iterator.</p>]]></long-description>
+          <tag line="355" name="param" description="A PCRE regular expression. Only matching keys&#13;&#10;will be iterated over. Setting this to NULL matches all keys of this&#13;&#10;instance." type="string" variable="$filter">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="355" name="param" description="Whether to return only the keys, or return both&#13;&#10;the keys and values." type="bool" variable="$keysOnly">
+            <type by_reference="false">bool</type>
+          </tag>
+          <tag line="355" name="return" description="An array with all matching keys as array keys, and values as array values. If $keysOnly is TRUE, the array keys are numeric, and the array values are key names." type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+        <argument line="370">
+          <name>$filter</name>
+          <default><![CDATA[null]]></default>
+          <type/>
+        </argument>
+        <argument line="370">
+          <name>$keysOnly</name>
+          <default><![CDATA[false]]></default>
+          <type/>
+        </argument>
+      </method>
+    </class>
+  </file>
+  <file path="SHM\Adapter\Placebo.php" hash="a248b0b37223c9f940d3e1488235d120" package="PEAR2\Cache\SHM">
+    <docblock line="3">
+      <description><![CDATA[Wrapper for shared memory and locking functionality across different extensions.]]></description>
+      <long-description><![CDATA[<p>Allows you to share data across requests as long as the PHP process is running. One of APC or WinCache is required to accomplish this, with other extensions being potentially pluggable as adapters.</p>
+
+<p>PHP version 5</p>]]></long-description>
+      <tag line="3" name="category" description="Cache"/>
+      <tag line="3" name="package" description="PEAR2_Cache_SHM"/>
+      <tag line="3" name="author" description="Vasil Rangelov &lt;boen.robot@gmail.com&gt;"/>
+      <tag line="3" name="copyright" description="2011 Vasil Rangelov"/>
+      <tag line="3" name="license" description="http://www.gnu.org/copyleft/lesser.html LGPL License 2.1"/>
+      <tag line="3" name="version" description="0.1.1"/>
+      <tag line="3" name="link" description="http://pear2.php.net/PEAR2_Cache_SHM" link="http://pear2.php.net/PEAR2_Cache_SHM"/>
+    </docblock>
+    <namespace-alias name="SHM">PEAR2\Cache\SHM</namespace-alias>
+    <class final="false" abstract="false" namespace="PEAR2\Cache\SHM\Adapter" line="40" package="PEAR2\Cache\SHM">
+      <extends>\PEAR2\Cache\SHM</extends>
+      <name>Placebo</name>
+      <full_name>\PEAR2\Cache\SHM\Adapter\Placebo</full_name>
+      <docblock line="29">
+        <description><![CDATA[This adapter is not truly persistent.]]></description>
+        <long-description><![CDATA[<p>It is intended to emulate persistency
+in non persistent environments, so that upper level applications can use a
+single code path for persistent and non persistent code.</p>]]></long-description>
+        <tag line="29" name="category" description="Cache"/>
+        <tag line="29" name="package" description="PEAR2_Cache_SHM"/>
+        <tag line="29" name="author" description="Vasil Rangelov &lt;boen.robot@gmail.com&gt;"/>
+        <tag line="29" name="license" description="http://www.gnu.org/copyleft/lesser.html LGPL License 2.1"/>
+        <tag line="29" name="link" description="http://pear2.php.net/PEAR2_Cache_SHM" link="http://pear2.php.net/PEAR2_Cache_SHM"/>
+      </docblock>
+      <property final="false" static="false" visibility="protected" line="45" namespace="PEAR2\Cache\SHM\Adapter" package="Default">
+        <name>$persistentId</name>
+        <default><![CDATA[]]></default>
+        <docblock line="42">
+          <description><![CDATA[]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="42" name="var" description="ID of the current storage." type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="true" visibility="protected" line="55" namespace="PEAR2\Cache\SHM\Adapter" package="Default">
+        <name>$requestInstances</name>
+        <default><![CDATA[array()]]></default>
+        <docblock line="47">
+          <description><![CDATA[List of persistent IDs.]]></description>
+          <long-description><![CDATA[<p>A list of persistent IDs within the current request (as keys) with an int
+(as a value) specifying the number of instances in the current request.
+Used as an attempt to ensure implicit lock releases on destruction.</p>]]></long-description>
+          <tag line="47" name="var" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="true" visibility="protected" line="61" namespace="PEAR2\Cache\SHM\Adapter" package="Default">
+        <name>$locksBackup</name>
+        <default><![CDATA[array()]]></default>
+        <docblock line="57">
+          <description><![CDATA[]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="57" name="var" description="Array of lock names (as values) for each persistent ID (as key) obtained during the current request." type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="true" visibility="protected" line="72" namespace="PEAR2\Cache\SHM\Adapter" package="Default">
+        <name>$data</name>
+        <default><![CDATA[array()]]></default>
+        <docblock line="63">
+          <description><![CDATA[The data storage.]]></description>
+          <long-description><![CDATA[<p>Each persistent ID is a key, and the value is an array.
+Each such array has data keys as its keys, and an array as a value.
+Each such array has as its elements the value, the timeout and the time
+the data was set.</p>]]></long-description>
+          <tag line="63" name="var" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="83" package="PEAR2\Cache\SHM">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+        <docblock line="74">
+          <description><![CDATA[Creates a new shared memory storage.]]></description>
+          <long-description><![CDATA[<p>Estabilishes a separate persistent storage.</p>]]></long-description>
+          <tag line="74" name="param" description="The ID for the storage. The storage will be&#13;&#10;reused if it exists, or created if it doesn't exist. Data and locks are&#13;&#10;namespaced by this ID." type="string" variable="$persistentId">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="83">
+          <name>$persistentId</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="98" package="PEAR2\Cache\SHM">
+        <name>__destruct</name>
+        <full_name>__destruct</full_name>
+        <docblock line="95">
+          <description><![CDATA[Releases any unreleased locks.]]></description>
+          <long-description><![CDATA[]]></long-description>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="110" package="PEAR2\Cache\SHM">
+        <name>isMeetingRequirements</name>
+        <full_name>isMeetingRequirements</full_name>
+        <docblock line="105">
+          <description><![CDATA[Checks if the adapter meets its requirements.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="105" name="return" description="TRUE on success, FALSE on failure." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="123" package="PEAR2\Cache\SHM">
+        <name>lock</name>
+        <full_name>lock</full_name>
+        <docblock line="115">
+          <description><![CDATA[Pretends to obtain a lock.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="115" name="param" description="Ignored." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="115" name="param" description="Ignored." type="double" variable="$timeout">
+            <type by_reference="false">double</type>
+          </tag>
+          <tag line="115" name="return" description="TRUE on success, FALSE on failure." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+        <argument line="123">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="123">
+          <name>$timeout</name>
+          <default><![CDATA[null]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="140" package="PEAR2\Cache\SHM">
+        <name>unlock</name>
+        <full_name>unlock</full_name>
+        <docblock line="133">
+          <description><![CDATA[Pretends to release a lock.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="133" name="param" description="Ignored" type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="133" name="return" description="TRUE on success, FALSE on failure." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+        <argument line="140">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="159" package="PEAR2\Cache\SHM">
+        <name>exists</name>
+        <full_name>exists</full_name>
+        <docblock line="152">
+          <description><![CDATA[Checks if a specified key is in the storage.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="152" name="param" description="Name of key to check." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="152" name="return" description="TRUE if the key is in the storage, FALSE otherwise." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+        <argument line="159">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="176" package="PEAR2\Cache\SHM">
+        <name>add</name>
+        <full_name>add</full_name>
+        <docblock line="164">
+          <description><![CDATA[Adds a value to the shared memory storage.]]></description>
+          <long-description><![CDATA[<p>Adds a value to the storage if it doesn't exist, or fails if it does.</p>]]></long-description>
+          <tag line="164" name="param" description="Name of key to associate the value with." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="164" name="param" description="Value for the specified key." type="mixed" variable="$value">
+            <type by_reference="false">mixed</type>
+          </tag>
+          <tag line="164" name="param" description="Because &quot;true&quot; adapters purge the cache at the next&#13;&#10;request, this setting is ignored." type="int" variable="$ttl">
+            <type by_reference="false">int</type>
+          </tag>
+          <tag line="164" name="return" description="TRUE on success, FALSE on failure." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+        <argument line="176">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="176">
+          <name>$value</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="176">
+          <name>$ttl</name>
+          <default><![CDATA[0]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="196" package="PEAR2\Cache\SHM">
+        <name>set</name>
+        <full_name>set</full_name>
+        <docblock line="184">
+          <description><![CDATA[Sets a value in the shared memory storage.]]></description>
+          <long-description><![CDATA[<p>Adds a value to the storage if it doesn't exist, overwrites it otherwise.</p>]]></long-description>
+          <tag line="184" name="param" description="Name of key to associate the value with." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="184" name="param" description="Value for the specified key." type="mixed" variable="$value">
+            <type by_reference="false">mixed</type>
+          </tag>
+          <tag line="184" name="param" description="Because &quot;true&quot; adapters purge the cache at the next&#13;&#10;request, this setting is ignored." type="int" variable="$ttl">
+            <type by_reference="false">int</type>
+          </tag>
+          <tag line="184" name="return" description="TRUE on success, FALSE on failure." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+        <argument line="196">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="196">
+          <name>$value</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="196">
+          <name>$ttl</name>
+          <default><![CDATA[0]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="211" package="PEAR2\Cache\SHM">
+        <name>get</name>
+        <full_name>get</full_name>
+        <docblock line="202">
+          <description><![CDATA[Gets a value from the shared memory storage.]]></description>
+          <long-description><![CDATA[<p>Gets the current value, or throws an exception if it's not stored.</p>]]></long-description>
+          <tag line="202" name="param" description="Name of key to get the value of." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="202" name="return" description="The current value of the specified key." type="mixed">
+            <type by_reference="false">mixed</type>
+          </tag>
+        </docblock>
+        <argument line="211">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="228" package="PEAR2\Cache\SHM">
+        <name>delete</name>
+        <full_name>delete</full_name>
+        <docblock line="221">
+          <description><![CDATA[Deletes a value from the shared memory storage.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="221" name="param" description="Name of key to delete." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="221" name="return" description="TRUE on success, FALSE on failure." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+        <argument line="228">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="249" package="PEAR2\Cache\SHM">
+        <name>inc</name>
+        <full_name>inc</full_name>
+        <docblock line="237">
+          <description><![CDATA[Increases a value from the shared memory storage.]]></description>
+          <long-description><![CDATA[<p>Increases a value from the shared memory storage. Unlike a plain
+set($key, get($key)+$step) combination, this function also implicitly
+performs locking.</p>]]></long-description>
+          <tag line="237" name="param" description="Name of key to increase." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="237" name="param" description="Value to increase the key by." type="int" variable="$step">
+            <type by_reference="false">int</type>
+          </tag>
+          <tag line="237" name="return" description="The new value." type="int">
+            <type by_reference="false">int</type>
+          </tag>
+        </docblock>
+        <argument line="249">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="249">
+          <name>$step</name>
+          <default><![CDATA[1]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="274" package="PEAR2\Cache\SHM">
+        <name>dec</name>
+        <full_name>dec</full_name>
+        <docblock line="262">
+          <description><![CDATA[Decreases a value from the shared memory storage.]]></description>
+          <long-description><![CDATA[<p>Decreases a value from the shared memory storage. Unlike a plain
+set($key, get($key)-$step) combination, this function also implicitly
+performs locking.</p>]]></long-description>
+          <tag line="262" name="param" description="Name of key to decrease." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="262" name="param" description="Value to decrease the key by." type="int" variable="$step">
+            <type by_reference="false">int</type>
+          </tag>
+          <tag line="262" name="return" description="The new value." type="int">
+            <type by_reference="false">int</type>
+          </tag>
+        </docblock>
+        <argument line="274">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="274">
+          <name>$step</name>
+          <default><![CDATA[1]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="299" package="PEAR2\Cache\SHM">
+        <name>cas</name>
+        <full_name>cas</full_name>
+        <docblock line="287">
+          <description><![CDATA[Sets a new value if a key has a certain value.]]></description>
+          <long-description><![CDATA[<p>Sets a new value if a key has a certain value. This function only works
+when $old and $new are longs.</p>]]></long-description>
+          <tag line="287" name="param" description="Key of the value to compare and set." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="287" name="param" description="The value to compare the key against." type="int" variable="$old">
+            <type by_reference="false">int</type>
+          </tag>
+          <tag line="287" name="param" description="The value to set the key to." type="int" variable="$new">
+            <type by_reference="false">int</type>
+          </tag>
+          <tag line="287" name="return" description="TRUE on success, FALSE on failure." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+        <argument line="299">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="299">
+          <name>$old</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="299">
+          <name>$new</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="313" package="PEAR2\Cache\SHM">
+        <name>clear</name>
+        <full_name>clear</full_name>
+        <docblock line="305">
+          <description><![CDATA[Clears the persistent storage.]]></description>
+          <long-description><![CDATA[<p>Clears the persistent storage, i.e. removes all keys. Locks are left
+intact.</p>]]></long-description>
+          <tag line="305" name="return" description="" type="void">
+            <type by_reference="false">void</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="333" package="PEAR2\Cache\SHM">
+        <name>getIterator</name>
+        <full_name>getIterator</full_name>
+        <docblock line="318">
+          <description><![CDATA[Retrieve an external iterator]]></description>
+          <long-description><![CDATA[<p>Returns an external iterator.</p>]]></long-description>
+          <tag line="318" name="param" description="A PCRE regular expression. Only matching keys&#13;&#10;will be iterated over. Setting this to NULL matches all keys of this&#13;&#10;instance." type="string" variable="$filter">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="318" name="param" description="Whether to return only the keys, or return both&#13;&#10;the keys and values." type="bool" variable="$keysOnly">
+            <type by_reference="false">bool</type>
+          </tag>
+          <tag line="318" name="return" description="An array with all matching keys as array keys, and values as array values. If $keysOnly is TRUE, the array keys are numeric, and the array values are key names." type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+        <argument line="333">
+          <name>$filter</name>
+          <default><![CDATA[null]]></default>
+          <type/>
+        </argument>
+        <argument line="333">
+          <name>$keysOnly</name>
+          <default><![CDATA[false]]></default>
+          <type/>
+        </argument>
+      </method>
+    </class>
+  </file>
+  <file path="SHM\Adapter\Wincache.php" hash="9da3b35ccf800db1506703c410829bbe" package="PEAR2\Cache\SHM">
+    <docblock line="3">
+      <description><![CDATA[Wrapper for shared memory and locking functionality across different extensions.]]></description>
+      <long-description><![CDATA[<p>Allows you to share data across requests as long as the PHP process is running. One of APC or WinCache is required to accomplish this, with other extensions being potentially pluggable as adapters.</p>
+
+<p>PHP version 5</p>]]></long-description>
+      <tag line="3" name="category" description="Cache"/>
+      <tag line="3" name="package" description="PEAR2_Cache_SHM"/>
+      <tag line="3" name="author" description="Vasil Rangelov &lt;boen.robot@gmail.com&gt;"/>
+      <tag line="3" name="copyright" description="2011 Vasil Rangelov"/>
+      <tag line="3" name="license" description="http://www.gnu.org/copyleft/lesser.html LGPL License 2.1"/>
+      <tag line="3" name="version" description="0.1.1"/>
+      <tag line="3" name="link" description="http://pear2.php.net/PEAR2_Cache_SHM" link="http://pear2.php.net/PEAR2_Cache_SHM"/>
+    </docblock>
+    <namespace-alias name="SHM">PEAR2\Cache\SHM</namespace-alias>
+    <class final="false" abstract="false" namespace="PEAR2\Cache\SHM\Adapter" line="38" package="PEAR2\Cache\SHM">
+      <extends>\PEAR2\Cache\SHM</extends>
+      <name>Wincache</name>
+      <full_name>\PEAR2\Cache\SHM\Adapter\Wincache</full_name>
+      <docblock line="29">
+        <description><![CDATA[Shared memory adapter for the WinCache extension.]]></description>
+        <long-description><![CDATA[]]></long-description>
+        <tag line="29" name="category" description="Cache"/>
+        <tag line="29" name="package" description="PEAR2_Cache_SHM"/>
+        <tag line="29" name="author" description="Vasil Rangelov &lt;boen.robot@gmail.com&gt;"/>
+        <tag line="29" name="license" description="http://www.gnu.org/copyleft/lesser.html LGPL License 2.1"/>
+        <tag line="29" name="link" description="http://pear2.php.net/PEAR2_Cache_SHM" link="http://pear2.php.net/PEAR2_Cache_SHM"/>
+      </docblock>
+      <property final="false" static="false" visibility="protected" line="43" namespace="PEAR2\Cache\SHM\Adapter" package="Default">
+        <name>$persistentId</name>
+        <default><![CDATA[]]></default>
+        <docblock line="40">
+          <description><![CDATA[]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="40" name="var" description="ID of the current storage." type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="true" visibility="protected" line="53" namespace="PEAR2\Cache\SHM\Adapter" package="Default">
+        <name>$requestInstances</name>
+        <default><![CDATA[array()]]></default>
+        <docblock line="45">
+          <description><![CDATA[List of persistent IDs.]]></description>
+          <long-description><![CDATA[<p>A list of persistent IDs within the current request (as keys) with an int
+(as a value) specifying the number of instances in the current request.
+Used as an attempt to ensure implicit lock releases on destruction.</p>]]></long-description>
+          <tag line="45" name="var" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="true" visibility="protected" line="58" namespace="PEAR2\Cache\SHM\Adapter" package="Default">
+        <name>$locksBackup</name>
+        <default><![CDATA[array()]]></default>
+        <docblock line="55">
+          <description><![CDATA[]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="55" name="var" description="Array of lock names obtained during the current request." type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="69" package="PEAR2\Cache\SHM">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+        <docblock line="60">
+          <description><![CDATA[Creates a new shared memory storage.]]></description>
+          <long-description><![CDATA[<p>Estabilishes a separate persistent storage.</p>]]></long-description>
+          <tag line="60" name="param" description="The ID for the storage. The storage will be&#13;&#10;reused if it exists, or created if it doesn't exist. Data and locks are&#13;&#10;namespaced by this ID." type="string" variable="$persistentId">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="69">
+          <name>$persistentId</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="protected" namespace="PEAR2\Cache\SHM\Adapter" line="94" package="PEAR2\Cache\SHM">
+        <name>encodeLockName</name>
+        <full_name>encodeLockName</full_name>
+        <docblock line="81">
+          <description><![CDATA[Encodes a lock name]]></description>
+          <long-description><![CDATA[<p>Encodes a lock name, so that it can be properly obtained. The scheme used
+is a subset of URL encoding, with only the "%" and "\" characters being
+escaped. The encoding itself is necessary, since lock names can't contain
+the "\" character.</p>]]></long-description>
+          <tag line="81" name="param" description="The lock name to encode." type="string" variable="$name">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="81" name="return" description="The encoded name." type="string">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="81" name="link" description="http://msdn.microsoft.com/en-us/library/ms682411(VS.85).aspx" link="http://msdn.microsoft.com/en-us/library/ms682411(VS.85).aspx"/>
+        </docblock>
+        <argument line="94">
+          <name>$name</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="104" package="PEAR2\Cache\SHM">
+        <name>isMeetingRequirements</name>
+        <full_name>isMeetingRequirements</full_name>
+        <docblock line="99">
+          <description><![CDATA[Checks if the adapter meets its requirements.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="99" name="return" description="TRUE on success, FALSE on failure." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="114" package="PEAR2\Cache\SHM">
+        <name>__destruct</name>
+        <full_name>__destruct</full_name>
+        <docblock line="110">
+          <description><![CDATA[Releases any locks obtained by this instance as soon as there are no more
+references to the object's persistent ID.]]></description>
+          <long-description><![CDATA[]]></long-description>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="136" package="PEAR2\Cache\SHM">
+        <name>lock</name>
+        <full_name>lock</full_name>
+        <docblock line="126">
+          <description><![CDATA[Obtains a named lock.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="126" name="param" description="Name of the key to obtain. Note that $key may&#13;&#10;repeat for each distinct $persistentId." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="126" name="param" description="Ignored with WinCache. Script will always block if&#13;&#10;the lock can't be immediatly obtained." type="double" variable="$timeout">
+            <type by_reference="false">double</type>
+          </tag>
+          <tag line="126" name="return" description="TRUE on success, FALSE on failure." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+        <argument line="136">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="136">
+          <name>$timeout</name>
+          <default><![CDATA[null]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="155" package="PEAR2\Cache\SHM">
+        <name>unlock</name>
+        <full_name>unlock</full_name>
+        <docblock line="147">
+          <description><![CDATA[Releases a named lock.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="147" name="param" description="Name of the key to release. Note that $key may&#13;&#10;repeat for each distinct $persistentId." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="147" name="return" description="TRUE on success, FALSE on failure." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+        <argument line="155">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="175" package="PEAR2\Cache\SHM">
+        <name>exists</name>
+        <full_name>exists</full_name>
+        <docblock line="168">
+          <description><![CDATA[Checks if a specified key is in the storage.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="168" name="param" description="Name of key to check." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="168" name="return" description="TRUE if the key is in the storage, FALSE otherwise." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+        <argument line="175">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="192" package="PEAR2\Cache\SHM">
+        <name>add</name>
+        <full_name>add</full_name>
+        <docblock line="180">
+          <description><![CDATA[Adds a value to the shared memory storage.]]></description>
+          <long-description><![CDATA[<p>Sets a value to the storage if it doesn't exist, or fails if it does.</p>]]></long-description>
+          <tag line="180" name="param" description="Name of key to associate the value with." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="180" name="param" description="Value for the specified key." type="mixed" variable="$value">
+            <type by_reference="false">mixed</type>
+          </tag>
+          <tag line="180" name="param" description="Seconds to store the value. If set to 0 indicates no&#13;&#10;time limit." type="int" variable="$ttl">
+            <type by_reference="false">int</type>
+          </tag>
+          <tag line="180" name="return" description="TRUE on success, FALSE on failure." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+        <argument line="192">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="192">
+          <name>$value</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="192">
+          <name>$ttl</name>
+          <default><![CDATA[0]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="209" package="PEAR2\Cache\SHM">
+        <name>set</name>
+        <full_name>set</full_name>
+        <docblock line="197">
+          <description><![CDATA[Sets a value in the shared memory storage.]]></description>
+          <long-description><![CDATA[<p>Adds a value to the storage if it doesn't exist, overwrites it otherwise.</p>]]></long-description>
+          <tag line="197" name="param" description="Name of key to associate the value with." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="197" name="param" description="Value for the specified key." type="mixed" variable="$value">
+            <type by_reference="false">mixed</type>
+          </tag>
+          <tag line="197" name="param" description="Seconds to store the value. If set to 0 indicates no&#13;&#10;time limit." type="int" variable="$ttl">
+            <type by_reference="false">int</type>
+          </tag>
+          <tag line="197" name="return" description="TRUE on success, FALSE on failure." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+        <argument line="209">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="209">
+          <name>$value</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="209">
+          <name>$ttl</name>
+          <default><![CDATA[0]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="223" package="PEAR2\Cache\SHM">
+        <name>get</name>
+        <full_name>get</full_name>
+        <docblock line="214">
+          <description><![CDATA[Gets a value from the shared memory storage.]]></description>
+          <long-description><![CDATA[<p>Gets the current value, or throws an exception if it's not stored.</p>]]></long-description>
+          <tag line="214" name="param" description="Name of key to get the value of." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="214" name="return" description="The current value of the specified key." type="mixed">
+            <type by_reference="false">mixed</type>
+          </tag>
+        </docblock>
+        <argument line="223">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="241" package="PEAR2\Cache\SHM">
+        <name>delete</name>
+        <full_name>delete</full_name>
+        <docblock line="234">
+          <description><![CDATA[Deletes a value from the shared memory storage.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="234" name="param" description="Name of key to delete." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="234" name="return" description="TRUE on success, FALSE on failure." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+        <argument line="241">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="258" package="PEAR2\Cache\SHM">
+        <name>inc</name>
+        <full_name>inc</full_name>
+        <docblock line="246">
+          <description><![CDATA[Increases a value from the shared memory storage.]]></description>
+          <long-description><![CDATA[<p>Increases a value from the shared memory storage. Unlike a plain
+set($key, get($key)+$step) combination, this function also implicitly
+performs locking.</p>]]></long-description>
+          <tag line="246" name="param" description="Name of key to increase." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="246" name="param" description="Value to increase the key by." type="int" variable="$step">
+            <type by_reference="false">int</type>
+          </tag>
+          <tag line="246" name="return" description="The new value." type="int">
+            <type by_reference="false">int</type>
+          </tag>
+        </docblock>
+        <argument line="258">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="258">
+          <name>$step</name>
+          <default><![CDATA[1]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="284" package="PEAR2\Cache\SHM">
+        <name>dec</name>
+        <full_name>dec</full_name>
+        <docblock line="272">
+          <description><![CDATA[Decreases a value from the shared memory storage.]]></description>
+          <long-description><![CDATA[<p>Decreases a value from the shared memory storage. Unlike a plain
+set($key, get($key)-$step) combination, this function also implicitly
+performs locking.</p>]]></long-description>
+          <tag line="272" name="param" description="Name of key to decrease." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="272" name="param" description="Value to decrease the key by." type="int" variable="$step">
+            <type by_reference="false">int</type>
+          </tag>
+          <tag line="272" name="return" description="The new value." type="int">
+            <type by_reference="false">int</type>
+          </tag>
+        </docblock>
+        <argument line="284">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="284">
+          <name>$step</name>
+          <default><![CDATA[1]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="310" package="PEAR2\Cache\SHM">
+        <name>cas</name>
+        <full_name>cas</full_name>
+        <docblock line="298">
+          <description><![CDATA[Sets a new value if a key has a certain value.]]></description>
+          <long-description><![CDATA[<p>Sets a new value if a key has a certain value. This function only works
+when $old and $new are longs.</p>]]></long-description>
+          <tag line="298" name="param" description="Key of the value to compare and set." type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="298" name="param" description="The value to compare the key against." type="int" variable="$old">
+            <type by_reference="false">int</type>
+          </tag>
+          <tag line="298" name="param" description="The value to set the key to." type="int" variable="$new">
+            <type by_reference="false">int</type>
+          </tag>
+          <tag line="298" name="return" description="TRUE on success, FALSE on failure." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+        <argument line="310">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="310">
+          <name>$old</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="310">
+          <name>$new</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="323" package="PEAR2\Cache\SHM">
+        <name>clear</name>
+        <full_name>clear</full_name>
+        <docblock line="315">
+          <description><![CDATA[Clears the persistent storage.]]></description>
+          <long-description><![CDATA[<p>Clears the persistent storage, i.e. removes all keys. Locks are left
+intact.</p>]]></long-description>
+          <tag line="315" name="return" description="" type="void">
+            <type by_reference="false">void</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="350" package="PEAR2\Cache\SHM">
+        <name>getIterator</name>
+        <full_name>getIterator</full_name>
+        <docblock line="335">
+          <description><![CDATA[Retrieve an external iterator]]></description>
+          <long-description><![CDATA[<p>Returns an external iterator.</p>]]></long-description>
+          <tag line="335" name="param" description="A PCRE regular expression. Only matching keys&#13;&#10;will be iterated over. Setting this to NULL matches all keys of this&#13;&#10;instance." type="string" variable="$filter">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="335" name="param" description="Whether to return only the keys, or return both&#13;&#10;the keys and values." type="bool" variable="$keysOnly">
+            <type by_reference="false">bool</type>
+          </tag>
+          <tag line="335" name="return" description="An array with all matching keys as array keys, and values as array values. If $keysOnly is TRUE, the array keys are numeric, and the array values are key names." type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+        <argument line="350">
+          <name>$filter</name>
+          <default><![CDATA[null]]></default>
+          <type/>
+        </argument>
+        <argument line="350">
+          <name>$keysOnly</name>
+          <default><![CDATA[false]]></default>
+          <type/>
+        </argument>
+      </method>
+    </class>
+  </file>
+  <file path="SHM\Exception.php" hash="153d88e9fab47a4aefc6ef4d6e66a76c" package="PEAR2\Cache\SHM">
+    <docblock line="3">
+      <description><![CDATA[Wrapper for shared memory and locking functionality across different extensions.]]></description>
+      <long-description><![CDATA[<p>Allows you to share data across requests as long as the PHP process is running. One of APC or WinCache is required to accomplish this, with other extensions being potentially pluggable as adapters.</p>
+
+<p>PHP version 5</p>]]></long-description>
+      <tag line="3" name="category" description="Cache"/>
+      <tag line="3" name="package" description="PEAR2_Cache_SHM"/>
+      <tag line="3" name="author" description="Vasil Rangelov &lt;boen.robot@gmail.com&gt;"/>
+      <tag line="3" name="copyright" description="2011 Vasil Rangelov"/>
+      <tag line="3" name="license" description="http://www.gnu.org/copyleft/lesser.html LGPL License 2.1"/>
+      <tag line="3" name="version" description="0.1.1"/>
+      <tag line="3" name="link" description="http://pear2.php.net/PEAR2_Cache_SHM" link="http://pear2.php.net/PEAR2_Cache_SHM"/>
+    </docblock>
+    <interface namespace="PEAR2\Cache\SHM" line="33" package="PEAR2\Cache\SHM">
+      <name>Exception</name>
+      <full_name>\PEAR2\Cache\SHM\Exception</full_name>
+      <docblock line="24">
+        <description><![CDATA[Generic exception class of this package.]]></description>
+        <long-description><![CDATA[]]></long-description>
+        <tag line="24" name="category" description="Cache"/>
+        <tag line="24" name="package" description="PEAR2_Cache_SHM"/>
+        <tag line="24" name="author" description="Vasil Rangelov &lt;boen.robot@gmail.com&gt;"/>
+        <tag line="24" name="license" description="http://www.gnu.org/copyleft/lesser.html LGPL License 2.1"/>
+        <tag line="24" name="link" description="http://pear2.php.net/PEAR2_Cache_SHM" link="http://pear2.php.net/PEAR2_Cache_SHM"/>
+      </docblock>
+    </interface>
+  </file>
+  <file path="SHM\InvalidArgumentException.php" hash="076209cab5d0e6492b9283f9d8123f1c" package="PEAR2\Cache\SHM">
+    <docblock line="3">
+      <description><![CDATA[Wrapper for shared memory and locking functionality across different extensions.]]></description>
+      <long-description><![CDATA[<p>Allows you to share data across requests as long as the PHP process is running. One of APC or WinCache is required to accomplish this, with other extensions being potentially pluggable as adapters.</p>
+
+<p>PHP version 5</p>]]></long-description>
+      <tag line="3" name="category" description="Cache"/>
+      <tag line="3" name="package" description="PEAR2_Cache_SHM"/>
+      <tag line="3" name="author" description="Vasil Rangelov &lt;boen.robot@gmail.com&gt;"/>
+      <tag line="3" name="copyright" description="2011 Vasil Rangelov"/>
+      <tag line="3" name="license" description="http://www.gnu.org/copyleft/lesser.html LGPL License 2.1"/>
+      <tag line="3" name="version" description="0.1.1"/>
+      <tag line="3" name="link" description="http://pear2.php.net/PEAR2_Cache_SHM" link="http://pear2.php.net/PEAR2_Cache_SHM"/>
+    </docblock>
+    <class final="false" abstract="false" namespace="PEAR2\Cache\SHM" line="33" package="PEAR2\Cache\SHM">
+      <extends>\InvalidArgumentException</extends>
+      <implements>\PEAR2\Cache\SHM\Exception</implements>
+      <name>InvalidArgumentException</name>
+      <full_name>\PEAR2\Cache\SHM\InvalidArgumentException</full_name>
+      <docblock line="24">
+        <description><![CDATA[Exception thrown when there's something wrong with an argument.]]></description>
+        <long-description><![CDATA[]]></long-description>
+        <tag line="24" name="category" description="Cache"/>
+        <tag line="24" name="package" description="PEAR2_Cache_SHM"/>
+        <tag line="24" name="author" description="Vasil Rangelov &lt;boen.robot@gmail.com&gt;"/>
+        <tag line="24" name="license" description="http://www.gnu.org/copyleft/lesser.html LGPL License 2.1"/>
+        <tag line="24" name="link" description="http://pear2.php.net/PEAR2_Cache_SHM" link="http://pear2.php.net/PEAR2_Cache_SHM"/>
+      </docblock>
+    </class>
+  </file>
+  <package name="Default" full_name="Default"/>
+  <package name="PEAR2" full_name="PEAR2">
+    <package name="Cache" full_name="PEAR2\Cache">
+      <package name="SHM" full_name="PEAR2\Cache\SHM"/>
+    </package>
+  </package>
+  <namespace name="PEAR2" full_name="PEAR2">
+    <namespace name="Cache" full_name="PEAR2\Cache">
+      <namespace name="SHM" full_name="PEAR2\Cache\SHM">
+        <namespace name="Adapter" full_name="PEAR2\Cache\SHM\Adapter"/>
+      </namespace>
+    </namespace>
+  </namespace>
+  <marker count="0">todo</marker>
+  <marker count="0">fixme</marker>
+  <deprecated count="0"/>
+</project>
