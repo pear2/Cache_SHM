@@ -18,7 +18,6 @@
 /**
  * The namespace declaration.
  */
-
 namespace PEAR2\Cache\SHM\Adapter;
 
 /**
@@ -94,6 +93,17 @@ class Wincache extends SHM
     protected static function encodeLockName($name)
     {
         return str_replace(array('%', '\\'), array('%25', '%5C'), $name);
+    }
+    
+    /**
+     * Checks if the adapter meets its requirements.
+     * 
+     * @return bool TRUE on success, FALSE on failure.
+     */
+    public static function isMeetingRequirements()
+    {
+        return extension_loaded('wincache')
+            && version_compare(phpversion('wincache'), '1.1.0', '>=');
     }
     
     /**

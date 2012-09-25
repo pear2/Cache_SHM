@@ -18,7 +18,6 @@
 /**
  * The namespace declaration.
  */
-
 namespace PEAR2\Cache\SHM\Adapter;
 
 /**
@@ -100,6 +99,16 @@ class Placebo extends SHM
         if (0 === --static::$requestInstances[$this->persistentId]) {
             static::$locksBackup[$this->persistentId] = array();
         }
+    }
+    
+    /**
+     * Checks if the adapter meets its requirements.
+     * 
+     * @return bool TRUE on success, FALSE on failure.
+     */
+    public static function isMeetingRequirements()
+    {
+        return 'cli' === PHP_SAPI;
     }
     
     /**

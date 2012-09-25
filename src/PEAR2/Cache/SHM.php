@@ -21,11 +21,6 @@
 namespace PEAR2\Cache;
 
 /**
- * Calls adapters. 
- */
-use PEAR2\Cache\SHM\Adapter;
-
-/**
  * Main class for this package.
  * 
  * Automatically chooses an adapter based on the available extensions.
@@ -38,6 +33,10 @@ use PEAR2\Cache\SHM\Adapter;
  */
 abstract class SHM implements \IteratorAggregate
 {
+    /**
+     * @var array An array of adapter names that meet their requirements.
+     */
+    private static $_adapters = array();
     
     /**
      * Creates a new shared memory storage.
@@ -47,21 +46,54 @@ abstract class SHM implements \IteratorAggregate
      * 
      * @param string $persistentId The ID for the storage.
      * 
-     * @return self|SHM A new instance of an SHM adapter (child of this class).
+     * @return static|SHM A new instance of an SHM adapter (child of this
+     * class).
      */
     public static function factory($persistentId)
     {
-        if ('cli' === PHP_SAPI) {
-            return new Adapter\Placebo($persistentId);
-        } elseif (version_compare(phpversion('wincache'), '1.1.0', '>=')) {
-            return new Adapter\Wincache($persistentId);
-        } elseif (version_compare(phpversion('apc'), '3.0.13', '>=')) {
-            return new Adapter\APC($persistentId);
-        } else {
-            throw new SHM\InvalidArgumentException(
-                'No appropriate adapter available', 1
-            );
+        foreach (self::$_adapters as $adapter) {
+            try {
+                return new $adapter($persistentId);
+            } catch (\Exception $e) {
+            }
         }
+        throw new SHM\InvalidArgumentException(
+            'No appropriate adapter available', 1
+        );
+    }
+    
+    /**
+     * Checks if the adapter meets its requirements.
+     * 
+     * @return bool TRUE on success, FALSE on failure.
+     */
+    abstract public static function isMeetingRequirements();
+    
+    /**
+     * Registers an adapter.
+     * 
+     * Registers an SHM adapter, allowing you to call it with {@link factory()}.
+     * 
+     * @param string $adapter FQCN of adapter. A valid adapter is one that
+     * extends this class.
+     * @param bool   $prepend Whether to prepend this adapter into the list of
+     * possible adapters, instead of appending to it.
+     * 
+     * @return bool TRUE on success, FALSE on failure.
+     */
+    public static function registerAdapter($adapter, $prepend = false)
+    {
+        if (is_subclass_of($adapter, '\\' . __CLASS__)
+            && $adapter::isMeetingRequirements()
+        ) {
+            if ($prepend) {
+                self::$_adapters = array_merge(array($adapter), self::$_adapters);
+            } else {
+                self::$_adapters[] = $adapter;
+            }
+            return true;
+        }
+        return false;
     }
     
     /**
@@ -273,3 +305,12 @@ abstract class SHM implements \IteratorAggregate
      */
     abstract public function clear();
 }
+
+foreach (
+    array('\Adapter\APC', '\Adapter\Placebo', '\Adapter\Wincache') as $adapter
+) {
+    if (class_exists($adapter = '\\' . __NAMESPACE__ . $adapter, true)) {
+        SHM::registerAdapter($adapter);
+    }
+}
+unset($adapter);

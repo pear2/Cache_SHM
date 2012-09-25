@@ -82,6 +82,17 @@ class APC extends SHM
     }
     
     /**
+     * Checks if the adapter meets its requirements.
+     * 
+     * @return bool TRUE on success, FALSE on failure.
+     */
+    public static function isMeetingRequirements()
+    {
+        return extension_loaded('apc')
+            && version_compare(phpversion('apc'), '3.0.13', '>=');
+    }
+    
+    /**
      * Releases all locks in a storage.
      * 
      * This function is not meant to be used directly. It is implicitly called
