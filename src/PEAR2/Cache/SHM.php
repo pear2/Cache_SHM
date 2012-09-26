@@ -49,7 +49,7 @@ abstract class SHM implements \IteratorAggregate
      * @return static|SHM A new instance of an SHM adapter (child of this
      * class).
      */
-    public static function factory($persistentId)
+    final public static function factory($persistentId)
     {
         foreach (self::$_adapters as $adapter) {
             try {
@@ -67,7 +67,10 @@ abstract class SHM implements \IteratorAggregate
      * 
      * @return bool TRUE on success, FALSE on failure.
      */
-    abstract public static function isMeetingRequirements();
+    public static function isMeetingRequirements()
+    {
+        return true;
+    }
     
     /**
      * Registers an adapter.
@@ -75,15 +78,16 @@ abstract class SHM implements \IteratorAggregate
      * Registers an SHM adapter, allowing you to call it with {@link factory()}.
      * 
      * @param string $adapter FQCN of adapter. A valid adapter is one that
-     * extends this class.
+     * extends this class. The class will be autoloaded if not already present.
      * @param bool   $prepend Whether to prepend this adapter into the list of
      * possible adapters, instead of appending to it.
      * 
      * @return bool TRUE on success, FALSE on failure.
      */
-    public static function registerAdapter($adapter, $prepend = false)
+    final public static function registerAdapter($adapter, $prepend = false)
     {
-        if (is_subclass_of($adapter, '\\' . __CLASS__)
+        if (class_exists($adapter, true)
+            && is_subclass_of($adapter, '\\' . __CLASS__)
             && $adapter::isMeetingRequirements()
         ) {
             if ($prepend) {
@@ -325,11 +329,6 @@ abstract class SHM implements \IteratorAggregate
     abstract public function clear();
 }
 
-foreach (
-    array('\Adapter\APC', '\Adapter\Placebo', '\Adapter\Wincache') as $adapter
-) {
-    if (class_exists($adapter = '\\' . __NAMESPACE__ . $adapter, true)) {
-        SHM::registerAdapter($adapter);
-    }
-}
-unset($adapter);
+SHM::registerAdapter('\\' . __NAMESPACE__ . '\SHM\Adapter\Placebo');
+SHM::registerAdapter('\\' . __NAMESPACE__ . '\SHM\Adapter\Wincache');
+SHM::registerAdapter('\\' . __NAMESPACE__ . '\SHM\Adapter\APC');
