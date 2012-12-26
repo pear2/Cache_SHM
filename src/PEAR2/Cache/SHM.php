@@ -58,7 +58,8 @@ abstract class SHM implements \IteratorAggregate
             }
         }
         throw new SHM\InvalidArgumentException(
-            'No appropriate adapter available', 1
+            'No appropriate adapter available',
+            1
         );
     }
     
@@ -92,7 +93,8 @@ abstract class SHM implements \IteratorAggregate
         ) {
             if ($prepend) {
                 self::$_adapters = array_merge(
-                    array($adapter), self::$_adapters
+                    array($adapter),
+                    self::$_adapters
                 );
             } else {
                 self::$_adapters[] = $adapter;

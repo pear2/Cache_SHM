@@ -143,7 +143,9 @@ class Placebo extends SHM
             return false;
         }
         unset(static::$locksBackup[$this->persistentId][array_search(
-            $key, static::$locksBackup[$this->persistentId], true
+            $key,
+            static::$locksBackup[$this->persistentId],
+            true
         )]);
         return true;
     }
@@ -213,7 +215,8 @@ class Placebo extends SHM
             return static::$data[$this->persistentId][$key];
         }
         throw new SHM\InvalidArgumentException(
-            'Unable to fetch key. No such key.', 200
+            'Unable to fetch key. No such key.',
+            200
         );
     }
     

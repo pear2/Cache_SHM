@@ -32,5 +32,4 @@ namespace PEAR2\Cache\SHM;
 class InvalidArgumentException extends \InvalidArgumentException
     implements Exception
 {
-    
 }

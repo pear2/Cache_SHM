@@ -158,7 +158,9 @@ class Wincache extends SHM
         );
         if ($result) {
             unset(static::$locksBackup[$this->persistentId][array_search(
-                $key, static::$locksBackup[$this->persistentId], true
+                $key,
+                static::$locksBackup[$this->persistentId],
+                true
             )]);
         }
         return $result;
@@ -224,7 +226,8 @@ class Wincache extends SHM
         $value = wincache_ucache_get($this->persistentId . $key, $success);
         if (!$success) {
             throw new SHM\InvalidArgumentException(
-                'Unable to fetch key. No such key, or key has expired.', 300
+                'Unable to fetch key. No such key, or key has expired.',
+                300
             );
         }
         return $value;
@@ -257,7 +260,9 @@ class Wincache extends SHM
     public function inc($key, $step = 1)
     {
         $newValue = wincache_ucache_inc(
-            $this->persistentId . $key, (int) $step, $success
+            $this->persistentId . $key,
+            (int) $step,
+            $success
         );
         if (!$success) {
             throw new SHM\InvalidArgumentException(
@@ -283,7 +288,9 @@ class Wincache extends SHM
     public function dec($key, $step = 1)
     {
         $newValue = wincache_ucache_dec(
-            $this->persistentId . $key, (int) $step, $success
+            $this->persistentId . $key,
+            (int) $step,
+            $success
         );
         if (!$success) {
             throw new SHM\InvalidArgumentException(
@@ -366,5 +373,4 @@ class Wincache extends SHM
         }
         return $result;
     }
-
 }

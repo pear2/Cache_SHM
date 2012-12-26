@@ -13,10 +13,12 @@ class CliCompatibleTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\PEAR2\Cache\SHM', $object2);
         
         $this->assertInstanceOf(
-            '\PEAR2\Cache\SHM\Adapter\APC', $object1->getAdapter()
+            '\PEAR2\Cache\SHM\Adapter\APC',
+            $object1->getAdapter()
         );
         $this->assertInstanceOf(
-            '\PEAR2\Cache\SHM\Adapter\APC', $object2->getAdapter()
+            '\PEAR2\Cache\SHM\Adapter\APC',
+            $object2->getAdapter()
         );
     }
     
@@ -29,10 +31,12 @@ class CliCompatibleTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\PEAR2\Cache\SHM', $object2);
         
         $this->assertInstanceOf(
-            '\PEAR2\Cache\SHM\Adapter\Wincache', $object1->getAdapter()
+            '\PEAR2\Cache\SHM\Adapter\Wincache',
+            $object1->getAdapter()
         );
         $this->assertInstanceOf(
-            '\PEAR2\Cache\SHM\Adapter\Wincache', $object2->getAdapter()
+            '\PEAR2\Cache\SHM\Adapter\Wincache',
+            $object2->getAdapter()
         );
     }
     
@@ -45,11 +49,12 @@ class CliCompatibleTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\PEAR2\Cache\SHM', $object2);
         
         $this->assertInstanceOf(
-            '\PEAR2\Cache\SHM\Adapter\Wincache', $object1->getAdapter()
+            '\PEAR2\Cache\SHM\Adapter\Wincache',
+            $object1->getAdapter()
         );
         $this->assertInstanceOf(
-            '\PEAR2\Cache\SHM\Adapter\Wincache', $object2->getAdapter()
+            '\PEAR2\Cache\SHM\Adapter\Wincache',
+            $object2->getAdapter()
         );
     }
-
 }

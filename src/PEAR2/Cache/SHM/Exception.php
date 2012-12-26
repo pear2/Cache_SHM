@@ -31,5 +31,4 @@ namespace PEAR2\Cache\SHM;
  */
 interface Exception
 {
-    
 }

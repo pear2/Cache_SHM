@@ -77,7 +77,9 @@ class APC extends SHM
             static::$locksBackup[$this->persistentId] = array();
         }
         register_shutdown_function(
-            get_called_class() . '::releaseLocks', $this->persistentId, true
+            get_called_class() . '::releaseLocks',
+            $this->persistentId,
+            true
         );
     }
     
@@ -170,7 +172,9 @@ class APC extends SHM
         $success = apc_delete($lock);
         if ($success) {
             unset(static::$locksBackup[$this->persistentId][array_search(
-                $key, static::$locksBackup[$this->persistentId], true
+                $key,
+                static::$locksBackup[$this->persistentId],
+                true
             )]);
             return true;
         }
@@ -241,7 +245,8 @@ class APC extends SHM
                 throw new SHM\InvalidArgumentException(
                     'Unable to fetch key. ' .
                     'Key has either just now expired or (if no TTL was set) ' .
-                    'is possibly in a race condition with another request.', 100
+                    'is possibly in a race condition with another request.',
+                    100
                 );
             }
             return $value;
@@ -276,7 +281,9 @@ class APC extends SHM
     public function inc($key, $step = 1)
     {
         $newValue = apc_inc(
-            $this->persistentId . 'd ' . $key, (int) $step, $success
+            $this->persistentId . 'd ' . $key,
+            (int) $step,
+            $success
         );
         if (!$success) {
             throw new SHM\InvalidArgumentException(
@@ -302,7 +309,9 @@ class APC extends SHM
     public function dec($key, $step = 1)
     {
         $newValue = apc_dec(
-            $this->persistentId . 'd ' . $key, (int) $step, $success
+            $this->persistentId . 'd ' . $key,
+            (int) $step,
+            $success
         );
         if (!$success) {
             throw new SHM\InvalidArgumentException(
