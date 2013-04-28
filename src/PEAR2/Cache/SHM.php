@@ -79,9 +79,10 @@ abstract class SHM implements \IteratorAggregate
      * Registers an SHM adapter, allowing you to call it with {@link factory()}.
      * 
      * @param string $adapter FQCN of adapter. A valid adapter is one that
-     * extends this class. The class will be autoloaded if not already present.
+     *     extends this class. The class will be autoloaded if not already
+     *     present.
      * @param bool   $prepend Whether to prepend this adapter into the list of
-     * possible adapters, instead of appending to it.
+     *     possible adapters, instead of appending to it.
      * 
      * @return bool TRUE on success, FALSE on failure.
      */
@@ -112,7 +113,7 @@ abstract class SHM implements \IteratorAggregate
      * @param string $key   Name of key to associate the value with.
      * @param mixed  $value Value for the specified key.
      * @param int    $ttl   Seconds to store the value. If set to 0 indicates no
-     * time limit.
+     *     time limit.
      * 
      * @return bool TRUE on success, FALSE on failure.
      */
@@ -192,8 +193,8 @@ abstract class SHM implements \IteratorAggregate
      * Estabilishes a separate persistent storage.
      * 
      * @param string $persistentId The ID for the storage. The storage will be
-     * reused if it exists, or created if it doesn't exist. Data and locks are
-     * namespaced by this ID.
+     *     reused if it exists, or created if it doesn't exist. Data and locks
+     *     are namespaced by this ID.
      */
     abstract public function __construct($persistentId);
     
@@ -201,11 +202,11 @@ abstract class SHM implements \IteratorAggregate
      * Obtains a named lock.
      * 
      * @param string $key     Name of the key to obtain. Note that $key may
-     * repeat for each distinct $persistentId.
+     *     repeat for each distinct $persistentId.
      * @param double $timeout If the lock can't be immediatly obtained, the
-     * script will block for at most the specified amount of seconds. Setting
-     * this to 0 makes lock obtaining non blocking, and setting it to NULL makes
-     * it block without a time limit.
+     *     script will block for at most the specified amount of seconds.
+     *     Setting this to 0 makes lock obtaining non blocking, and setting it
+     *     to NULL makes it block without a time limit.
      * 
      * @return bool TRUE on success, FALSE on failure.
      */
@@ -215,7 +216,7 @@ abstract class SHM implements \IteratorAggregate
      * Releases a named lock.
      * 
      * @param string $key Name of the key to release. Note that $key may
-     * repeat for each distinct $persistentId.
+     *     repeat for each distinct $persistentId.
      * 
      * @return bool TRUE on success, FALSE on failure.
      */
@@ -238,7 +239,7 @@ abstract class SHM implements \IteratorAggregate
      * @param string $key   Name of key to associate the value with.
      * @param mixed  $value Value for the specified key.
      * @param int    $ttl   Seconds to store the value. If set to 0 indicates no
-     * time limit.
+     *     time limit.
      * 
      * @return bool TRUE on success, FALSE on failure.
      */
@@ -252,7 +253,7 @@ abstract class SHM implements \IteratorAggregate
      * @param string $key   Name of key to associate the value with.
      * @param mixed  $value Value for the specified key.
      * @param int    $ttl   Seconds to store the value. If set to 0 indicates no
-     * time limit.
+     *     time limit.
      * 
      * @return bool TRUE on success, FALSE on failure.
      */

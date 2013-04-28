@@ -55,7 +55,7 @@ class Placebo extends SHM
     
     /**
      * @var array Array of lock names (as values) for each persistent ID (as
-     * key) obtained during the current request.
+     *     key) obtained during the current request.
      */
     protected static $locksBackup = array();
     
@@ -76,8 +76,8 @@ class Placebo extends SHM
      * Estabilishes a separate persistent storage.
      * 
      * @param string $persistentId The ID for the storage. The storage will be
-     * reused if it exists, or created if it doesn't exist. Data and locks are
-     * namespaced by this ID.
+     *     reused if it exists, or created if it doesn't exist. Data and locks
+     *     are namespaced by this ID.
      */
     public function __construct($persistentId)
     {
@@ -170,7 +170,7 @@ class Placebo extends SHM
      * @param string $key   Name of key to associate the value with.
      * @param mixed  $value Value for the specified key.
      * @param int    $ttl   Because "true" adapters purge the cache at the next
-     * request, this setting is ignored.
+     *     request, this setting is ignored.
      * 
      * @return bool TRUE on success, FALSE on failure.
      */
@@ -190,7 +190,7 @@ class Placebo extends SHM
      * @param string $key   Name of key to associate the value with.
      * @param mixed  $value Value for the specified key.
      * @param int    $ttl   Because "true" adapters purge the cache at the next
-     * request, this setting is ignored.
+     *     request, this setting is ignored.
      * 
      * @return bool TRUE on success, FALSE on failure.
      */
@@ -323,14 +323,14 @@ class Placebo extends SHM
      * Returns an external iterator.
      * 
      * @param string $filter   A PCRE regular expression. Only matching keys
-     * will be iterated over. Setting this to NULL matches all keys of this
-     * instance.
+     *     will be iterated over. Setting this to NULL matches all keys of this
+     *     instance.
      * @param bool   $keysOnly Whether to return only the keys, or return both
-     * the keys and values.
+     *     the keys and values.
      * 
      * @return array An array with all matching keys as array keys, and values
-     * as array values. If $keysOnly is TRUE, the array keys are numeric, and
-     * the array values are key names.
+     *     as array values. If $keysOnly is TRUE, the array keys are numeric,
+     *     and the array values are key names.
      */
     public function getIterator($filter = null, $keysOnly = false)
     {

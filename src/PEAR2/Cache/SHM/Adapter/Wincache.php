@@ -62,8 +62,8 @@ class Wincache extends SHM
      * Estabilishes a separate persistent storage.
      * 
      * @param string $persistentId The ID for the storage. The storage will be
-     * reused if it exists, or created if it doesn't exist. Data and locks are
-     * namespaced by this ID.
+     *     reused if it exists, or created if it doesn't exist. Data and locks
+     *     are namespaced by this ID.
      */
     public function __construct($persistentId)
     {
@@ -126,9 +126,9 @@ class Wincache extends SHM
      * Obtains a named lock.
      * 
      * @param string $key     Name of the key to obtain. Note that $key may
-     * repeat for each distinct $persistentId.
+     *     repeat for each distinct $persistentId.
      * @param double $timeout Ignored with WinCache. Script will always block if
-     * the lock can't be immediatly obtained.
+     *     the lock can't be immediatly obtained.
      * 
      * @return bool TRUE on success, FALSE on failure.
      */
@@ -147,7 +147,7 @@ class Wincache extends SHM
      * Releases a named lock.
      * 
      * @param string $key Name of the key to release. Note that $key may
-     * repeat for each distinct $persistentId.
+     *     repeat for each distinct $persistentId.
      * 
      * @return bool TRUE on success, FALSE on failure.
      */
@@ -186,7 +186,7 @@ class Wincache extends SHM
      * @param string $key   Name of key to associate the value with.
      * @param mixed  $value Value for the specified key.
      * @param int    $ttl   Seconds to store the value. If set to 0 indicates no
-     * time limit.
+     *     time limit.
      * 
      * @return bool TRUE on success, FALSE on failure.
      */
@@ -203,7 +203,7 @@ class Wincache extends SHM
      * @param string $key   Name of key to associate the value with.
      * @param mixed  $value Value for the specified key.
      * @param int    $ttl   Seconds to store the value. If set to 0 indicates no
-     * time limit.
+     *     time limit.
      * 
      * @return bool TRUE on success, FALSE on failure.
      */
@@ -344,14 +344,14 @@ class Wincache extends SHM
      * Returns an external iterator.
      * 
      * @param string $filter   A PCRE regular expression. Only matching keys
-     * will be iterated over. Setting this to NULL matches all keys of this
-     * instance.
+     *     will be iterated over. Setting this to NULL matches all keys of this
+     *     instance.
      * @param bool   $keysOnly Whether to return only the keys, or return both
-     * the keys and values.
+     *     the keys and values.
      * 
      * @return array An array with all matching keys as array keys, and values
-     * as array values. If $keysOnly is TRUE, the array keys are numeric, and
-     * the array values are key names.
+     *     as array values. If $keysOnly is TRUE, the array keys are numeric,
+     *     and the array values are key names.
      */
     public function getIterator($filter = null, $keysOnly = false)
     {
