@@ -11,10 +11,10 @@
   <email>boen.robot@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2012-09-25</date>
- <time>23:33:38</time>
+ <date>2013-05-04</date>
+ <time>13:33:41</time>
  <version>
-  <release>0.1.1</release>
+  <release>0.1.2</release>
   <api>0.1.0</api>
  </version>
  <stability>
@@ -22,10 +22,10 @@
   <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL License 2.1</license>
- <notes>* Fixed the PHAR stub.
-* Removed the warnings APC would trigger when using SHM::factory().
-* Allowed registering of external adapters with the new SHM::registerAdapter() method.
-* Added SHM::__invoke() as a shortcut to SHM::add().</notes>
+ <notes>* SHM::isMeetingRequirements() is now not abstract, and always returns TRUE.
+* Fixed loading order of adapters.
+* Changed the PHAR stub to not fail when reading the hash fails.
+* Doc and CS fixes.</notes>
  <contents>
   <dir name="/">
    <dir name="docs" baseinstalldir="/">
