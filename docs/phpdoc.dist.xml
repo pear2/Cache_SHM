@@ -3,7 +3,7 @@
     <title>PEAR2_Cache_SHM documentation</title>
     <parser>
         <default-package-name>PEAR2_Cache_SHM</default-package-name>
-        <target>PEAR2_Cache_SHM__PhpDocumentor_Documentation</target>
+        <target>PEAR2_Cache_SHM__PhpDocumentor_Cache</target>
         <extensions>
             <extension>php</extension>
         </extensions>

@@ -11,8 +11,8 @@
   <email>boen.robot@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2013-05-04</date>
- <time>13:33:41</time>
+ <date>2013-08-15</date>
+ <time>18:18:31</time>
  <version>
   <release>0.1.2</release>
   <api>0.1.0</api>
@@ -29,7 +29,9 @@
  <contents>
   <dir name="/">
    <dir name="docs" baseinstalldir="/">
-    <file role="doc" name="apigen.neon"/>
+    <file role="doc" name="apigen.neon">
+     <tasks:replace from="../src" to="php_dir" type="pear-config"/>
+    </file>
     <file role="doc" name="doxygen.ini">
      <tasks:replace from="../src" to="php_dir" type="pear-config"/>
      <tasks:replace from="GIT: $Id$" to="version" type="package-info"/>
@@ -132,6 +134,9 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install name="docs/apigen.neon" as="apigen.neon"/>
+   <install name="docs/doxygen.ini" as="doxygen.ini"/>
+   <install name="docs/phpdoc.dist.xml" as="phpdoc.dist.xml"/>
    <install name="src/PEAR2/Cache/SHM.php" as="PEAR2/Cache/SHM.php"/>
    <install name="src/PEAR2/Cache/SHM/Adapter/APC.php" as="PEAR2/Cache/SHM/Adapter/APC.php"/>
    <install name="src/PEAR2/Cache/SHM/Adapter/Placebo.php" as="PEAR2/Cache/SHM/Adapter/Placebo.php"/>
@@ -139,6 +144,7 @@
    <install name="src/PEAR2/Cache/SHM/Exception.php" as="PEAR2/Cache/SHM/Exception.php"/>
    <install name="src/PEAR2/Cache/SHM/InvalidArgumentException.php" as="PEAR2/Cache/SHM/InvalidArgumentException.php"/>
    <install name="tests/bootstrap.php" as="bootstrap.php"/>
+   <install name="tests/CliCompatibleTest.php" as="CliCompatibleTest.php"/>
    <install name="tests/PHPT/APC.phpt" as="PHPT/APC.phpt"/>
    <install name="tests/PHPT/Common/testAddingTtlValue_part1.phpt" as="PHPT/Common/testAddingTtlValue_part1.phpt"/>
    <install name="tests/PHPT/Common/testAddingTtlValue_part2.phpt" as="PHPT/Common/testAddingTtlValue_part2.phpt"/>

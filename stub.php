@@ -10,19 +10,19 @@ if (count(get_included_files()) > 1) {
         header('Content-Type: text/plain;charset=UTF-8');
     }
     echo "@PACKAGE_NAME@ @PACKAGE_VERSION@\n";
-    
+
     if (version_compare(phpversion(), '5.3.0', '<')) {
         echo "\nThis package requires PHP 5.3.0 or later.";
         exit(1);
     }
-    
+
     $available_extensions = array();
     foreach (array('apc', 'wincache') as $ext) {
         if (extension_loaded($ext)) {
             $available_extensions[] = $ext;
         }
     }
-    
+
     if (extension_loaded('phar')) {
         try {
             $phar = new Phar(__FILE__);
@@ -47,7 +47,7 @@ and include the autoloader.
 
 HEREDOC;
     }
-    
+
     if (in_array('apc', $available_extensions)) {
         if (version_compare(phpversion('apc'), '3.0.13', '>=')) {
             echo "A compatible APC version is available on this server.\n";
@@ -60,7 +60,7 @@ HEREDOC;
             echo "\n";
         }
     }
-    
+
     if (in_array('wincache', $available_extensions)) {
         if (version_compare(phpversion('wincache'), '1.1.0', '>=')) {
             echo "A compatible WinCache version is available on this server.\n";
@@ -73,7 +73,7 @@ HEREDOC;
             echo "\n";
         }
     }
-    
+
     if ($isHttp) {
         if (empty($available_extensions)) {
             echo "You don't have any compatible extensions for this SAPI (",
