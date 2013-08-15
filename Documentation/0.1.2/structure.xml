@@ -1,0 +1,1855 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project title="PEAR2_Cache_SHM documentation" version="2.1.0-DEV&#10;">
+  <file path="SHM.php" generated-path="SHM.html" hash="5a9ce86de841d470f267f3b090ada0b1" package="PEAR2_Cache_SHM">
+    <docblock line="0">
+      <description>Wrapper for shared memory and locking functionality across different extensions.</description>
+      <long-description>Allows you to share data across requests as long as the PHP process is running. One of APC or WinCache is required to accomplish this, with other extensions being potentially pluggable as adapters.
+
+PHP version 5</long-description>
+      <tag name="category" line="0" description="Cache"/>
+      <tag name="package" line="0" description="PEAR2_Cache_SHM"/>
+      <tag name="author" line="0" description="Vasil Rangelov" link="mailto:boen.robot@gmail.com"/>
+      <tag name="copyright" line="0" description="2011 Vasil Rangelov"/>
+      <tag name="license" line="0" description="LGPL License 2.1" link="http://www.gnu.org/copyleft/lesser.html"/>
+      <tag name="version" line="0" description="0.1.2"/>
+      <tag name="link" line="0" description="http://pear2.php.net/PEAR2_Cache_SHM" link="http://pear2.php.net/PEAR2_Cache_SHM"/>
+    </docblock>
+    <class final="false" abstract="true" namespace="PEAR2\Cache" line="35" package="PEAR2_Cache_SHM">
+      <extends/>
+      <implements>\IteratorAggregate</implements>
+      <name>SHM</name>
+      <full_name>\PEAR2\Cache\SHM</full_name>
+      <docblock line="35">
+        <description>Main class for this package.</description>
+        <long-description>Automatically chooses an adapter based on the available extensions.</long-description>
+        <tag name="category" line="35" description="Cache"/>
+        <tag name="package" line="35" description="PEAR2_Cache_SHM"/>
+        <tag name="author" line="35" description="Vasil Rangelov" link="mailto:boen.robot@gmail.com"/>
+        <tag name="license" line="35" description="LGPL License 2.1" link="http://www.gnu.org/copyleft/lesser.html"/>
+        <tag name="link" line="35" description="http://pear2.php.net/PEAR2_Cache_SHM" link="http://pear2.php.net/PEAR2_Cache_SHM"/>
+      </docblock>
+      <property static="true" visibility="private" line="40" namespace="PEAR2\Cache" package="PEAR2_Cache_SHM">
+        <name>$_adapters</name>
+        <default>array()</default>
+        <docblock line="40">
+          <description></description>
+          <long-description></long-description>
+          <tag name="var" line="40" description="&lt;p&gt;An array of adapter names that meet their requirements.&lt;/p&gt;" type="array" variable="">
+            <type>array</type>
+          </tag>
+        </docblock>
+      </property>
+      <method final="true" abstract="false" static="true" visibility="public" namespace="PEAR2\Cache" line="53" package="PEAR2_Cache_SHM">
+        <name>factory</name>
+        <full_name>\PEAR2\Cache\SHM::factory()</full_name>
+        <docblock line="53">
+          <description>Creates a new shared memory storage.</description>
+          <long-description>Estabilishes a separate persistent storage. Adapter is automatically
+chosen based on the available extensions.</long-description>
+          <tag name="param" line="53" description="&lt;p&gt;The ID for the storage.&lt;/p&gt;" type="string" variable="$persistentId">
+            <type>string</type>
+          </tag>
+          <tag name="return" line="53" description="A new instance of an SHM adapter (child of this&#13;&#10;class)." type="static|\PEAR2\Cache\SHM">
+            <type>static</type>
+            <type link="SHM.html">\PEAR2\Cache\SHM</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$persistentId</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="PEAR2\Cache" line="72" package="PEAR2_Cache_SHM">
+        <name>isMeetingRequirements</name>
+        <full_name>\PEAR2\Cache\SHM::isMeetingRequirements()</full_name>
+        <docblock line="72">
+          <description>Checks if the adapter meets its requirements.</description>
+          <long-description></long-description>
+          <tag name="return" line="72" description="TRUE on success, FALSE on failure." type="bool">
+            <type>bool</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="true" abstract="false" static="true" visibility="public" namespace="PEAR2\Cache" line="90" package="PEAR2_Cache_SHM">
+        <name>registerAdapter</name>
+        <full_name>\PEAR2\Cache\SHM::registerAdapter()</full_name>
+        <docblock line="90">
+          <description>Registers an adapter.</description>
+          <long-description>Registers an SHM adapter, allowing you to call it with {@link factory()}.</long-description>
+          <tag name="param" line="90" description="&lt;p&gt;FQCN of adapter. A valid adapter is one that&#13;&#10;    extends this class. The class will be autoloaded if not already&#13;&#10;    present.&lt;/p&gt;" type="string" variable="$adapter">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="90" description="&lt;p&gt;Whether to prepend this adapter into the list of&#13;&#10;    possible adapters, instead of appending to it.&lt;/p&gt;" type="bool" variable="$prepend">
+            <type>bool</type>
+          </tag>
+          <tag name="return" line="90" description="TRUE on success, FALSE on failure." type="bool">
+            <type>bool</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$adapter</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+        <argument line="0">
+          <name>$prepend</name>
+          <default>false</default>
+          <type>bool</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache" line="121" package="PEAR2_Cache_SHM">
+        <name>__invoke</name>
+        <full_name>\PEAR2\Cache\SHM::__invoke()</full_name>
+        <docblock line="121">
+          <description>Adds a value to the shared memory storage.</description>
+          <long-description>Adds a value to the storage if it doesn't exist, or fails if it does.</long-description>
+          <tag name="param" line="121" description="&lt;p&gt;Name of key to associate the value with.&lt;/p&gt;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="121" description="&lt;p&gt;Value for the specified key.&lt;/p&gt;" type="mixed" variable="$value">
+            <type>mixed</type>
+          </tag>
+          <tag name="param" line="121" description="&lt;p&gt;Seconds to store the value. If set to 0 indicates no&#13;&#10;    time limit.&lt;/p&gt;" type="int" variable="$ttl">
+            <type>int</type>
+          </tag>
+          <tag name="return" line="121" description="TRUE on success, FALSE on failure." type="bool">
+            <type>bool</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+        <argument line="0">
+          <name>$value</name>
+          <default></default>
+          <type>mixed</type>
+        </argument>
+        <argument line="0">
+          <name>$ttl</name>
+          <default>0</default>
+          <type>int</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache" line="137" package="PEAR2_Cache_SHM">
+        <name>__get</name>
+        <full_name>\PEAR2\Cache\SHM::__get()</full_name>
+        <docblock line="137">
+          <description>Gets a value from the shared memory storage.</description>
+          <long-description>This is a magic method, thanks to which any property you attempt to get
+the value of will be fetched from the adapter, treating the property name
+as the key of the value to get.</long-description>
+          <tag name="param" line="137" description="&lt;p&gt;Name of key to get.&lt;/p&gt;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="return" line="137" description="The current value of the specified key." type="mixed">
+            <type>mixed</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache" line="154" package="PEAR2_Cache_SHM">
+        <name>__set</name>
+        <full_name>\PEAR2\Cache\SHM::__set()</full_name>
+        <docblock line="154">
+          <description>Sets a value in the shared memory storage.</description>
+          <long-description>This is a magic method, thanks to which any property you attempt to set
+the value of will be set by the adapter, treating the property name as
+the key of the value to set. The value is set without a TTL.</long-description>
+          <tag name="param" line="154" description="&lt;p&gt;Name of key to associate the value with.&lt;/p&gt;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="154" description="&lt;p&gt;Value for the specified key.&lt;/p&gt;" type="mixed" variable="$value">
+            <type>mixed</type>
+          </tag>
+          <tag name="return" line="154" description="TRUE on success, FALSE on failure." type="bool">
+            <type>bool</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+        <argument line="0">
+          <name>$value</name>
+          <default></default>
+          <type>mixed</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache" line="170" package="PEAR2_Cache_SHM">
+        <name>__isset</name>
+        <full_name>\PEAR2\Cache\SHM::__isset()</full_name>
+        <docblock line="170">
+          <description>Checks if a specified key is in the storage.</description>
+          <long-description>This is a magic method, thanks to which any property you call isset() on
+will be checked by the adapter, treating the property name as the key
+of the value to check.</long-description>
+          <tag name="param" line="170" description="&lt;p&gt;Name of key to check.&lt;/p&gt;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="return" line="170" description="TRUE if the key is in the storage, FALSE otherwise." type="bool">
+            <type>bool</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache" line="186" package="PEAR2_Cache_SHM">
+        <name>__unset</name>
+        <full_name>\PEAR2\Cache\SHM::__unset()</full_name>
+        <docblock line="186">
+          <description>Deletes a value from the shared memory storage.</description>
+          <long-description>This is a magic method, thanks to which any property you attempt to unset
+the value of will be unset by the adapter, treating the property name as
+the key of the value to delete.</long-description>
+          <tag name="param" line="186" description="&lt;p&gt;Name of key to delete.&lt;/p&gt;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="return" line="186" description="TRUE on success, FALSE on failure." type="bool">
+            <type>bool</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+      </method>
+      <method final="false" abstract="true" static="false" visibility="public" namespace="PEAR2\Cache" line="200" package="PEAR2_Cache_SHM">
+        <name>__construct</name>
+        <full_name>\PEAR2\Cache\SHM::__construct()</full_name>
+        <docblock line="200">
+          <description>Creates a new shared memory storage.</description>
+          <long-description>Estabilishes a separate persistent storage.</long-description>
+          <tag name="param" line="200" description="&lt;p&gt;The ID for the storage. The storage will be&#10;    reused if it exists, or created if it doesn't exist. Data and locks&#10;    are namespaced by this ID.&lt;/p&gt;&#10;" type="string" variable="$persistentId">
+            <type>string</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$persistentId</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+      </method>
+      <method final="false" abstract="true" static="false" visibility="public" namespace="PEAR2\Cache" line="214" package="PEAR2_Cache_SHM">
+        <name>lock</name>
+        <full_name>\PEAR2\Cache\SHM::lock()</full_name>
+        <docblock line="214">
+          <description>Obtains a named lock.</description>
+          <long-description></long-description>
+          <tag name="param" line="214" description="&lt;p&gt;Name of the key to obtain. Note that $key may&#10;    repeat for each distinct $persistentId.&lt;/p&gt;&#10;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="214" description="&lt;p&gt;If the lock can't be immediatly obtained, the&#10;    script will block for at most the specified amount of seconds.&#10;    Setting this to 0 makes lock obtaining non blocking, and setting it&#10;    to NULL makes it block without a time limit.&lt;/p&gt;&#10;" type="double" variable="$timeout">
+            <type>double</type>
+          </tag>
+          <tag name="return" line="214" description="TRUE on success, FALSE on failure." type="bool">
+            <type>bool</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+        <argument line="0">
+          <name>$timeout</name>
+          <default>null</default>
+          <type>double</type>
+        </argument>
+      </method>
+      <method final="false" abstract="true" static="false" visibility="public" namespace="PEAR2\Cache" line="224" package="PEAR2_Cache_SHM">
+        <name>unlock</name>
+        <full_name>\PEAR2\Cache\SHM::unlock()</full_name>
+        <docblock line="224">
+          <description>Releases a named lock.</description>
+          <long-description></long-description>
+          <tag name="param" line="224" description="&lt;p&gt;Name of the key to release. Note that $key may&#10;    repeat for each distinct $persistentId.&lt;/p&gt;&#10;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="return" line="224" description="TRUE on success, FALSE on failure." type="bool">
+            <type>bool</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+      </method>
+      <method final="false" abstract="true" static="false" visibility="public" namespace="PEAR2\Cache" line="233" package="PEAR2_Cache_SHM">
+        <name>exists</name>
+        <full_name>\PEAR2\Cache\SHM::exists()</full_name>
+        <docblock line="233">
+          <description>Checks if a specified key is in the storage.</description>
+          <long-description></long-description>
+          <tag name="param" line="233" description="&lt;p&gt;Name of key to check.&lt;/p&gt;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="return" line="233" description="TRUE if the key is in the storage, FALSE otherwise." type="bool">
+            <type>bool</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+      </method>
+      <method final="false" abstract="true" static="false" visibility="public" namespace="PEAR2\Cache" line="247" package="PEAR2_Cache_SHM">
+        <name>add</name>
+        <full_name>\PEAR2\Cache\SHM::add()</full_name>
+        <docblock line="247">
+          <description>Adds a value to the shared memory storage.</description>
+          <long-description>Adds a value to the storage if it doesn't exist, or fails if it does.</long-description>
+          <tag name="param" line="247" description="&lt;p&gt;Name of key to associate the value with.&lt;/p&gt;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="247" description="&lt;p&gt;Value for the specified key.&lt;/p&gt;" type="mixed" variable="$value">
+            <type>mixed</type>
+          </tag>
+          <tag name="param" line="247" description="&lt;p&gt;Seconds to store the value. If set to 0 indicates no&#13;&#10;    time limit.&lt;/p&gt;" type="int" variable="$ttl">
+            <type>int</type>
+          </tag>
+          <tag name="return" line="247" description="TRUE on success, FALSE on failure." type="bool">
+            <type>bool</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+        <argument line="0">
+          <name>$value</name>
+          <default></default>
+          <type>mixed</type>
+        </argument>
+        <argument line="0">
+          <name>$ttl</name>
+          <default>0</default>
+          <type>int</type>
+        </argument>
+      </method>
+      <method final="false" abstract="true" static="false" visibility="public" namespace="PEAR2\Cache" line="261" package="PEAR2_Cache_SHM">
+        <name>set</name>
+        <full_name>\PEAR2\Cache\SHM::set()</full_name>
+        <docblock line="261">
+          <description>Sets a value in the shared memory storage.</description>
+          <long-description>Adds a value to the storage if it doesn't exist, overwrites it otherwise.</long-description>
+          <tag name="param" line="261" description="&lt;p&gt;Name of key to associate the value with.&lt;/p&gt;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="261" description="&lt;p&gt;Value for the specified key.&lt;/p&gt;" type="mixed" variable="$value">
+            <type>mixed</type>
+          </tag>
+          <tag name="param" line="261" description="&lt;p&gt;Seconds to store the value. If set to 0 indicates no&#13;&#10;    time limit.&lt;/p&gt;" type="int" variable="$ttl">
+            <type>int</type>
+          </tag>
+          <tag name="return" line="261" description="TRUE on success, FALSE on failure." type="bool">
+            <type>bool</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+        <argument line="0">
+          <name>$value</name>
+          <default></default>
+          <type>mixed</type>
+        </argument>
+        <argument line="0">
+          <name>$ttl</name>
+          <default>0</default>
+          <type>int</type>
+        </argument>
+      </method>
+      <method final="false" abstract="true" static="false" visibility="public" namespace="PEAR2\Cache" line="272" package="PEAR2_Cache_SHM">
+        <name>get</name>
+        <full_name>\PEAR2\Cache\SHM::get()</full_name>
+        <docblock line="272">
+          <description>Gets a value from the shared memory storage.</description>
+          <long-description>Gets the current value, or throws an exception if it's not stored.</long-description>
+          <tag name="param" line="272" description="&lt;p&gt;Name of key to get the value of.&lt;/p&gt;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="return" line="272" description="The current value of the specified key." type="mixed">
+            <type>mixed</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+      </method>
+      <method final="false" abstract="true" static="false" visibility="public" namespace="PEAR2\Cache" line="281" package="PEAR2_Cache_SHM">
+        <name>delete</name>
+        <full_name>\PEAR2\Cache\SHM::delete()</full_name>
+        <docblock line="281">
+          <description>Deletes a value from the shared memory storage.</description>
+          <long-description></long-description>
+          <tag name="param" line="281" description="&lt;p&gt;Name of key to delete.&lt;/p&gt;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="return" line="281" description="TRUE on success, FALSE on failure." type="bool">
+            <type>bool</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+      </method>
+      <method final="false" abstract="true" static="false" visibility="public" namespace="PEAR2\Cache" line="295" package="PEAR2_Cache_SHM">
+        <name>inc</name>
+        <full_name>\PEAR2\Cache\SHM::inc()</full_name>
+        <docblock line="295">
+          <description>Increases a value from the shared memory storage.</description>
+          <long-description>Increases a value from the shared memory storage. Unlike a plain
+set($key, get($key)+$step) combination, this function also implicitly
+performs locking.</long-description>
+          <tag name="param" line="295" description="&lt;p&gt;Name of key to increase.&lt;/p&gt;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="295" description="&lt;p&gt;Value to increase the key by.&lt;/p&gt;" type="int" variable="$step">
+            <type>int</type>
+          </tag>
+          <tag name="return" line="295" description="The new value." type="int">
+            <type>int</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+        <argument line="0">
+          <name>$step</name>
+          <default>1</default>
+          <type>int</type>
+        </argument>
+      </method>
+      <method final="false" abstract="true" static="false" visibility="public" namespace="PEAR2\Cache" line="309" package="PEAR2_Cache_SHM">
+        <name>dec</name>
+        <full_name>\PEAR2\Cache\SHM::dec()</full_name>
+        <docblock line="309">
+          <description>Decreases a value from the shared memory storage.</description>
+          <long-description>Decreases a value from the shared memory storage. Unlike a plain
+set($key, get($key)-$step) combination, this function also implicitly
+performs locking.</long-description>
+          <tag name="param" line="309" description="&lt;p&gt;Name of key to decrease.&lt;/p&gt;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="309" description="&lt;p&gt;Value to decrease the key by.&lt;/p&gt;" type="int" variable="$step">
+            <type>int</type>
+          </tag>
+          <tag name="return" line="309" description="The new value." type="int">
+            <type>int</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+        <argument line="0">
+          <name>$step</name>
+          <default>1</default>
+          <type>int</type>
+        </argument>
+      </method>
+      <method final="false" abstract="true" static="false" visibility="public" namespace="PEAR2\Cache" line="323" package="PEAR2_Cache_SHM">
+        <name>cas</name>
+        <full_name>\PEAR2\Cache\SHM::cas()</full_name>
+        <docblock line="323">
+          <description>Sets a new value if a key has a certain value.</description>
+          <long-description>Sets a new value if a key has a certain value. This function only works
+when $old and $new are longs.</long-description>
+          <tag name="param" line="323" description="&lt;p&gt;Key of the value to compare and set.&lt;/p&gt;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="323" description="&lt;p&gt;The value to compare the key against.&lt;/p&gt;" type="int" variable="$old">
+            <type>int</type>
+          </tag>
+          <tag name="param" line="323" description="&lt;p&gt;The value to set the key to.&lt;/p&gt;" type="int" variable="$new">
+            <type>int</type>
+          </tag>
+          <tag name="return" line="323" description="TRUE on success, FALSE on failure." type="bool">
+            <type>bool</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+        <argument line="0">
+          <name>$old</name>
+          <default></default>
+          <type>int</type>
+        </argument>
+        <argument line="0">
+          <name>$new</name>
+          <default></default>
+          <type>int</type>
+        </argument>
+      </method>
+      <method final="false" abstract="true" static="false" visibility="public" namespace="PEAR2\Cache" line="333" package="PEAR2_Cache_SHM">
+        <name>clear</name>
+        <full_name>\PEAR2\Cache\SHM::clear()</full_name>
+        <docblock line="333">
+          <description>Clears the persistent storage.</description>
+          <long-description>Clears the persistent storage, i.e. removes all keys. Locks are left
+intact.</long-description>
+          <tag name="return" line="333" description="" type="void">
+            <type>void</type>
+          </tag>
+        </docblock>
+      </method>
+    </class>
+    <source>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</source>
+  </file>
+  <file path="SHM\Adapter\APC.php" generated-path="SHM.Adapter.APC.html" hash="1de49d2281d05ef160589fb92bba52b1" package="PEAR2_Cache_SHM">
+    <docblock line="0">
+      <description>Wrapper for shared memory and locking functionality across different extensions.</description>
+      <long-description>Allows you to share data across requests as long as the PHP process is running. One of APC or WinCache is required to accomplish this, with other extensions being potentially pluggable as adapters.
+
+PHP version 5</long-description>
+      <tag name="category" line="0" description="Cache"/>
+      <tag name="package" line="0" description="PEAR2_Cache_SHM"/>
+      <tag name="author" line="0" description="Vasil Rangelov" link="mailto:boen.robot@gmail.com"/>
+      <tag name="copyright" line="0" description="2011 Vasil Rangelov"/>
+      <tag name="license" line="0" description="LGPL License 2.1" link="http://www.gnu.org/copyleft/lesser.html"/>
+      <tag name="version" line="0" description="0.1.2"/>
+      <tag name="link" line="0" description="http://pear2.php.net/PEAR2_Cache_SHM" link="http://pear2.php.net/PEAR2_Cache_SHM"/>
+    </docblock>
+    <class final="false" abstract="false" namespace="PEAR2\Cache\SHM\Adapter" line="38" package="PEAR2_Cache_SHM">
+      <extends>\PEAR2\Cache\SHM</extends>
+      <name>APC</name>
+      <full_name>\PEAR2\Cache\SHM\Adapter\APC</full_name>
+      <docblock line="38">
+        <description>Shared memory adapter for the APC extension.</description>
+        <long-description>Automatically chooses an adapter based on the available extensions.</long-description>
+        <tag name="category" line="38" description="Cache"/>
+        <tag name="package" line="38" description="PEAR2_Cache_SHM"/>
+        <tag name="author" line="38" description="Vasil Rangelov" link="mailto:boen.robot@gmail.com"/>
+        <tag name="license" line="38" description="LGPL License 2.1" link="http://www.gnu.org/copyleft/lesser.html"/>
+        <tag name="link" line="38" description="http://pear2.php.net/PEAR2_Cache_SHM" link="http://pear2.php.net/PEAR2_Cache_SHM"/>
+      </docblock>
+      <property static="false" visibility="protected" line="43" namespace="PEAR2\Cache\SHM\Adapter" package="PEAR2_Cache_SHM">
+        <name>$persistentId</name>
+        <default></default>
+        <docblock line="43">
+          <description></description>
+          <long-description></long-description>
+          <tag name="var" line="43" description="&lt;p&gt;ID of the current storage.&lt;/p&gt;" type="string" variable="">
+            <type>string</type>
+          </tag>
+        </docblock>
+      </property>
+      <property static="true" visibility="protected" line="54" namespace="PEAR2\Cache\SHM\Adapter" package="PEAR2_Cache_SHM">
+        <name>$requestInstances</name>
+        <default>array()</default>
+        <docblock line="54">
+          <description>List of persistent IDs.</description>
+          <long-description>A list of persistent IDs within the current request (as keys) with an int
+(as a value) specifying the number of instances in the current request.
+Used as an attempt to ensure implicit lock releases even on errors in the
+critical sections, since APC doesn't have an actual locking function.</long-description>
+          <tag name="var" line="54" description="" type="array" variable="">
+            <type>array</type>
+          </tag>
+        </docblock>
+      </property>
+      <property static="true" visibility="protected" line="60" namespace="PEAR2\Cache\SHM\Adapter" package="PEAR2_Cache_SHM">
+        <name>$locksBackup</name>
+        <default>array()</default>
+        <docblock line="60">
+          <description></description>
+          <long-description></long-description>
+          <tag name="var" line="60" description="&lt;p&gt;Array of lock names (as values) for each persistent ID (as&#10;    key) obtained during the current request.&lt;/p&gt;&#10;" type="array" variable="">
+            <type>array</type>
+          </tag>
+        </docblock>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="71" package="PEAR2_Cache_SHM">
+        <name>__construct</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\APC::__construct()</full_name>
+        <docblock line="71">
+          <description>Creates a new shared memory storage.</description>
+          <long-description>Estabilishes a separate persistent storage.</long-description>
+          <tag name="param" line="71" description="&lt;p&gt;The ID for the storage. The storage will be&#10;    reused if it exists, or created if it doesn't exist. Data and locks&#10;    are namespaced by this ID.&lt;/p&gt;&#10;" type="string" variable="$persistentId">
+            <type>string</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$persistentId</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="92" package="PEAR2_Cache_SHM">
+        <name>isMeetingRequirements</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\APC::isMeetingRequirements()</full_name>
+        <docblock line="92">
+          <description>Checks if the adapter meets its requirements.</description>
+          <long-description></long-description>
+          <tag name="return" line="92" description="TRUE on success, FALSE on failure." type="bool">
+            <type>bool</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="129" package="PEAR2_Cache_SHM">
+        <name>__destruct</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\APC::__destruct()</full_name>
+        <docblock line="129">
+          <description>Releases any locks obtained by this instance as soon as there are no more
+references to the object's persistent ID.</description>
+          <long-description></long-description>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="148" package="PEAR2_Cache_SHM">
+        <name>lock</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\APC::lock()</full_name>
+        <docblock line="148">
+          <description>Obtains a named lock.</description>
+          <long-description></long-description>
+          <tag name="param" line="148" description="&lt;p&gt;Name of the key to obtain. Note that $key may&#10;    repeat for each distinct $persistentId.&lt;/p&gt;&#10;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="148" description="&lt;p&gt;If the lock can't be immediatly obtained, the&#10;    script will block for at most the specified amount of seconds.&#10;    Setting this to 0 makes lock obtaining non blocking, and setting it&#10;    to NULL makes it block without a time limit.&lt;/p&gt;&#10;" type="double" variable="$timeout">
+            <type>double</type>
+          </tag>
+          <tag name="return" line="148" description="TRUE on success, FALSE on failure." type="bool">
+            <type>bool</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+        <argument line="0">
+          <name>$timeout</name>
+          <default>null</default>
+          <type>double</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="170" package="PEAR2_Cache_SHM">
+        <name>unlock</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\APC::unlock()</full_name>
+        <docblock line="170">
+          <description>Releases a named lock.</description>
+          <long-description></long-description>
+          <tag name="param" line="170" description="&lt;p&gt;Name of the key to release. Note that $key may&#10;    repeat for each distinct $persistentId.&lt;/p&gt;&#10;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="return" line="170" description="TRUE on success, FALSE on failure." type="bool">
+            <type>bool</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="192" package="PEAR2_Cache_SHM">
+        <name>exists</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\APC::exists()</full_name>
+        <docblock line="192">
+          <description>Checks if a specified key is in the storage.</description>
+          <long-description></long-description>
+          <tag name="param" line="192" description="&lt;p&gt;Name of key to check.&lt;/p&gt;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="return" line="192" description="TRUE if the key is in the storage, FALSE otherwise." type="bool">
+            <type>bool</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="209" package="PEAR2_Cache_SHM">
+        <name>add</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\APC::add()</full_name>
+        <docblock line="209">
+          <description>Adds a value to the shared memory storage.</description>
+          <long-description>Adds a value to the storage if it doesn't exist, or fails if it does.</long-description>
+          <tag name="param" line="209" description="&lt;p&gt;Name of key to associate the value with.&lt;/p&gt;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="209" description="&lt;p&gt;Value for the specified key.&lt;/p&gt;" type="mixed" variable="$value">
+            <type>mixed</type>
+          </tag>
+          <tag name="param" line="209" description="&lt;p&gt;Seconds to store the value. If set to 0 indicates no&#13;&#10;    time limit.&lt;/p&gt;" type="int" variable="$ttl">
+            <type>int</type>
+          </tag>
+          <tag name="return" line="209" description="TRUE on success, FALSE on failure." type="bool">
+            <type>bool</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+        <argument line="0">
+          <name>$value</name>
+          <default></default>
+          <type>mixed</type>
+        </argument>
+        <argument line="0">
+          <name>$ttl</name>
+          <default>0</default>
+          <type>int</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="226" package="PEAR2_Cache_SHM">
+        <name>set</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\APC::set()</full_name>
+        <docblock line="226">
+          <description>Sets a value in the shared memory storage.</description>
+          <long-description>Adds a value to the storage if it doesn't exist, overwrites it otherwise.</long-description>
+          <tag name="param" line="226" description="&lt;p&gt;Name of key to associate the value with.&lt;/p&gt;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="226" description="&lt;p&gt;Value for the specified key.&lt;/p&gt;" type="mixed" variable="$value">
+            <type>mixed</type>
+          </tag>
+          <tag name="param" line="226" description="&lt;p&gt;Seconds to store the value. If set to 0 indicates no&#13;&#10;    time limit.&lt;/p&gt;" type="int" variable="$ttl">
+            <type>int</type>
+          </tag>
+          <tag name="return" line="226" description="TRUE on success, FALSE on failure." type="bool">
+            <type>bool</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+        <argument line="0">
+          <name>$value</name>
+          <default></default>
+          <type>mixed</type>
+        </argument>
+        <argument line="0">
+          <name>$ttl</name>
+          <default>0</default>
+          <type>int</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="240" package="PEAR2_Cache_SHM">
+        <name>get</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\APC::get()</full_name>
+        <docblock line="240">
+          <description>Gets a value from the shared memory storage.</description>
+          <long-description>Gets the current value, or throws an exception if it's not stored.</long-description>
+          <tag name="param" line="240" description="&lt;p&gt;Name of key to get the value of.&lt;/p&gt;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="return" line="240" description="The current value of the specified key." type="mixed">
+            <type>mixed</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="265" package="PEAR2_Cache_SHM">
+        <name>delete</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\APC::delete()</full_name>
+        <docblock line="265">
+          <description>Deletes a value from the shared memory storage.</description>
+          <long-description></long-description>
+          <tag name="param" line="265" description="&lt;p&gt;Name of key to delete.&lt;/p&gt;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="return" line="265" description="TRUE on success, FALSE on failure." type="bool">
+            <type>bool</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="282" package="PEAR2_Cache_SHM">
+        <name>inc</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\APC::inc()</full_name>
+        <docblock line="282">
+          <description>Increases a value from the shared memory storage.</description>
+          <long-description>Increases a value from the shared memory storage. Unlike a plain
+set($key, get($key)+$step) combination, this function also implicitly
+performs locking.</long-description>
+          <tag name="param" line="282" description="&lt;p&gt;Name of key to increase.&lt;/p&gt;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="282" description="&lt;p&gt;Value to increase the key by.&lt;/p&gt;" type="int" variable="$step">
+            <type>int</type>
+          </tag>
+          <tag name="return" line="282" description="The new value." type="int">
+            <type>int</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+        <argument line="0">
+          <name>$step</name>
+          <default>1</default>
+          <type>int</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="310" package="PEAR2_Cache_SHM">
+        <name>dec</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\APC::dec()</full_name>
+        <docblock line="310">
+          <description>Decreases a value from the shared memory storage.</description>
+          <long-description>Decreases a value from the shared memory storage. Unlike a plain
+set($key, get($key)-$step) combination, this function also implicitly
+performs locking.</long-description>
+          <tag name="param" line="310" description="&lt;p&gt;Name of key to decrease.&lt;/p&gt;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="310" description="&lt;p&gt;Value to decrease the key by.&lt;/p&gt;" type="int" variable="$step">
+            <type>int</type>
+          </tag>
+          <tag name="return" line="310" description="The new value." type="int">
+            <type>int</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+        <argument line="0">
+          <name>$step</name>
+          <default>1</default>
+          <type>int</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="338" package="PEAR2_Cache_SHM">
+        <name>cas</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\APC::cas()</full_name>
+        <docblock line="338">
+          <description>Sets a new value if a key has a certain value.</description>
+          <long-description>Sets a new value if a key has a certain value. This function only works
+when $old and $new are longs.</long-description>
+          <tag name="param" line="338" description="&lt;p&gt;Key of the value to compare and set.&lt;/p&gt;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="338" description="&lt;p&gt;The value to compare the key against.&lt;/p&gt;" type="int" variable="$old">
+            <type>int</type>
+          </tag>
+          <tag name="param" line="338" description="&lt;p&gt;The value to set the key to.&lt;/p&gt;" type="int" variable="$new">
+            <type>int</type>
+          </tag>
+          <tag name="return" line="338" description="TRUE on success, FALSE on failure." type="bool">
+            <type>bool</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+        <argument line="0">
+          <name>$old</name>
+          <default></default>
+          <type>int</type>
+        </argument>
+        <argument line="0">
+          <name>$new</name>
+          <default></default>
+          <type>int</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="351" package="PEAR2_Cache_SHM">
+        <name>clear</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\APC::clear()</full_name>
+        <docblock line="351">
+          <description>Clears the persistent storage.</description>
+          <long-description>Clears the persistent storage, i.e. removes all keys. Locks are left
+intact.</long-description>
+          <tag name="return" line="351" description="" type="void">
+            <type>void</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="379" package="PEAR2_Cache_SHM">
+        <name>getIterator</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\APC::getIterator()</full_name>
+        <docblock line="379">
+          <description>Retrieve an external iterator</description>
+          <long-description>Returns an external iterator.</long-description>
+          <tag name="param" line="379" description="&lt;p&gt;A PCRE regular expression. Only matching keys&#13;&#10;    will be iterated over. Setting this to NULL matches all keys of this&#13;&#10;    instance.&lt;/p&gt;" type="string" variable="$filter">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="379" description="&lt;p&gt;Whether to return only the keys, or return both&#13;&#10;    the keys and values.&lt;/p&gt;" type="bool" variable="$keysOnly">
+            <type>bool</type>
+          </tag>
+          <tag name="return" line="379" description="An array with all matching keys as array keys, and values&#13;&#10;    as array values. If $keysOnly is TRUE, the array keys are numeric,&#13;&#10;    and the array values are key names." type="array">
+            <type>array</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$filter</name>
+          <default>null</default>
+          <type>string</type>
+        </argument>
+        <argument line="0">
+          <name>$keysOnly</name>
+          <default>false</default>
+          <type>bool</type>
+        </argument>
+      </method>
+    </class>
+    <source>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</source>
+  </file>
+  <file path="SHM\Adapter\Placebo.php" generated-path="SHM.Adapter.Placebo.html" hash="cf23a0a2fb196a4c953fb3b5105ed799" package="PEAR2_Cache_SHM">
+    <docblock line="0">
+      <description>Wrapper for shared memory and locking functionality across different extensions.</description>
+      <long-description>Allows you to share data across requests as long as the PHP process is running. One of APC or WinCache is required to accomplish this, with other extensions being potentially pluggable as adapters.
+
+PHP version 5</long-description>
+      <tag name="category" line="0" description="Cache"/>
+      <tag name="package" line="0" description="PEAR2_Cache_SHM"/>
+      <tag name="author" line="0" description="Vasil Rangelov" link="mailto:boen.robot@gmail.com"/>
+      <tag name="copyright" line="0" description="2011 Vasil Rangelov"/>
+      <tag name="license" line="0" description="LGPL License 2.1" link="http://www.gnu.org/copyleft/lesser.html"/>
+      <tag name="version" line="0" description="0.1.2"/>
+      <tag name="link" line="0" description="http://pear2.php.net/PEAR2_Cache_SHM" link="http://pear2.php.net/PEAR2_Cache_SHM"/>
+    </docblock>
+    <class final="false" abstract="false" namespace="PEAR2\Cache\SHM\Adapter" line="40" package="PEAR2_Cache_SHM">
+      <extends>\PEAR2\Cache\SHM</extends>
+      <name>Placebo</name>
+      <full_name>\PEAR2\Cache\SHM\Adapter\Placebo</full_name>
+      <docblock line="40">
+        <description>This adapter is not truly persistent. It is intended to emulate persistency
+in non persistent environments, so that upper level applications can use a
+single code path for persistent and non persistent code.</description>
+        <long-description>Automatically chooses an adapter based on the available extensions.</long-description>
+        <tag name="category" line="40" description="Cache"/>
+        <tag name="package" line="40" description="PEAR2_Cache_SHM"/>
+        <tag name="author" line="40" description="Vasil Rangelov" link="mailto:boen.robot@gmail.com"/>
+        <tag name="license" line="40" description="LGPL License 2.1" link="http://www.gnu.org/copyleft/lesser.html"/>
+        <tag name="link" line="40" description="http://pear2.php.net/PEAR2_Cache_SHM" link="http://pear2.php.net/PEAR2_Cache_SHM"/>
+      </docblock>
+      <property static="false" visibility="protected" line="45" namespace="PEAR2\Cache\SHM\Adapter" package="PEAR2_Cache_SHM">
+        <name>$persistentId</name>
+        <default></default>
+        <docblock line="45">
+          <description></description>
+          <long-description></long-description>
+          <tag name="var" line="45" description="&lt;p&gt;ID of the current storage.&lt;/p&gt;" type="string" variable="">
+            <type>string</type>
+          </tag>
+        </docblock>
+      </property>
+      <property static="true" visibility="protected" line="55" namespace="PEAR2\Cache\SHM\Adapter" package="PEAR2_Cache_SHM">
+        <name>$requestInstances</name>
+        <default>array()</default>
+        <docblock line="55">
+          <description>List of persistent IDs.</description>
+          <long-description>A list of persistent IDs within the current request (as keys) with an int
+(as a value) specifying the number of instances in the current request.
+Used as an attempt to ensure implicit lock releases on destruction.</long-description>
+          <tag name="var" line="55" description="" type="array" variable="">
+            <type>array</type>
+          </tag>
+        </docblock>
+      </property>
+      <property static="true" visibility="protected" line="61" namespace="PEAR2\Cache\SHM\Adapter" package="PEAR2_Cache_SHM">
+        <name>$locksBackup</name>
+        <default>array()</default>
+        <docblock line="61">
+          <description></description>
+          <long-description></long-description>
+          <tag name="var" line="61" description="&lt;p&gt;Array of lock names (as values) for each persistent ID (as&#10;    key) obtained during the current request.&lt;/p&gt;&#10;" type="array" variable="">
+            <type>array</type>
+          </tag>
+        </docblock>
+      </property>
+      <property static="true" visibility="protected" line="72" namespace="PEAR2\Cache\SHM\Adapter" package="PEAR2_Cache_SHM">
+        <name>$data</name>
+        <default>array()</default>
+        <docblock line="72">
+          <description>The data storage.</description>
+          <long-description>Each persistent ID is a key, and the value is an array.
+Each such array has data keys as its keys, and an array as a value.
+Each such array has as its elements the value, the timeout and the time
+the data was set.</long-description>
+          <tag name="var" line="72" description="" type="array" variable="">
+            <type>array</type>
+          </tag>
+        </docblock>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="83" package="PEAR2_Cache_SHM">
+        <name>__construct</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\Placebo::__construct()</full_name>
+        <docblock line="83">
+          <description>Creates a new shared memory storage.</description>
+          <long-description>Estabilishes a separate persistent storage.</long-description>
+          <tag name="param" line="83" description="&lt;p&gt;The ID for the storage. The storage will be&#10;    reused if it exists, or created if it doesn't exist. Data and locks&#10;    are namespaced by this ID.&lt;/p&gt;&#10;" type="string" variable="$persistentId">
+            <type>string</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$persistentId</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="98" package="PEAR2_Cache_SHM">
+        <name>__destruct</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\Placebo::__destruct()</full_name>
+        <docblock line="98">
+          <description>Releases any unreleased locks.</description>
+          <long-description></long-description>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="110" package="PEAR2_Cache_SHM">
+        <name>isMeetingRequirements</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\Placebo::isMeetingRequirements()</full_name>
+        <docblock line="110">
+          <description>Checks if the adapter meets its requirements.</description>
+          <long-description></long-description>
+          <tag name="return" line="110" description="TRUE on success, FALSE on failure." type="bool">
+            <type>bool</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="123" package="PEAR2_Cache_SHM">
+        <name>lock</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\Placebo::lock()</full_name>
+        <docblock line="123">
+          <description>Pretends to obtain a lock.</description>
+          <long-description></long-description>
+          <tag name="param" line="123" description="&lt;p&gt;Ignored.&lt;/p&gt;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="123" description="&lt;p&gt;Ignored.&lt;/p&gt;" type="double" variable="$timeout">
+            <type>double</type>
+          </tag>
+          <tag name="return" line="123" description="TRUE on success, FALSE on failure." type="bool">
+            <type>bool</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+        <argument line="0">
+          <name>$timeout</name>
+          <default>null</default>
+          <type>double</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="140" package="PEAR2_Cache_SHM">
+        <name>unlock</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\Placebo::unlock()</full_name>
+        <docblock line="140">
+          <description>Pretends to release a lock.</description>
+          <long-description></long-description>
+          <tag name="param" line="140" description="&lt;p&gt;Ignored&lt;/p&gt;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="return" line="140" description="TRUE on success, FALSE on failure." type="bool">
+            <type>bool</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="161" package="PEAR2_Cache_SHM">
+        <name>exists</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\Placebo::exists()</full_name>
+        <docblock line="161">
+          <description>Checks if a specified key is in the storage.</description>
+          <long-description></long-description>
+          <tag name="param" line="161" description="&lt;p&gt;Name of key to check.&lt;/p&gt;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="return" line="161" description="TRUE if the key is in the storage, FALSE otherwise." type="bool">
+            <type>bool</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="178" package="PEAR2_Cache_SHM">
+        <name>add</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\Placebo::add()</full_name>
+        <docblock line="178">
+          <description>Adds a value to the shared memory storage.</description>
+          <long-description>Adds a value to the storage if it doesn't exist, or fails if it does.</long-description>
+          <tag name="param" line="178" description="&lt;p&gt;Name of key to associate the value with.&lt;/p&gt;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="178" description="&lt;p&gt;Value for the specified key.&lt;/p&gt;" type="mixed" variable="$value">
+            <type>mixed</type>
+          </tag>
+          <tag name="param" line="178" description="&lt;p&gt;Because &quot;true&quot; adapters purge the cache at the next&#10;    request, this setting is ignored.&lt;/p&gt;&#10;" type="int" variable="$ttl">
+            <type>int</type>
+          </tag>
+          <tag name="return" line="178" description="TRUE on success, FALSE on failure." type="bool">
+            <type>bool</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+        <argument line="0">
+          <name>$value</name>
+          <default></default>
+          <type>mixed</type>
+        </argument>
+        <argument line="0">
+          <name>$ttl</name>
+          <default>0</default>
+          <type>int</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="198" package="PEAR2_Cache_SHM">
+        <name>set</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\Placebo::set()</full_name>
+        <docblock line="198">
+          <description>Sets a value in the shared memory storage.</description>
+          <long-description>Adds a value to the storage if it doesn't exist, overwrites it otherwise.</long-description>
+          <tag name="param" line="198" description="&lt;p&gt;Name of key to associate the value with.&lt;/p&gt;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="198" description="&lt;p&gt;Value for the specified key.&lt;/p&gt;" type="mixed" variable="$value">
+            <type>mixed</type>
+          </tag>
+          <tag name="param" line="198" description="&lt;p&gt;Because &quot;true&quot; adapters purge the cache at the next&#10;    request, this setting is ignored.&lt;/p&gt;&#10;" type="int" variable="$ttl">
+            <type>int</type>
+          </tag>
+          <tag name="return" line="198" description="TRUE on success, FALSE on failure." type="bool">
+            <type>bool</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+        <argument line="0">
+          <name>$value</name>
+          <default></default>
+          <type>mixed</type>
+        </argument>
+        <argument line="0">
+          <name>$ttl</name>
+          <default>0</default>
+          <type>int</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="213" package="PEAR2_Cache_SHM">
+        <name>get</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\Placebo::get()</full_name>
+        <docblock line="213">
+          <description>Gets a value from the shared memory storage.</description>
+          <long-description>Gets the current value, or throws an exception if it's not stored.</long-description>
+          <tag name="param" line="213" description="&lt;p&gt;Name of key to get the value of.&lt;/p&gt;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="return" line="213" description="The current value of the specified key." type="mixed">
+            <type>mixed</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="231" package="PEAR2_Cache_SHM">
+        <name>delete</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\Placebo::delete()</full_name>
+        <docblock line="231">
+          <description>Deletes a value from the shared memory storage.</description>
+          <long-description></long-description>
+          <tag name="param" line="231" description="&lt;p&gt;Name of key to delete.&lt;/p&gt;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="return" line="231" description="TRUE on success, FALSE on failure." type="bool">
+            <type>bool</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="252" package="PEAR2_Cache_SHM">
+        <name>inc</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\Placebo::inc()</full_name>
+        <docblock line="252">
+          <description>Increases a value from the shared memory storage.</description>
+          <long-description>Increases a value from the shared memory storage. Unlike a plain
+set($key, get($key)+$step) combination, this function also implicitly
+performs locking.</long-description>
+          <tag name="param" line="252" description="&lt;p&gt;Name of key to increase.&lt;/p&gt;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="252" description="&lt;p&gt;Value to increase the key by.&lt;/p&gt;" type="int" variable="$step">
+            <type>int</type>
+          </tag>
+          <tag name="return" line="252" description="The new value." type="int">
+            <type>int</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+        <argument line="0">
+          <name>$step</name>
+          <default>1</default>
+          <type>int</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="277" package="PEAR2_Cache_SHM">
+        <name>dec</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\Placebo::dec()</full_name>
+        <docblock line="277">
+          <description>Decreases a value from the shared memory storage.</description>
+          <long-description>Decreases a value from the shared memory storage. Unlike a plain
+set($key, get($key)-$step) combination, this function also implicitly
+performs locking.</long-description>
+          <tag name="param" line="277" description="&lt;p&gt;Name of key to decrease.&lt;/p&gt;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="277" description="&lt;p&gt;Value to decrease the key by.&lt;/p&gt;" type="int" variable="$step">
+            <type>int</type>
+          </tag>
+          <tag name="return" line="277" description="The new value." type="int">
+            <type>int</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+        <argument line="0">
+          <name>$step</name>
+          <default>1</default>
+          <type>int</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="302" package="PEAR2_Cache_SHM">
+        <name>cas</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\Placebo::cas()</full_name>
+        <docblock line="302">
+          <description>Sets a new value if a key has a certain value.</description>
+          <long-description>Sets a new value if a key has a certain value. This function only works
+when $old and $new are longs.</long-description>
+          <tag name="param" line="302" description="&lt;p&gt;Key of the value to compare and set.&lt;/p&gt;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="302" description="&lt;p&gt;The value to compare the key against.&lt;/p&gt;" type="int" variable="$old">
+            <type>int</type>
+          </tag>
+          <tag name="param" line="302" description="&lt;p&gt;The value to set the key to.&lt;/p&gt;" type="int" variable="$new">
+            <type>int</type>
+          </tag>
+          <tag name="return" line="302" description="TRUE on success, FALSE on failure." type="bool">
+            <type>bool</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+        <argument line="0">
+          <name>$old</name>
+          <default></default>
+          <type>int</type>
+        </argument>
+        <argument line="0">
+          <name>$new</name>
+          <default></default>
+          <type>int</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="316" package="PEAR2_Cache_SHM">
+        <name>clear</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\Placebo::clear()</full_name>
+        <docblock line="316">
+          <description>Clears the persistent storage.</description>
+          <long-description>Clears the persistent storage, i.e. removes all keys. Locks are left
+intact.</long-description>
+          <tag name="return" line="316" description="" type="void">
+            <type>void</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="336" package="PEAR2_Cache_SHM">
+        <name>getIterator</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\Placebo::getIterator()</full_name>
+        <docblock line="336">
+          <description>Retrieve an external iterator</description>
+          <long-description>Returns an external iterator.</long-description>
+          <tag name="param" line="336" description="&lt;p&gt;A PCRE regular expression. Only matching keys&#13;&#10;    will be iterated over. Setting this to NULL matches all keys of this&#13;&#10;    instance.&lt;/p&gt;" type="string" variable="$filter">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="336" description="&lt;p&gt;Whether to return only the keys, or return both&#13;&#10;    the keys and values.&lt;/p&gt;" type="bool" variable="$keysOnly">
+            <type>bool</type>
+          </tag>
+          <tag name="return" line="336" description="An array with all matching keys as array keys, and values&#13;&#10;    as array values. If $keysOnly is TRUE, the array keys are numeric,&#13;&#10;    and the array values are key names." type="array">
+            <type>array</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$filter</name>
+          <default>null</default>
+          <type>string</type>
+        </argument>
+        <argument line="0">
+          <name>$keysOnly</name>
+          <default>false</default>
+          <type>bool</type>
+        </argument>
+      </method>
+    </class>
+    <source>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</source>
+  </file>
+  <file path="SHM\Adapter\Wincache.php" generated-path="SHM.Adapter.Wincache.html" hash="9737afdb0ae3d3d0b066a0e4002f1241" package="PEAR2_Cache_SHM">
+    <docblock line="0">
+      <description>Wrapper for shared memory and locking functionality across different extensions.</description>
+      <long-description>Allows you to share data across requests as long as the PHP process is running. One of APC or WinCache is required to accomplish this, with other extensions being potentially pluggable as adapters.
+
+PHP version 5</long-description>
+      <tag name="category" line="0" description="Cache"/>
+      <tag name="package" line="0" description="PEAR2_Cache_SHM"/>
+      <tag name="author" line="0" description="Vasil Rangelov" link="mailto:boen.robot@gmail.com"/>
+      <tag name="copyright" line="0" description="2011 Vasil Rangelov"/>
+      <tag name="license" line="0" description="LGPL License 2.1" link="http://www.gnu.org/copyleft/lesser.html"/>
+      <tag name="version" line="0" description="0.1.2"/>
+      <tag name="link" line="0" description="http://pear2.php.net/PEAR2_Cache_SHM" link="http://pear2.php.net/PEAR2_Cache_SHM"/>
+    </docblock>
+    <class final="false" abstract="false" namespace="PEAR2\Cache\SHM\Adapter" line="38" package="PEAR2_Cache_SHM">
+      <extends>\PEAR2\Cache\SHM</extends>
+      <name>Wincache</name>
+      <full_name>\PEAR2\Cache\SHM\Adapter\Wincache</full_name>
+      <docblock line="38">
+        <description>Shared memory adapter for the WinCache extension.</description>
+        <long-description>Automatically chooses an adapter based on the available extensions.</long-description>
+        <tag name="category" line="38" description="Cache"/>
+        <tag name="package" line="38" description="PEAR2_Cache_SHM"/>
+        <tag name="author" line="38" description="Vasil Rangelov" link="mailto:boen.robot@gmail.com"/>
+        <tag name="license" line="38" description="LGPL License 2.1" link="http://www.gnu.org/copyleft/lesser.html"/>
+        <tag name="link" line="38" description="http://pear2.php.net/PEAR2_Cache_SHM" link="http://pear2.php.net/PEAR2_Cache_SHM"/>
+      </docblock>
+      <property static="false" visibility="protected" line="43" namespace="PEAR2\Cache\SHM\Adapter" package="PEAR2_Cache_SHM">
+        <name>$persistentId</name>
+        <default></default>
+        <docblock line="43">
+          <description></description>
+          <long-description></long-description>
+          <tag name="var" line="43" description="&lt;p&gt;ID of the current storage.&lt;/p&gt;" type="string" variable="">
+            <type>string</type>
+          </tag>
+        </docblock>
+      </property>
+      <property static="true" visibility="protected" line="53" namespace="PEAR2\Cache\SHM\Adapter" package="PEAR2_Cache_SHM">
+        <name>$requestInstances</name>
+        <default>array()</default>
+        <docblock line="53">
+          <description>List of persistent IDs.</description>
+          <long-description>A list of persistent IDs within the current request (as keys) with an int
+(as a value) specifying the number of instances in the current request.
+Used as an attempt to ensure implicit lock releases on destruction.</long-description>
+          <tag name="var" line="53" description="" type="array" variable="">
+            <type>array</type>
+          </tag>
+        </docblock>
+      </property>
+      <property static="true" visibility="protected" line="58" namespace="PEAR2\Cache\SHM\Adapter" package="PEAR2_Cache_SHM">
+        <name>$locksBackup</name>
+        <default>array()</default>
+        <docblock line="58">
+          <description></description>
+          <long-description></long-description>
+          <tag name="var" line="58" description="&lt;p&gt;Array of lock names obtained during the current request.&lt;/p&gt;" type="array" variable="">
+            <type>array</type>
+          </tag>
+        </docblock>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="69" package="PEAR2_Cache_SHM">
+        <name>__construct</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\Wincache::__construct()</full_name>
+        <docblock line="69">
+          <description>Creates a new shared memory storage.</description>
+          <long-description>Estabilishes a separate persistent storage.</long-description>
+          <tag name="param" line="69" description="&lt;p&gt;The ID for the storage. The storage will be&#10;    reused if it exists, or created if it doesn't exist. Data and locks&#10;    are namespaced by this ID.&lt;/p&gt;&#10;" type="string" variable="$persistentId">
+            <type>string</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$persistentId</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="protected" namespace="PEAR2\Cache\SHM\Adapter" line="94" package="PEAR2_Cache_SHM">
+        <name>encodeLockName</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\Wincache::encodeLockName()</full_name>
+        <docblock line="94">
+          <description>Encodes a lock name</description>
+          <long-description>Encodes a lock name, so that it can be properly obtained. The scheme used
+is a subset of URL encoding, with only the "%" and "\" characters being
+escaped. The encoding itself is necessary, since lock names can't contain
+the "\" character.</long-description>
+          <tag name="param" line="94" description="&lt;p&gt;The lock name to encode.&lt;/p&gt;" type="string" variable="$name">
+            <type>string</type>
+          </tag>
+          <tag name="return" line="94" description="The encoded name." type="string">
+            <type>string</type>
+          </tag>
+          <tag name="link" line="94" description="http://msdn.microsoft.com/en-us/library/ms682411(VS.85).aspx" link="http://msdn.microsoft.com/en-us/library/ms682411(VS.85).aspx"/>
+        </docblock>
+        <argument line="0">
+          <name>$name</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="104" package="PEAR2_Cache_SHM">
+        <name>isMeetingRequirements</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\Wincache::isMeetingRequirements()</full_name>
+        <docblock line="104">
+          <description>Checks if the adapter meets its requirements.</description>
+          <long-description></long-description>
+          <tag name="return" line="104" description="TRUE on success, FALSE on failure." type="bool">
+            <type>bool</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="114" package="PEAR2_Cache_SHM">
+        <name>__destruct</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\Wincache::__destruct()</full_name>
+        <docblock line="114">
+          <description>Releases any locks obtained by this instance as soon as there are no more
+references to the object's persistent ID.</description>
+          <long-description></long-description>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="136" package="PEAR2_Cache_SHM">
+        <name>lock</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\Wincache::lock()</full_name>
+        <docblock line="136">
+          <description>Obtains a named lock.</description>
+          <long-description></long-description>
+          <tag name="param" line="136" description="&lt;p&gt;Name of the key to obtain. Note that $key may&#10;    repeat for each distinct $persistentId.&lt;/p&gt;&#10;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="136" description="&lt;p&gt;Ignored with WinCache. Script will always block if&#10;    the lock can't be immediatly obtained.&lt;/p&gt;&#10;" type="double" variable="$timeout">
+            <type>double</type>
+          </tag>
+          <tag name="return" line="136" description="TRUE on success, FALSE on failure." type="bool">
+            <type>bool</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+        <argument line="0">
+          <name>$timeout</name>
+          <default>null</default>
+          <type>double</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="155" package="PEAR2_Cache_SHM">
+        <name>unlock</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\Wincache::unlock()</full_name>
+        <docblock line="155">
+          <description>Releases a named lock.</description>
+          <long-description></long-description>
+          <tag name="param" line="155" description="&lt;p&gt;Name of the key to release. Note that $key may&#10;    repeat for each distinct $persistentId.&lt;/p&gt;&#10;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="return" line="155" description="TRUE on success, FALSE on failure." type="bool">
+            <type>bool</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="177" package="PEAR2_Cache_SHM">
+        <name>exists</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\Wincache::exists()</full_name>
+        <docblock line="177">
+          <description>Checks if a specified key is in the storage.</description>
+          <long-description></long-description>
+          <tag name="param" line="177" description="&lt;p&gt;Name of key to check.&lt;/p&gt;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="return" line="177" description="TRUE if the key is in the storage, FALSE otherwise." type="bool">
+            <type>bool</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="194" package="PEAR2_Cache_SHM">
+        <name>add</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\Wincache::add()</full_name>
+        <docblock line="194">
+          <description>Adds a value to the shared memory storage.</description>
+          <long-description>Sets a value to the storage if it doesn't exist, or fails if it does.</long-description>
+          <tag name="param" line="194" description="&lt;p&gt;Name of key to associate the value with.&lt;/p&gt;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="194" description="&lt;p&gt;Value for the specified key.&lt;/p&gt;" type="mixed" variable="$value">
+            <type>mixed</type>
+          </tag>
+          <tag name="param" line="194" description="&lt;p&gt;Seconds to store the value. If set to 0 indicates no&#13;&#10;    time limit.&lt;/p&gt;" type="int" variable="$ttl">
+            <type>int</type>
+          </tag>
+          <tag name="return" line="194" description="TRUE on success, FALSE on failure." type="bool">
+            <type>bool</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+        <argument line="0">
+          <name>$value</name>
+          <default></default>
+          <type>mixed</type>
+        </argument>
+        <argument line="0">
+          <name>$ttl</name>
+          <default>0</default>
+          <type>int</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="211" package="PEAR2_Cache_SHM">
+        <name>set</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\Wincache::set()</full_name>
+        <docblock line="211">
+          <description>Sets a value in the shared memory storage.</description>
+          <long-description>Adds a value to the storage if it doesn't exist, overwrites it otherwise.</long-description>
+          <tag name="param" line="211" description="&lt;p&gt;Name of key to associate the value with.&lt;/p&gt;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="211" description="&lt;p&gt;Value for the specified key.&lt;/p&gt;" type="mixed" variable="$value">
+            <type>mixed</type>
+          </tag>
+          <tag name="param" line="211" description="&lt;p&gt;Seconds to store the value. If set to 0 indicates no&#13;&#10;    time limit.&lt;/p&gt;" type="int" variable="$ttl">
+            <type>int</type>
+          </tag>
+          <tag name="return" line="211" description="TRUE on success, FALSE on failure." type="bool">
+            <type>bool</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+        <argument line="0">
+          <name>$value</name>
+          <default></default>
+          <type>mixed</type>
+        </argument>
+        <argument line="0">
+          <name>$ttl</name>
+          <default>0</default>
+          <type>int</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="225" package="PEAR2_Cache_SHM">
+        <name>get</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\Wincache::get()</full_name>
+        <docblock line="225">
+          <description>Gets a value from the shared memory storage.</description>
+          <long-description>Gets the current value, or throws an exception if it's not stored.</long-description>
+          <tag name="param" line="225" description="&lt;p&gt;Name of key to get the value of.&lt;/p&gt;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="return" line="225" description="The current value of the specified key." type="mixed">
+            <type>mixed</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="244" package="PEAR2_Cache_SHM">
+        <name>delete</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\Wincache::delete()</full_name>
+        <docblock line="244">
+          <description>Deletes a value from the shared memory storage.</description>
+          <long-description></long-description>
+          <tag name="param" line="244" description="&lt;p&gt;Name of key to delete.&lt;/p&gt;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="return" line="244" description="TRUE on success, FALSE on failure." type="bool">
+            <type>bool</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="261" package="PEAR2_Cache_SHM">
+        <name>inc</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\Wincache::inc()</full_name>
+        <docblock line="261">
+          <description>Increases a value from the shared memory storage.</description>
+          <long-description>Increases a value from the shared memory storage. Unlike a plain
+set($key, get($key)+$step) combination, this function also implicitly
+performs locking.</long-description>
+          <tag name="param" line="261" description="&lt;p&gt;Name of key to increase.&lt;/p&gt;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="261" description="&lt;p&gt;Value to increase the key by.&lt;/p&gt;" type="int" variable="$step">
+            <type>int</type>
+          </tag>
+          <tag name="return" line="261" description="The new value." type="int">
+            <type>int</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+        <argument line="0">
+          <name>$step</name>
+          <default>1</default>
+          <type>int</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="289" package="PEAR2_Cache_SHM">
+        <name>dec</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\Wincache::dec()</full_name>
+        <docblock line="289">
+          <description>Decreases a value from the shared memory storage.</description>
+          <long-description>Decreases a value from the shared memory storage. Unlike a plain
+set($key, get($key)-$step) combination, this function also implicitly
+performs locking.</long-description>
+          <tag name="param" line="289" description="&lt;p&gt;Name of key to decrease.&lt;/p&gt;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="289" description="&lt;p&gt;Value to decrease the key by.&lt;/p&gt;" type="int" variable="$step">
+            <type>int</type>
+          </tag>
+          <tag name="return" line="289" description="The new value." type="int">
+            <type>int</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+        <argument line="0">
+          <name>$step</name>
+          <default>1</default>
+          <type>int</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="317" package="PEAR2_Cache_SHM">
+        <name>cas</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\Wincache::cas()</full_name>
+        <docblock line="317">
+          <description>Sets a new value if a key has a certain value.</description>
+          <long-description>Sets a new value if a key has a certain value. This function only works
+when $old and $new are longs.</long-description>
+          <tag name="param" line="317" description="&lt;p&gt;Key of the value to compare and set.&lt;/p&gt;" type="string" variable="$key">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="317" description="&lt;p&gt;The value to compare the key against.&lt;/p&gt;" type="int" variable="$old">
+            <type>int</type>
+          </tag>
+          <tag name="param" line="317" description="&lt;p&gt;The value to set the key to.&lt;/p&gt;" type="int" variable="$new">
+            <type>int</type>
+          </tag>
+          <tag name="return" line="317" description="TRUE on success, FALSE on failure." type="bool">
+            <type>bool</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$key</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+        <argument line="0">
+          <name>$old</name>
+          <default></default>
+          <type>int</type>
+        </argument>
+        <argument line="0">
+          <name>$new</name>
+          <default></default>
+          <type>int</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="330" package="PEAR2_Cache_SHM">
+        <name>clear</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\Wincache::clear()</full_name>
+        <docblock line="330">
+          <description>Clears the persistent storage.</description>
+          <long-description>Clears the persistent storage, i.e. removes all keys. Locks are left
+intact.</long-description>
+          <tag name="return" line="330" description="" type="void">
+            <type>void</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="PEAR2\Cache\SHM\Adapter" line="357" package="PEAR2_Cache_SHM">
+        <name>getIterator</name>
+        <full_name>\PEAR2\Cache\SHM\Adapter\Wincache::getIterator()</full_name>
+        <docblock line="357">
+          <description>Retrieve an external iterator</description>
+          <long-description>Returns an external iterator.</long-description>
+          <tag name="param" line="357" description="&lt;p&gt;A PCRE regular expression. Only matching keys&#13;&#10;    will be iterated over. Setting this to NULL matches all keys of this&#13;&#10;    instance.&lt;/p&gt;" type="string" variable="$filter">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="357" description="&lt;p&gt;Whether to return only the keys, or return both&#13;&#10;    the keys and values.&lt;/p&gt;" type="bool" variable="$keysOnly">
+            <type>bool</type>
+          </tag>
+          <tag name="return" line="357" description="An array with all matching keys as array keys, and values&#13;&#10;    as array values. If $keysOnly is TRUE, the array keys are numeric,&#13;&#10;    and the array values are key names." type="array">
+            <type>array</type>
+          </tag>
+        </docblock>
+        <argument line="0">
+          <name>$filter</name>
+          <default>null</default>
+          <type>string</type>
+        </argument>
+        <argument line="0">
+          <name>$keysOnly</name>
+          <default>false</default>
+          <type>bool</type>
+        </argument>
+      </method>
+    </class>
+    <source>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</source>
+  </file>
+  <file path="SHM\Exception.php" generated-path="SHM.Exception.html" hash="4852398ac46938f5092249cace3c2b2d" package="PEAR2_Cache_SHM">
+    <docblock line="0">
+      <description>Wrapper for shared memory and locking functionality across different extensions.</description>
+      <long-description>Allows you to share data across requests as long as the PHP process is running. One of APC or WinCache is required to accomplish this, with other extensions being potentially pluggable as adapters.
+
+PHP version 5</long-description>
+      <tag name="category" line="0" description="Cache"/>
+      <tag name="package" line="0" description="PEAR2_Cache_SHM"/>
+      <tag name="author" line="0" description="Vasil Rangelov" link="mailto:boen.robot@gmail.com"/>
+      <tag name="copyright" line="0" description="2011 Vasil Rangelov"/>
+      <tag name="license" line="0" description="LGPL License 2.1" link="http://www.gnu.org/copyleft/lesser.html"/>
+      <tag name="version" line="0" description="0.1.2"/>
+      <tag name="link" line="0" description="http://pear2.php.net/PEAR2_Cache_SHM" link="http://pear2.php.net/PEAR2_Cache_SHM"/>
+    </docblock>
+    <interface namespace="PEAR2\Cache\SHM" line="33" package="PEAR2_Cache_SHM">
+      <name>Exception</name>
+      <full_name>\PEAR2\Cache\SHM\Exception</full_name>
+      <docblock line="33">
+        <description>Generic exception class of this package.</description>
+        <long-description></long-description>
+        <tag name="category" line="33" description="Cache"/>
+        <tag name="package" line="33" description="PEAR2_Cache_SHM"/>
+        <tag name="author" line="33" description="Vasil Rangelov" link="mailto:boen.robot@gmail.com"/>
+        <tag name="license" line="33" description="LGPL License 2.1" link="http://www.gnu.org/copyleft/lesser.html"/>
+        <tag name="link" line="33" description="http://pear2.php.net/PEAR2_Cache_SHM" link="http://pear2.php.net/PEAR2_Cache_SHM"/>
+      </docblock>
+    </interface>
+    <source>eJylUk1r3DAQvftXzHkpctbQSxvaLCEkhy01aWkugTArj2WxsqRKctyl9L935LW3pSkhEIExzMebN+/N+Uff+aIoV6sCVnAX0HsK0LoAscNADfTUu3AAtA0YJ/faKmgHK5N2Fo1OnJHBxQiNblsKZBPQj0Q2cj6KIoPmb2OMGyMc3ADJHaGhwYRLd6DvA8UUASOP4Rn8Tx1BfVODD04S12guG6xlBgI+WwLXwqa+BKZ6p+0lSi7XRySdifMclNL13ujYMZiOb2DUqQPHwOEvlrCjvJV3HEgajTmAN4NSuDOUeWCDPlHgbeZlMqlHDnAzvF2CFxITqSwVTFymmEe5R0UAUF9tbquHKfPw5ebTlMUhdcye3zeM2sAtWkXGPcL5zpEVwe1culA9aiN4jw/HKc4fglZdgupsvf6ncaowWvJieWaXkn9XluM4CmUH4YIqc7uhNpWGFaUgutQb2F7XW9jObZVYTzDLggBnYi2qGdruYXoztCcMleALEpZS+XTHcjmsr2yOxZ4iK8LOkzQYMN+QmKr+pCaM+wnjnjHen07zmiwFLdk3ST53AmPwVfAVZG9hllo89eM/djzrxsvNOEn9KqVPqr5YVG35Htss19WiRvGz+FX8BqbaO/I=</source>
+  </file>
+  <file path="SHM\InvalidArgumentException.php" generated-path="SHM.InvalidArgumentException.html" hash="5624bd6b8199ed2336b599c18efafb93" package="PEAR2_Cache_SHM">
+    <docblock line="0">
+      <description>Wrapper for shared memory and locking functionality across different extensions.</description>
+      <long-description>Allows you to share data across requests as long as the PHP process is running. One of APC or WinCache is required to accomplish this, with other extensions being potentially pluggable as adapters.
+
+PHP version 5</long-description>
+      <tag name="category" line="0" description="Cache"/>
+      <tag name="package" line="0" description="PEAR2_Cache_SHM"/>
+      <tag name="author" line="0" description="Vasil Rangelov" link="mailto:boen.robot@gmail.com"/>
+      <tag name="copyright" line="0" description="2011 Vasil Rangelov"/>
+      <tag name="license" line="0" description="LGPL License 2.1" link="http://www.gnu.org/copyleft/lesser.html"/>
+      <tag name="version" line="0" description="0.1.2"/>
+      <tag name="link" line="0" description="http://pear2.php.net/PEAR2_Cache_SHM" link="http://pear2.php.net/PEAR2_Cache_SHM"/>
+    </docblock>
+    <class final="false" abstract="false" namespace="PEAR2\Cache\SHM" line="33" package="PEAR2_Cache_SHM">
+      <extends>\InvalidArgumentException</extends>
+      <implements>\PEAR2\Cache\SHM\Exception</implements>
+      <name>InvalidArgumentException</name>
+      <full_name>\PEAR2\Cache\SHM\InvalidArgumentException</full_name>
+      <docblock line="33">
+        <description>Exception thrown when there's something wrong with an argument.</description>
+        <long-description></long-description>
+        <tag name="category" line="33" description="Cache"/>
+        <tag name="package" line="33" description="PEAR2_Cache_SHM"/>
+        <tag name="author" line="33" description="Vasil Rangelov" link="mailto:boen.robot@gmail.com"/>
+        <tag name="license" line="33" description="LGPL License 2.1" link="http://www.gnu.org/copyleft/lesser.html"/>
+        <tag name="link" line="33" description="http://pear2.php.net/PEAR2_Cache_SHM" link="http://pear2.php.net/PEAR2_Cache_SHM"/>
+      </docblock>
+    </class>
+    <source>eJylU22LEzEQ/r6/Yr4JRbLXgl/00CvH4QkVyynel8Ixzc5mQ7NJTLLdK+J/d5K+iadyYGDZMC/PPDPP5PKd73xV1ZNJBRO4D+g9BWhdgNhhoAZ66l3YAdoGjJMbbRW0g5VJO4tGJ/bI4GKERrctBbIJ6DGRjeyPosqg+Zsb48YIOzdAcntoaDDhMTvQt4FiioCRy3AN/qeOYHm7BB+cJI7RHDZYywwEfLIEroX58hqY6r221yg5XO+RdCbOdVBK13ujY8dgOr6EUacOHAOHX1jCmnJX3rEhaTRmB94MSuHaUOaBDfpEgbs5NJNJbdnAyfDqaLySmEjlUUHhUmwe5QYVAcDyZn43eyieh8+3H4sXh9Qxez5fMWoDd2gVGbeFy7UjK4Jbu3SletRGcB9v91Wc3wWtugSzi+n0t8QSYbTkxnLNLiX/uq7HcRTKDsIFVed0Q22qDU+UguhSb2DxfrmAxSFtJqYF5tggwIWYitkB2m6gnAO0JwwzwRskLKX6aY/1cbG+sDgWe4o8EVaepMGAeYdEiTq7CsaqYKwY481pNW8eJfmcwVIGN1oYO8p33rkXEaLriSVmGceQ16cIjRYwqKFnWcVTmf6g0j9Fer5GJwX+S4DTsJ89ax4qP5MPdssPs5kfOj/PrWx8E2H1t4gqV9P8YCib43nk1ffqR/UT7Q1fSw==</source>
+  </file>
+  <package name="PEAR2_Cache_SHM" full_name="PEAR2_Cache_SHM"/>
+  <namespace name="PEAR2" full_name="PEAR2">
+    <namespace name="Cache" full_name="PEAR2\Cache">
+      <namespace name="SHM" full_name="PEAR2\Cache\SHM">
+        <namespace name="Adapter" full_name="PEAR2\Cache\SHM\Adapter"/>
+      </namespace>
+    </namespace>
+  </namespace>
+  <deprecated count="0"/>
+</project>
