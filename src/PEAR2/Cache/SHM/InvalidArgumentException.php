@@ -7,7 +7,7 @@
  * 
  * PHP version 5
  * 
- * @category  Cache
+ * @category  Caching
  * @package   PEAR2_Cache_SHM
  * @author    Vasil Rangelov <boen.robot@gmail.com>
  * @copyright 2011 Vasil Rangelov

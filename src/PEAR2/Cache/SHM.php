@@ -7,7 +7,7 @@
  * 
  * PHP version 5
  * 
- * @category  Cache
+ * @category  Caching
  * @package   PEAR2_Cache_SHM
  * @author    Vasil Rangelov <boen.robot@gmail.com>
  * @copyright 2011 Vasil Rangelov
@@ -15,10 +15,16 @@
  * @version   GIT: $Id$
  * @link      http://pear2.php.net/PEAR2_Cache_SHM
  */
+
 /**
  * The namespace declaration.
  */
 namespace PEAR2\Cache;
+
+/**
+ * Used as a catch-all for adapter initialization.
+ */
+use Exception as E;
 
 /**
  * Main class for this package.
@@ -54,7 +60,8 @@ abstract class SHM implements \IteratorAggregate
         foreach (self::$_adapters as $adapter) {
             try {
                 return new $adapter($persistentId);
-            } catch (\Exception $e) {
+            } catch (E $e) {
+                //In case of a runtime error, try to fallback to other adapters.
             }
         }
         throw new SHM\InvalidArgumentException(
