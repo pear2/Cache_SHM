@@ -23,7 +23,7 @@ namespace PEAR2\Cache\SHM;
 /**
  * Exception thrown when there's something wrong with an argument.
  * 
- * @category Cache
+ * @category Caching
  * @package  PEAR2_Cache_SHM
  * @author   Vasil Rangelov <boen.robot@gmail.com>
  * @license  http://www.gnu.org/copyleft/lesser.html LGPL License 2.1

@@ -26,11 +26,16 @@ namespace PEAR2\Cache\SHM\Adapter;
 use PEAR2\Cache\SHM;
 
 /**
+ * {@link Placebo::getIterator()} returns this object.
+ */
+use ArrayObject;
+
+/**
  * This adapter is not truly persistent. It is intended to emulate persistency
  * in non persistent environments, so that upper level applications can use a
  * single code path for persistent and non persistent code.
  * 
- * @category Cache
+ * @category Caching
  * @package  PEAR2_Cache_SHM
  * @author   Vasil Rangelov <boen.robot@gmail.com>
  * @license  http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
@@ -322,21 +327,24 @@ class Placebo extends SHM
      * 
      * Returns an external iterator.
      * 
-     * @param string $filter   A PCRE regular expression. Only matching keys
-     *     will be iterated over. Setting this to NULL matches all keys of this
-     *     instance.
-     * @param bool   $keysOnly Whether to return only the keys, or return both
-     *     the keys and values.
+     * @param string|null $filter   A PCRE regular expression.
+     *     Only matching keys will be iterated over.
+     *     Setting this to NULL matches all keys of this instance.
+     * @param bool        $keysOnly Whether to return only the keys,
+     *     or return both the keys and values.
      * 
-     * @return array An array with all matching keys as array keys, and values
-     *     as array values. If $keysOnly is TRUE, the array keys are numeric,
-     *     and the array values are key names.
+     * @return ArrayObject An array with all matching keys as array keys,
+     *     and values as array values. If $keysOnly is TRUE, the array keys are
+     *     numeric, and the array values are key names.
      */
     public function getIterator($filter = null, $keysOnly = false)
     {
         if (null === $filter) {
-            return $keysOnly ? array_keys(static::$data[$this->persistentId])
-                : static::$data[$this->persistentId];
+            return new ArrayObject(
+                $keysOnly
+                ? array_keys(static::$data[$this->persistentId])
+                : static::$data[$this->persistentId]
+            );
         }
         
         $result = array();
@@ -345,6 +353,6 @@ class Placebo extends SHM
                 $result[$key] = $value;
             }
         }
-        return $keysOnly ? array_keys($result) : $result;
+        return new ArrayObject($keysOnly ? array_keys($result) : $result);
     }
 }

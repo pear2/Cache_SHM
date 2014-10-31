@@ -1,0 +1,7 @@
+* Wincache and APC now check their requirements in greater detail:
+    - APC checks if it's enabled by the apc.enabled INI setting.
+    - Wincache checks if the user cache is enabled by wincache.ucenabled INI setting.
+    - Both check if the SAPI is CLI, and if so, whether that's allowed by the respective ini setting.
+* The PHAR stub also checks and reports the above.
+* SHM::getIterator() now returns ArrayObject instead of a normal array, in order to be compatible with how IteratorAggregate actually works.
+* Doc and CS fixes.

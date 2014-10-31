@@ -11,10 +11,10 @@
   <email>boen.robot@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2013-08-15</date>
- <time>18:18:31</time>
+ <date>2014-06-14</date>
+ <time>00:41:37</time>
  <version>
-  <release>0.1.2</release>
+  <release>0.1.3</release>
   <api>0.1.0</api>
  </version>
  <stability>
@@ -22,22 +22,25 @@
   <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL License 2.1</license>
- <notes>* SHM::isMeetingRequirements() is now not abstract, and always returns TRUE.
-* Fixed loading order of adapters.
-* Changed the PHAR stub to not fail when reading the hash fails.
+ <notes>* Wincache and APC now check their requirements in greater detail:
+    - APC checks if it's enabled by the apc.enabled INI setting.
+    - Wincache checks if the user cache is enabled by wincache.ucenabled INI setting.
+    - Both check if the SAPI is CLI, and if so, whether that's allowed by the respective ini setting.
+* The PHAR stub also checks and reports the above.
+* SHM::getIterator() now returns ArrayObject instead of a normal array, in order to be compatible with how IteratorAggregate actually works.
 * Doc and CS fixes.</notes>
  <contents>
   <dir name="/">
    <dir name="docs" baseinstalldir="/">
     <file role="doc" name="apigen.neon">
-     <tasks:replace from="../src" to="php_dir" type="pear-config"/>
+     <tasks:replace type="pear-config" to="php_dir" from="../src"/>
     </file>
     <file role="doc" name="doxygen.ini">
-     <tasks:replace from="../src" to="php_dir" type="pear-config"/>
-     <tasks:replace from="GIT: $Id$" to="version" type="package-info"/>
+     <tasks:replace type="pear-config" to="php_dir" from="../src"/>
+     <tasks:replace type="package-info" to="version" from="GIT: $Id$"/>
     </file>
     <file role="doc" name="phpdoc.dist.xml">
-     <tasks:replace from="../src" to="php_dir" type="pear-config"/>
+     <tasks:replace type="pear-config" to="php_dir" from="../src"/>
     </file>
    </dir>
    <dir name="src" baseinstalldir="/">
@@ -46,36 +49,24 @@
       <dir name="SHM">
        <dir name="Adapter">
         <file role="php" name="APC.php">
-         <tasks:replace from="~~summary~~" to="summary" type="package-info"/>
-         <tasks:replace from="~~description~~" to="description" type="package-info"/>
-         <tasks:replace from="GIT: $Id$" to="version" type="package-info"/>
+         <tasks:replace type="package-info" to="version" from="GIT: $Id$"/>
         </file>
         <file role="php" name="Placebo.php">
-         <tasks:replace from="~~summary~~" to="summary" type="package-info"/>
-         <tasks:replace from="~~description~~" to="description" type="package-info"/>
-         <tasks:replace from="GIT: $Id$" to="version" type="package-info"/>
+         <tasks:replace type="package-info" to="version" from="GIT: $Id$"/>
         </file>
         <file role="php" name="Wincache.php">
-         <tasks:replace from="~~summary~~" to="summary" type="package-info"/>
-         <tasks:replace from="~~description~~" to="description" type="package-info"/>
-         <tasks:replace from="GIT: $Id$" to="version" type="package-info"/>
+         <tasks:replace type="package-info" to="version" from="GIT: $Id$"/>
         </file>
        </dir>
        <file role="php" name="Exception.php">
-        <tasks:replace from="~~summary~~" to="summary" type="package-info"/>
-        <tasks:replace from="~~description~~" to="description" type="package-info"/>
-        <tasks:replace from="GIT: $Id$" to="version" type="package-info"/>
+        <tasks:replace type="package-info" to="version" from="GIT: $Id$"/>
        </file>
        <file role="php" name="InvalidArgumentException.php">
-        <tasks:replace from="~~summary~~" to="summary" type="package-info"/>
-        <tasks:replace from="~~description~~" to="description" type="package-info"/>
-        <tasks:replace from="GIT: $Id$" to="version" type="package-info"/>
+        <tasks:replace type="package-info" to="version" from="GIT: $Id$"/>
        </file>
       </dir>
       <file role="php" name="SHM.php">
-       <tasks:replace from="~~summary~~" to="summary" type="package-info"/>
-       <tasks:replace from="~~description~~" to="description" type="package-info"/>
-       <tasks:replace from="GIT: $Id$" to="version" type="package-info"/>
+       <tasks:replace type="package-info" to="version" from="GIT: $Id$"/>
       </file>
      </dir>
     </dir>
@@ -91,19 +82,24 @@
       <file role="test" name="testSettingAndGettingValue.phpt"/>
       <file role="test" name="testSingleFileLockAndUnlock.phpt"/>
      </dir>
+     <dir name="includes">
+      <file role="test" name="runner.php">
+       <tasks:replace type="pear-config" to="php_dir" from="../src"/>
+      </file>
+      <file role="test" name="SHM-factory.php"/>
+     </dir>
      <file role="test" name="APC.phpt"/>
      <file role="test" name="Placebo.phpt"/>
-     <file role="test" name="SHM-factory.inc"/>
      <file role="test" name="SHM-factory_CGI.phpt"/>
      <file role="test" name="SHM-factory_CLI.phpt"/>
      <file role="test" name="Wincache.phpt"/>
-     <file role="test" name="_runner.inc"/>
     </dir>
     <file role="test" name="bootstrap.php">
-     <tasks:replace from="../src" to="php_dir" type="pear-config"/>
+     <tasks:replace type="pear-config" to="php_dir" from="../src"/>
     </file>
-    <file role="test" name="CliCompatibleTest.php"/>
-    <file role="test" name="phpunit.xml"/>
+    <file role="test" name="phpunit.xml">
+     <tasks:replace type="pear-config" to="php_dir" from="../src"/>
+    </file>
    </dir>
   </dir>
  </contents>
@@ -144,7 +140,6 @@
    <install name="src/PEAR2/Cache/SHM/Exception.php" as="PEAR2/Cache/SHM/Exception.php"/>
    <install name="src/PEAR2/Cache/SHM/InvalidArgumentException.php" as="PEAR2/Cache/SHM/InvalidArgumentException.php"/>
    <install name="tests/bootstrap.php" as="bootstrap.php"/>
-   <install name="tests/CliCompatibleTest.php" as="CliCompatibleTest.php"/>
    <install name="tests/PHPT/APC.phpt" as="PHPT/APC.phpt"/>
    <install name="tests/PHPT/Common/testAddingTtlValue_part1.phpt" as="PHPT/Common/testAddingTtlValue_part1.phpt"/>
    <install name="tests/PHPT/Common/testAddingTtlValue_part2.phpt" as="PHPT/Common/testAddingTtlValue_part2.phpt"/>
@@ -153,12 +148,12 @@
    <install name="tests/PHPT/Common/testSettingAndDeletingValue.phpt" as="PHPT/Common/testSettingAndDeletingValue.phpt"/>
    <install name="tests/PHPT/Common/testSettingAndGettingValue.phpt" as="PHPT/Common/testSettingAndGettingValue.phpt"/>
    <install name="tests/PHPT/Common/testSingleFileLockAndUnlock.phpt" as="PHPT/Common/testSingleFileLockAndUnlock.phpt"/>
+   <install name="tests/PHPT/includes/runner.php" as="PHPT/includes/runner.php"/>
+   <install name="tests/PHPT/includes/SHM-factory.php" as="PHPT/includes/SHM-factory.php"/>
    <install name="tests/PHPT/Placebo.phpt" as="PHPT/Placebo.phpt"/>
-   <install name="tests/PHPT/SHM-factory.inc" as="PHPT/SHM-factory.inc"/>
    <install name="tests/PHPT/SHM-factory_CGI.phpt" as="PHPT/SHM-factory_CGI.phpt"/>
    <install name="tests/PHPT/SHM-factory_CLI.phpt" as="PHPT/SHM-factory_CLI.phpt"/>
    <install name="tests/PHPT/Wincache.phpt" as="PHPT/Wincache.phpt"/>
-   <install name="tests/PHPT/_runner.inc" as="PHPT/_runner.inc"/>
    <install name="tests/phpunit.xml" as="phpunit.xml"/>
   </filelist>
  </phprelease>

@@ -18,8 +18,7 @@
     -->
     <testsuites>
         <testsuite name="All tests">
-            <file>CliCompatibleTest.php</file>
-            <file>ApcTest.php</file>
+            <directory suffix=".phpt">PHPT</directory>
         </testsuite>
     </testsuites>
     <filter>

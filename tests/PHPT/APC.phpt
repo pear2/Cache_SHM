@@ -11,6 +11,6 @@ Sets up the settings for the APC adapter, and executes its tests.
 
 --REDIRECTTEST--
 return array(
-    'GET' => array('adapter' => 'apc', 'nokeycode' => '101'),
+    'GET' => array('adapter' => 'APC', 'nokeycode' => '101'),
     'TESTS' => getcwd() . DIRECTORY_SEPARATOR . 'Common'
 );

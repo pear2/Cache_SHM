@@ -26,9 +26,14 @@ namespace PEAR2\Cache\SHM\Adapter;
 use PEAR2\Cache\SHM;
 
 /**
+ * {@link APC::getIterator()} returns this object.
+ */
+use ArrayObject;
+
+/**
  * Shared memory adapter for the APC extension.
  * 
- * @category Cache
+ * @category Caching
  * @package  PEAR2_Cache_SHM
  * @author   Vasil Rangelov <boen.robot@gmail.com>
  * @license  http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
@@ -91,7 +96,9 @@ class APC extends SHM
     public static function isMeetingRequirements()
     {
         return extension_loaded('apc')
-            && version_compare(phpversion('apc'), '3.0.13', '>=');
+            && version_compare(phpversion('apc'), '3.0.13', '>=')
+            && ini_get('apc.enabled')
+            && ('cli' !== PHP_SAPI || ini_get('apc.enable_cli'));
     }
     
     /**
@@ -365,15 +372,15 @@ class APC extends SHM
      * 
      * Returns an external iterator.
      * 
-     * @param string $filter   A PCRE regular expression. Only matching keys
-     *     will be iterated over. Setting this to NULL matches all keys of this
-     *     instance.
-     * @param bool   $keysOnly Whether to return only the keys, or return both
-     *     the keys and values.
+     * @param string|null $filter   A PCRE regular expression.
+     *     Only matching keys will be iterated over.
+     *     Setting this to NULL matches all keys of this instance.
+     * @param bool        $keysOnly Whether to return only the keys,
+     *     or return both the keys and values.
      * 
-     * @return array An array with all matching keys as array keys, and values
-     *     as array values. If $keysOnly is TRUE, the array keys are numeric,
-     *     and the array values are key names.
+     * @return ArrayObject An array with all matching keys as array keys,
+     *     and values as array values. If $keysOnly is TRUE, the array keys are
+     *     numeric, and the array values are key names.
      */
     public function getIterator($filter = null, $keysOnly = false)
     {
@@ -394,6 +401,6 @@ class APC extends SHM
                 }
             }
         }
-        return $result;
+        return new ArrayObject($result);
     }
 }

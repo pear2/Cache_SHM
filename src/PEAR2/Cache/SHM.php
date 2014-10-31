@@ -27,17 +27,27 @@ namespace PEAR2\Cache;
 use Exception as E;
 
 /**
+ * Implements this class.
+ */
+use IteratorAggregate;
+
+/**
+ * Used on failures by this class.
+ */
+use PEAR2\Cache\SHM\InvalidArgumentException;
+
+/**
  * Main class for this package.
  * 
  * Automatically chooses an adapter based on the available extensions.
  * 
- * @category Cache
+ * @category Caching
  * @package  PEAR2_Cache_SHM
  * @author   Vasil Rangelov <boen.robot@gmail.com>
  * @license  http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
  * @link     http://pear2.php.net/PEAR2_Cache_SHM
  */
-abstract class SHM implements \IteratorAggregate
+abstract class SHM implements IteratorAggregate
 {
     /**
      * @var array An array of adapter names that meet their requirements.
@@ -64,7 +74,7 @@ abstract class SHM implements \IteratorAggregate
                 //In case of a runtime error, try to fallback to other adapters.
             }
         }
-        throw new SHM\InvalidArgumentException(
+        throw new InvalidArgumentException(
             'No appropriate adapter available',
             1
         );
@@ -337,6 +347,23 @@ abstract class SHM implements \IteratorAggregate
      * @return void
      */
     abstract public function clear();
+    
+    /**
+     * Retrieve an external iterator
+     * 
+     * Returns an external iterator.
+     * 
+     * @param string|null $filter   A PCRE regular expression.
+     *     Only matching keys will be iterated over.
+     *     Setting this to NULL matches all keys of this instance.
+     * @param bool        $keysOnly Whether to return only the keys,
+     *     or return both the keys and values.
+     * 
+     * @return \Traversable An array with all matching keys as array keys,
+     *     and values as array values. If $keysOnly is TRUE, the array keys are
+     *     numeric, and the array values are key names.
+     */
+    abstract public function getIterator($filter = null, $keysOnly = false);
 }
 
 SHM::registerAdapter('\\' . __NAMESPACE__ . '\SHM\Adapter\Placebo');

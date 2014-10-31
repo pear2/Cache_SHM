@@ -30,7 +30,7 @@ if ($isHttp) {
 echo "@PACKAGE_NAME@ @PACKAGE_VERSION@\n";
 
 if (version_compare(phpversion(), '5.3.0', '<')) {
-    echo "\nThis package requires PHP 5.3.0 or later.\n";
+    echo "\nERROR: This package requires PHP 5.3.0 or later.\n";
     exit(1);
 }
 
@@ -70,39 +70,65 @@ HEREDOC;
 
 if (in_array('apc', $available_extensions)) {
     if (version_compare(phpversion('apc'), '3.0.13', '>=')) {
-        echo "A compatible APC version is available on this server.\n";
-        if ($isHttp || 1 == ini_get('apc.enable_cli')) {
-            echo "You should be able to use it under this SAPI (", PHP_SAPI,
-                ").\n";
+        echo <<<HEREDOC
+A compatible APC version is available on this server.
+HEREDOC;
+        if (ini_get('apc.enabled')) {
+            if ($isHttp || ini_get('apc.enable_cli')) {
+                echo "You should be able to use it under this SAPI (", PHP_SAPI,
+                    ").\n";
+            } else {
+                echo "WARNING: You can't use it under this SAPI (", PHP_SAPI,
+                    ").\n";
+            }
+            echo "\n";
         } else {
-            echo "You can't use it under this SAPI (", PHP_SAPI, ").\n";
+            echo <<<HEREDOC
+WARNING: Although present, the APC extension is disabled via the apc.enabled
+         INI setting, making this package unusable with it.
+         You need to enable it from php.ini.
+
+HEREDOC;
         }
-        echo "\n";
     }
 }
 
 if (in_array('wincache', $available_extensions)) {
     if (version_compare(phpversion('wincache'), '1.1.0', '>=')) {
-        echo "A compatible WinCache version is available on this server.\n";
-        if ($isHttp) {
-            echo "You should be able to use it under this SAPI (", PHP_SAPI,
-                ").\n";
+        echo <<<HEREDOC
+A compatible WinCache version is available on this server.
+HEREDOC;
+        if (ini_get('wincache.ucenabled')) {
+            if ($isHttp || ini_get('wincache.enablecli')) {
+                echo "You should be able to use it under this SAPI (", PHP_SAPI,
+                    ").\n";
+            } else {
+                echo "WARNING: You can't use it under this SAPI (", PHP_SAPI,
+                    ").\n";
+            }
+            echo "\n";
         } else {
-            echo "You can't use it under this SAPI (", PHP_SAPI, ").\n";
+            echo <<<HEREDOC
+WARNING: The user cache of the WinCache is disabled via the wincache.ucenabled
+         INI setting, making this package unusable with it.
+         You need to enable it from php.ini.
+
+HEREDOC;
         }
-        echo "\n";
     }
 }
 
 if ($isHttp) {
     if (empty($available_extensions)) {
-        echo "You don't have any compatible extensions for this SAPI (",
-            PHP_SAPI,
-            ").\nInstall one of APC (>= 3.0.13) or WinCache (>= 1.1.0).";
+        echo <<<HEREDOC
+WARNING: You don't have any compatible extensions for this SAPI.
+         Install one of APC (>= 3.0.13) or WinCache (>= 1.1.0).
+HEREDOC;
+echo '         (The current SAPI is "', PHP_SAPI, ").\n\n";
     }
 } else {
     echo "You should be able to use the Placebo adapter under this SAPI (",
-        PHP_SAPI, ").\n";
+        PHP_SAPI, ").\n\n";
 }
 
 __HALT_COMPILER();
