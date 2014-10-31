@@ -2,8 +2,7 @@
 <package version="2.1" xmlns="http://pear.php.net/dtd/package-2.1" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.1     http://pear.php.net/dtd/package-2.1.xsd">
  <name>PEAR2_Cache_SHM</name>
  <channel>pear2.php.net</channel>
- <summary>Wrapper for shared memory and locking functionality across different extensions.
-</summary>
+ <summary>Wrapper for shared memory and locking functionality across different extensions.</summary>
  <description>Allows you to share data across requests as long as the PHP process is running. One of APC or WinCache is required to accomplish this, with other extensions being potentially pluggable as adapters.</description>
  <lead>
   <name>Vasil Rangelov</name>
@@ -11,8 +10,8 @@
   <email>boen.robot@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2014-06-14</date>
- <time>00:41:37</time>
+ <date>2014-11-02</date>
+ <time>06:53:24</time>
  <version>
   <release>0.1.3</release>
   <api>0.1.0</api>

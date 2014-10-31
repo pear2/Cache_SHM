@@ -45,7 +45,7 @@ if (extension_loaded('phar')) {
     try {
         $phar = new Phar(__FILE__);
         $sig = $phar->getSignature();
-        echo "{$sig['hash_type']} hash: {$sig['hash']}\n";
+        echo "{$sig['hash_type']} hash: {$sig['hash']}\n\n";
     } catch (Exception $e) {
         echo <<<HEREDOC
 
@@ -78,7 +78,7 @@ HEREDOC;
                 echo "You should be able to use it under this SAPI (", PHP_SAPI,
                     ").\n";
             } else {
-                echo "WARNING: You can't use it under this SAPI (", PHP_SAPI,
+                echo "\nWARNING: You can't use it under this SAPI (", PHP_SAPI,
                     ").\n";
             }
             echo "\n";
@@ -103,7 +103,7 @@ HEREDOC;
                 echo "You should be able to use it under this SAPI (", PHP_SAPI,
                     ").\n";
             } else {
-                echo "WARNING: You can't use it under this SAPI (", PHP_SAPI,
+                echo "\nWARNING: You can't use it under this SAPI (", PHP_SAPI,
                     ").\n";
             }
             echo "\n";
@@ -124,7 +124,7 @@ if ($isHttp) {
 WARNING: You don't have any compatible extensions for this SAPI.
          Install one of APC (>= 3.0.13) or WinCache (>= 1.1.0).
 HEREDOC;
-echo '         (The current SAPI is "', PHP_SAPI, ").\n\n";
+        echo '         (The current SAPI is "', PHP_SAPI, ").\n\n";
     }
 } else {
     echo "You should be able to use the Placebo adapter under this SAPI (",
