@@ -35,9 +35,9 @@
             .version, .date {font-style:italic;}
             .version {font-weight:bold;}
             
-            .gadget, .ohloh {background-color:#FFFFFF; color:#000000;}
-            .ohloh {overflow:hidden;}
-            .ohloh > * {width:400px;height:80%;float:left;}
+            .gadget, .openhub {background-color:#FFFFFF; color:#000000;}
+            .openhub {overflow:hidden;}
+            .openhub > * {width:400px;height:80%;float:left;}
             .gadget a {color:#0000FF;}
         </style>
         <link rel="stylesheet" type="text/css" href="reasons.css" />
@@ -112,7 +112,21 @@ require_once 'PEAR2_Cache_SHM-0.1.3.phar';
             <div class="footer">
                 get the source code on GitHub : <a href="https://github.com/pear2/Cache_SHM">pear2/Cache_SHM</a>
             </div>
+            <div class="openhub">
+                <h2>PEAR2_Cache_SHM at OpenHub</h2>
+                <script type="text/javascript" src="https://www.openhub.net/p/604291/widgets/project_basic_stats.js"></script>
+                <script type="text/javascript" src="https://www.openhub.net/p/604291/widgets/project_users.js?style=green"></script>
+            </div>
         </div>
+        <script type="text/javascript">
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-26061655-4', 'auto');
+            ga('send', 'pageview');
+        </script>
         <script type="text/javascript" src="reasons.js"> </script>
     </body>
 </html>
