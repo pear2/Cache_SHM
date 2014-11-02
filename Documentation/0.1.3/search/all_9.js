@@ -1,0 +1,9 @@
+var searchData=
+[
+  ['inc',['inc',['../class_p_e_a_r2_1_1_cache_1_1_s_h_m_1_1_adapter_1_1_a_p_c.html#a3403eeb19ee0687ec25f59c8b0502d20',1,'PEAR2\Cache\SHM\Adapter\APC\inc()'],['../class_p_e_a_r2_1_1_cache_1_1_s_h_m_1_1_adapter_1_1_placebo.html#a3403eeb19ee0687ec25f59c8b0502d20',1,'PEAR2\Cache\SHM\Adapter\Placebo\inc()'],['../class_p_e_a_r2_1_1_cache_1_1_s_h_m_1_1_adapter_1_1_wincache.html#a3403eeb19ee0687ec25f59c8b0502d20',1,'PEAR2\Cache\SHM\Adapter\Wincache\inc()'],['../class_p_e_a_r2_1_1_cache_1_1_s_h_m.html#a3403eeb19ee0687ec25f59c8b0502d20',1,'PEAR2\Cache\SHM\inc()']]],
+  ['invalidargumentexception',['InvalidArgumentException',['../class_p_e_a_r2_1_1_cache_1_1_s_h_m_1_1_invalid_argument_exception.html',1,'PEAR2::Cache::SHM']]],
+  ['invalidargumentexception_2ephp',['InvalidArgumentException.php',['../_invalid_argument_exception_8php.html',1,'']]],
+  ['invalidhashtypeexception',['InvalidHashTypeException',['../class_p_e_a_r2_1_1_cache_1_1_lite_1_1_invalid_hash_type_exception.html',1,'PEAR2::Cache::Lite']]],
+  ['invalidhashtypeexception_2ephp',['InvalidHashTypeException.php',['../_invalid_hash_type_exception_8php.html',1,'']]],
+  ['ismeetingrequirements',['isMeetingRequirements',['../class_p_e_a_r2_1_1_cache_1_1_s_h_m_1_1_adapter_1_1_a_p_c.html#a1eb7f71dfca79a73342b574954be49dc',1,'PEAR2\Cache\SHM\Adapter\APC\isMeetingRequirements()'],['../class_p_e_a_r2_1_1_cache_1_1_s_h_m_1_1_adapter_1_1_placebo.html#a1eb7f71dfca79a73342b574954be49dc',1,'PEAR2\Cache\SHM\Adapter\Placebo\isMeetingRequirements()'],['../class_p_e_a_r2_1_1_cache_1_1_s_h_m_1_1_adapter_1_1_wincache.html#a1eb7f71dfca79a73342b574954be49dc',1,'PEAR2\Cache\SHM\Adapter\Wincache\isMeetingRequirements()'],['../class_p_e_a_r2_1_1_cache_1_1_s_h_m.html#a1eb7f71dfca79a73342b574954be49dc',1,'PEAR2\Cache\SHM\isMeetingRequirements()']]]
+];

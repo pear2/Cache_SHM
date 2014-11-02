@@ -1,0 +1,21 @@
+var searchData=
+[
+  ['_24automaticcleaningfactor',['$automaticCleaningFactor',['../class_p_e_a_r2_1_1_cache_1_1_lite_1_1_main.html#a02e1379995e918ea3dd35e17e55aafd3',1,'PEAR2::Cache::Lite::Main']]],
+  ['_24cachedir',['$cacheDir',['../class_p_e_a_r2_1_1_cache_1_1_lite_1_1_main.html#ac9d27ec635bd451cdecc1d20135f0698',1,'PEAR2::Cache::Lite::Main']]],
+  ['_24data',['$data',['../class_p_e_a_r2_1_1_cache_1_1_s_h_m_1_1_adapter_1_1_placebo.html#a6efc15b5a2314dd4b5aaa556a375c6d6',1,'PEAR2::Cache::SHM::Adapter::Placebo']]],
+  ['_24filelocking',['$fileLocking',['../class_p_e_a_r2_1_1_cache_1_1_lite_1_1_main.html#a194445a97f43b1249d66cb6611e12d67',1,'PEAR2::Cache::Lite::Main']]],
+  ['_24filenameprotection',['$fileNameProtection',['../class_p_e_a_r2_1_1_cache_1_1_lite_1_1_main.html#a218464e1766731b8950995db2ca92221',1,'PEAR2::Cache::Lite::Main']]],
+  ['_24filenames',['$fileNames',['../class_p_e_a_r2_1_1_cache_1_1_lite_1_1_main.html#a10b0e4257237d6ada6505dfc13cf3b53',1,'PEAR2::Cache::Lite::Main']]],
+  ['_24filepath',['$filePath',['../class_p_e_a_r2_1_1_cache_1_1_lite_1_1_file_exception.html#aaf525367b205eb15e464b979a035e4c6',1,'PEAR2::Cache::Lite::FileException']]],
+  ['_24filepaths',['$filePaths',['../class_p_e_a_r2_1_1_cache_1_1_lite_1_1_main.html#aeb83571a472eddc5c637c0c415c5ff08',1,'PEAR2::Cache::Lite::Main']]],
+  ['_24hashtype',['$hashType',['../class_p_e_a_r2_1_1_cache_1_1_lite_1_1_invalid_hash_type_exception.html#ac568b82fde94d5bee7b303bcc27f8e33',1,'PEAR2::Cache::Lite::InvalidHashTypeException']]],
+  ['_24lifetime',['$lifeTime',['../class_p_e_a_r2_1_1_cache_1_1_lite_1_1_main.html#a128a43c83c318f5a1e1cea988beba6b6',1,'PEAR2::Cache::Lite::Main']]],
+  ['_24locksbackup',['$locksBackup',['../class_p_e_a_r2_1_1_cache_1_1_s_h_m_1_1_adapter_1_1_a_p_c.html#acafdc2d99e9638e8749ccd080da0598e',1,'PEAR2\Cache\SHM\Adapter\APC\$locksBackup()'],['../class_p_e_a_r2_1_1_cache_1_1_s_h_m_1_1_adapter_1_1_placebo.html#acafdc2d99e9638e8749ccd080da0598e',1,'PEAR2\Cache\SHM\Adapter\Placebo\$locksBackup()'],['../class_p_e_a_r2_1_1_cache_1_1_s_h_m_1_1_adapter_1_1_wincache.html#acafdc2d99e9638e8749ccd080da0598e',1,'PEAR2\Cache\SHM\Adapter\Wincache\$locksBackup()']]],
+  ['_24nesteddirectorylevel',['$nestedDirectoryLevel',['../class_p_e_a_r2_1_1_cache_1_1_lite_1_1_main.html#a84aa675aa05b69df389986bd44f474d0',1,'PEAR2::Cache::Lite::Main']]],
+  ['_24nesteddirectoryumask',['$nestedDirectoryUmask',['../class_p_e_a_r2_1_1_cache_1_1_lite_1_1_main.html#a09487aada7592c8577dd72f99c133a3f',1,'PEAR2::Cache::Lite::Main']]],
+  ['_24persistentid',['$persistentId',['../class_p_e_a_r2_1_1_cache_1_1_s_h_m_1_1_adapter_1_1_a_p_c.html#a46ac95eddd288f163a31d248085799e8',1,'PEAR2\Cache\SHM\Adapter\APC\$persistentId()'],['../class_p_e_a_r2_1_1_cache_1_1_s_h_m_1_1_adapter_1_1_placebo.html#a46ac95eddd288f163a31d248085799e8',1,'PEAR2\Cache\SHM\Adapter\Placebo\$persistentId()'],['../class_p_e_a_r2_1_1_cache_1_1_s_h_m_1_1_adapter_1_1_wincache.html#a46ac95eddd288f163a31d248085799e8',1,'PEAR2\Cache\SHM\Adapter\Wincache\$persistentId()']]],
+  ['_24readcontrol',['$readControl',['../class_p_e_a_r2_1_1_cache_1_1_lite_1_1_main.html#ae902c9e924c5d863fde67f7f07a911ff',1,'PEAR2::Cache::Lite::Main']]],
+  ['_24readcontroltype',['$readControlType',['../class_p_e_a_r2_1_1_cache_1_1_lite_1_1_main.html#ad1b6d8ecf8ddb73ecb05ebdd9a8fb2d8',1,'PEAR2::Cache::Lite::Main']]],
+  ['_24requestinstances',['$requestInstances',['../class_p_e_a_r2_1_1_cache_1_1_s_h_m_1_1_adapter_1_1_a_p_c.html#a37d6e44a887cecef12a73cce461734df',1,'PEAR2\Cache\SHM\Adapter\APC\$requestInstances()'],['../class_p_e_a_r2_1_1_cache_1_1_s_h_m_1_1_adapter_1_1_placebo.html#a37d6e44a887cecef12a73cce461734df',1,'PEAR2\Cache\SHM\Adapter\Placebo\$requestInstances()'],['../class_p_e_a_r2_1_1_cache_1_1_s_h_m_1_1_adapter_1_1_wincache.html#a37d6e44a887cecef12a73cce461734df',1,'PEAR2\Cache\SHM\Adapter\Wincache\$requestInstances()']]],
+  ['_24writecontrol',['$writeControl',['../class_p_e_a_r2_1_1_cache_1_1_lite_1_1_main.html#a006ecd630c345a6936c6bcfe9b3c9e50',1,'PEAR2::Cache::Lite::Main']]]
+];
