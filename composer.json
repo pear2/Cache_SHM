@@ -15,8 +15,9 @@
         "issues": "http://github.com/pear2/Cache_SHM/issues",
         "wiki": "http://github.com/pear2/Cache_SHM/wiki"
     },
+
     "require": {
-        "php": ">=5.3.0"
+        "php": ">=5.3.9"
     },
     "suggest": {
         "ext-apc": ">=3.0.13",

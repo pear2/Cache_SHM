@@ -52,6 +52,7 @@ class Wincache extends SHM
      * A list of persistent IDs within the current request (as keys) with an int
      * (as a value) specifying the number of instances in the current request.
      * Used as an attempt to ensure implicit lock releases on destruction.
+     *
      * @var array 
      */
     protected static $requestInstances = array();
@@ -64,7 +65,7 @@ class Wincache extends SHM
     /**
      * Creates a new shared memory storage.
      * 
-     * Estabilishes a separate persistent storage.
+     * Establishes a separate persistent storage.
      * 
      * @param string $persistentId The ID for the storage. The storage will be
      *     reused if it exists, or created if it doesn't exist. Data and locks
@@ -135,7 +136,7 @@ class Wincache extends SHM
      * @param string $key     Name of the key to obtain. Note that $key may
      *     repeat for each distinct $persistentId.
      * @param double $timeout Ignored with WinCache. Script will always block if
-     *     the lock can't be immediatly obtained.
+     *     the lock can't be immediately obtained.
      * 
      * @return bool TRUE on success, FALSE on failure.
      */

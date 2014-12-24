@@ -53,6 +53,7 @@ class APC extends SHM
      * (as a value) specifying the number of instances in the current request.
      * Used as an attempt to ensure implicit lock releases even on errors in the
      * critical sections, since APC doesn't have an actual locking function.
+     *
      * @var array 
      */
     protected static $requestInstances = array();
@@ -66,7 +67,7 @@ class APC extends SHM
     /**
      * Creates a new shared memory storage.
      * 
-     * Estabilishes a separate persistent storage.
+     * Establishes a separate persistent storage.
      * 
      * @param string $persistentId The ID for the storage. The storage will be
      *     reused if it exists, or created if it doesn't exist. Data and locks
@@ -144,7 +145,7 @@ class APC extends SHM
      * 
      * @param string $key     Name of the key to obtain. Note that $key may
      *     repeat for each distinct $persistentId.
-     * @param double $timeout If the lock can't be immediatly obtained, the
+     * @param double $timeout If the lock can't be immediately obtained, the
      *     script will block for at most the specified amount of seconds.
      *     Setting this to 0 makes lock obtaining non blocking, and setting it
      *     to NULL makes it block without a time limit.

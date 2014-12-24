@@ -57,7 +57,7 @@ abstract class SHM implements IteratorAggregate
     /**
      * Creates a new shared memory storage.
      * 
-     * Estabilishes a separate persistent storage. Adapter is automatically
+     * Establishes a separate persistent storage. Adapter is automatically
      * chosen based on the available extensions.
      * 
      * @param string $persistentId The ID for the storage.
@@ -207,7 +207,7 @@ abstract class SHM implements IteratorAggregate
     /**
      * Creates a new shared memory storage.
      * 
-     * Estabilishes a separate persistent storage.
+     * Establishes a separate persistent storage.
      * 
      * @param string $persistentId The ID for the storage. The storage will be
      *     reused if it exists, or created if it doesn't exist. Data and locks
@@ -220,7 +220,7 @@ abstract class SHM implements IteratorAggregate
      * 
      * @param string $key     Name of the key to obtain. Note that $key may
      *     repeat for each distinct $persistentId.
-     * @param double $timeout If the lock can't be immediatly obtained, the
+     * @param double $timeout If the lock can't be immediately obtained, the
      *     script will block for at most the specified amount of seconds.
      *     Setting this to 0 makes lock obtaining non blocking, and setting it
      *     to NULL makes it block without a time limit.

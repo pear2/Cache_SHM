@@ -31,7 +31,7 @@ use PEAR2\Cache\SHM;
 use ArrayObject;
 
 /**
- * This adapter is not truly persistent. It is intended to emulate persistency
+ * This adapter is not truly persistent. It is intended to emulate persistence
  * in non persistent environments, so that upper level applications can use a
  * single code path for persistent and non persistent code.
  * 
@@ -71,6 +71,7 @@ class Placebo extends SHM
      * Each such array has data keys as its keys, and an array as a value.
      * Each such array has as its elements the value, the timeout and the time
      * the data was set.
+     *
      * @var array 
      */
     protected static $data = array();
@@ -78,7 +79,7 @@ class Placebo extends SHM
     /**
      * Creates a new shared memory storage.
      * 
-     * Estabilishes a separate persistent storage.
+     * Establishes a separate persistent storage.
      * 
      * @param string $persistentId The ID for the storage. The storage will be
      *     reused if it exists, or created if it doesn't exist. Data and locks
