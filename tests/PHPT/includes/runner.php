@@ -8,7 +8,8 @@ chdir(__DIR__ . '/../..');
 Autoload::initialize(realpath(realpath('../src')));
 chdir($cwd);
 
-function assertSame($expected, $actual, $file) {
+function assertSame($expected, $actual, $file)
+{
     if ($expected !== $actual) {
         echo "Failed asserting that ";
         var_dump($actual);

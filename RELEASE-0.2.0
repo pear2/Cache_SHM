@@ -1,0 +1,6 @@
+* __Added APCu adapter__
+* Version requirements bumped to ones that reflect fully available functionality. More specifically:
+    - APC 3.1.1 is now the required minimum (previously, 3.0.13), because it's the minimum for APCIterator.
+    - APCu 5.0.0 is required, because of APCUIterator, though 4.0.0 would be sufficient for the rest.
+    - PHP 5.3.9 is the minimum required PHP version, because it is the firt one in which a critical bug affecting this package is fixed. See [#43200](https://bugs.php.net/bug.php?id=43200) for details.
+* Doc and CS fixes.

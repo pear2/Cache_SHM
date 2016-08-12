@@ -34,7 +34,7 @@ if (version_compare(phpversion(), '5.3.0', '<')) {
 }
 
 $available_extensions = array();
-foreach (array('apc', 'wincache') as $ext) {
+foreach (array('apc', 'apcu', 'wincache') as $ext) {
     if (extension_loaded($ext)) {
         $available_extensions[] = $ext;
     }
@@ -49,14 +49,16 @@ if (extension_loaded('phar')) {
         echo <<<HEREDOC
 
 The PHAR extension is available, but was unable to read this PHAR file's hash.
+
 HEREDOC;
         if (false !== strpos($e->getMessage(), 'file extension')) {
             echo <<<HEREDOC
-
 This can happen if you've renamed the file to ".php" instead of ".phar".
 Regardless, you should be able to include this file without problems.
+
 HEREDOC;
         }
+        echo "\n";
     }
 } else {
     echo <<<HEREDOC
@@ -68,7 +70,7 @@ HEREDOC;
 }
 
 if (in_array('apc', $available_extensions)) {
-    if (version_compare(phpversion('apc'), '3.0.13', '>=')) {
+    if (version_compare(phpversion('apc'), '3.1.1', '>=')) {
         echo <<<HEREDOC
 A compatible APC version is available on this server.
 HEREDOC;
@@ -84,6 +86,31 @@ HEREDOC;
         } else {
             echo <<<HEREDOC
 WARNING: Although present, the APC extension is disabled via the apc.enabled
+         INI setting, making this package unusable with it.
+         You need to enable it from php.ini.
+
+HEREDOC;
+        }
+    }
+}
+
+if (in_array('apcu', $available_extensions)) {
+    if (version_compare(phpversion('apcu'), '5.0.0', '>=')) {
+        echo <<<HEREDOC
+A compatible APCu version is available on this server.
+HEREDOC;
+        if (ini_get('apc.enabled')) {
+            if ($isHttp || ini_get('apc.enable_cli')) {
+                echo "You should be able to use it under this SAPI (", PHP_SAPI,
+                    ").\n";
+            } else {
+                echo "\nWARNING: You can't use it under this SAPI (", PHP_SAPI,
+                    ").\n";
+            }
+            echo "\n";
+        } else {
+            echo <<<HEREDOC
+WARNING: Although present, the APCu extension is disabled via the apc.enabled
          INI setting, making this package unusable with it.
          You need to enable it from php.ini.
 
@@ -121,7 +148,7 @@ if ($isHttp) {
     if (empty($available_extensions)) {
         echo <<<HEREDOC
 WARNING: You don't have any compatible extensions for this SAPI.
-         Install one of APC (>= 3.0.13) or WinCache (>= 1.1.0).
+         Install one of APC (>= 3.1.1), APCu (>=5.0.0) or WinCache (>= 1.1.0).
 HEREDOC;
         echo '         (The current SAPI is "', PHP_SAPI, ").\n\n";
     }
