@@ -46,6 +46,14 @@ $config = array(
         'GIT: $Id$' => array(
             'type' => 'package-info',
             'to' => 'version'
+        ),
+        '~~summary~~' => array(
+            'type' => 'package-info',
+            'to' => 'summary'
+        ),
+        '~~description~~' => array(
+            'type' => 'package-info',
+            'to' => 'description'
         )
     ),
     'eol' => array(

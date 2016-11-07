@@ -20,7 +20,8 @@
         "php": ">=5.3.9"
     },
     "suggest": {
-        "ext-apc": ">=3.0.13",
+        "ext-apc": ">=3.1.1",
+        "ext-apc": ">=5.0.0",
         "ext-wincache": ">=1.1.0"
     },
     "autoload": {

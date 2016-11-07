@@ -29,7 +29,7 @@ foreach ($packages as $channel => $channelPackages) {
     foreach ($channelPackages as $package) {
         foreach ($registry->toPackage($package, $channel)->installcontents
             as $file => $info) {
-            if (strpos($file, 'php/') === 0) {
+            if (strpos($file, 'php/') === 0 || strpos($file, 'src/') === 0) {
                 $filename = substr($file, 4);
                 $extrafiles['src/' . $filename]
                     = realpath($phpDir . DIRECTORY_SEPARATOR . $filename);
