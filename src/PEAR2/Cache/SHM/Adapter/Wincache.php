@@ -151,7 +151,7 @@ class Wincache extends SHM
             $this->persistentId . static::encodeLockName($key)
         );
         if ($result) {
-            static::$locksBackup[$this->persistentId] = $key;
+            static::$locksBackup[$this->persistentId][] = $key;
         }
         return $result;
     }
