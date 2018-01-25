@@ -169,7 +169,7 @@ class APCu extends SHM
                 return false;
             }
         }
-        static::$locksBackup[$this->persistentId] = $key;
+        static::$locksBackup[$this->persistentId][] = $key;
         return true;
     }
 
