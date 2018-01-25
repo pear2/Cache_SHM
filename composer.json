@@ -3,7 +3,7 @@
     "description": "Wrapper for shared memory and locking functionality across different PHP extensions.",
     "keywords": ["abstraction", "lock", "shm", "apc", "pear2", "cache", "wincache", "caching", "locking"],
     "homepage": "http://pear2.github.com/Cache_SHM/",
-    "license": "LGPL-2.1",
+    "license": "LGPL-2.1-only",
     "authors": [
         {
             "name": "Vasil Rangelov",
@@ -21,7 +21,7 @@
     },
     "suggest": {
         "ext-apc": ">=3.1.1",
-        "ext-apc": ">=5.0.0",
+        "ext-apcu": ">=5.0.0",
         "ext-wincache": ">=1.1.0"
     },
     "autoload": {
