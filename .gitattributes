@@ -1,0 +1,5 @@
+*.php text eol=lf diff=php export-subst
+** export-ignore
+/composer.json -export-ignore
+/src/** -export-ignore
+/src/ -export-ignore

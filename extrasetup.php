@@ -1,16 +1,16 @@
 <?php
 
 /**
- * extrasetup.php for PEAR2_Cache_SHM.
- * 
+ * File extrasetup.php for PEAR2_Cache_SHM.
+ *
  * PHP version 5.3
- * 
+ *
  * @category  Caching
  * @package   PEAR2_Cache_SHM
  * @author    Vasil Rangelov <boen.robot@gmail.com>
  * @copyright 2011 Vasil Rangelov
  * @license   http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
- * @version   GIT: $Id$
+ * @version   GIT: $Format:%x24Commit:%H%x24$
  * @link      http://pear2.php.net/PEAR2_Cache_SHM
  */
 

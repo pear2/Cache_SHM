@@ -12,7 +12,7 @@
  * @author    Vasil Rangelov <boen.robot@gmail.com>
  * @copyright 2011 Vasil Rangelov
  * @license   http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
- * @version   GIT: $Id$
+ * @version   GIT: $Format:%x24Commit:%H%x24$
  * @link      http://pear2.php.net/PEAR2_Cache_SHM
  */
 /**
@@ -21,9 +21,14 @@
 namespace PEAR2\Cache\SHM\Adapter;
 
 /**
- * Throws exceptions from this namespace, and extends from this class.
+ * Extends from this class.
  */
 use PEAR2\Cache\SHM;
+
+/**
+ * Throws this exception.
+ */
+use PEAR2\Cache\SHM\InvalidArgumentException;
 
 /**
  * {@link Wincache::getIterator()} returns this object.
@@ -41,6 +46,11 @@ use ArrayObject;
  */
 class Wincache extends SHM
 {
+    /**
+     * Bitmask, used in exception codes to denote the adapter type.
+     */
+    const CODE_MASK = 0x08000000;
+
     /**
      * ID of the current storage.
      *
@@ -240,9 +250,9 @@ class Wincache extends SHM
     {
         $value = wincache_ucache_get($this->persistentId . $key, $success);
         if (!$success) {
-            throw new SHM\InvalidArgumentException(
+            throw new InvalidArgumentException(
                 'Unable to fetch key. No such key, or key has expired.',
-                300
+                static::CODE_MASK | InvalidArgumentException::CODE_FETCH_FAIL
             );
         }
         return $value;
@@ -280,9 +290,9 @@ class Wincache extends SHM
             $success
         );
         if (!$success) {
-            throw new SHM\InvalidArgumentException(
+            throw new InvalidArgumentException(
                 'Unable to increase the value. Are you sure the value is int?',
-                301
+                static::CODE_MASK | InvalidArgumentException::CODE_INC_FAIL
             );
         }
         return $newValue;
@@ -308,9 +318,9 @@ class Wincache extends SHM
             $success
         );
         if (!$success) {
-            throw new SHM\InvalidArgumentException(
+            throw new InvalidArgumentException(
                 'Unable to decrease the value. Are you sure the value is int?',
-                302
+                static::CODE_MASK | InvalidArgumentException::CODE_DEC_FAIL
             );
         }
         return $newValue;

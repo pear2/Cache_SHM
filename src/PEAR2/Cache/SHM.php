@@ -12,7 +12,7 @@
  * @author    Vasil Rangelov <boen.robot@gmail.com>
  * @copyright 2011 Vasil Rangelov
  * @license   http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
- * @version   GIT: $Id$
+ * @version   GIT: $Format:%x24Commit:%H%x24$
  * @link      http://pear2.php.net/PEAR2_Cache_SHM
  */
 
@@ -50,6 +50,11 @@ use PEAR2\Cache\SHM\InvalidArgumentException;
 abstract class SHM implements IteratorAggregate
 {
     /**
+     * Bitmask, used in exception codes to denote the adapter type.
+     */
+    const CODE_MASK = 0x000000;
+
+    /**
      * An array of adapter names that meet their requirements.
      *
      * @var array
@@ -78,7 +83,7 @@ abstract class SHM implements IteratorAggregate
         }
         throw new InvalidArgumentException(
             'No appropriate adapter available',
-            1
+            static::CODE_MASK | InvalidArgumentException::CODE_FAIL
         );
     }
 

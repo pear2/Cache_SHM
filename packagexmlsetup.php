@@ -1,16 +1,16 @@
 <?php
 
 /**
- * packagexmlsetup.php for PEAR2_Cache_SHM.
- * 
+ * File packagexmlsetup.php for PEAR2_Cache_SHM.
+ *
  * PHP version 5.3
- * 
+ *
  * @category  Caching
  * @package   PEAR2_Cache_SHM
  * @author    Vasil Rangelov <boen.robot@gmail.com>
  * @copyright 2011 Vasil Rangelov
  * @license   http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
- * @version   GIT: $Id$
+ * @version   GIT: $Format:%x24Commit:%H%x24$
  * @link      http://pear2.php.net/PEAR2_Cache_SHM
  */
 
@@ -21,20 +21,20 @@ use Pyrus\Developer\PackageFile\v2;
 
 /**
  * Configuration array.
- * 
+ *
  * Each key is the task.
- * 
+ *
  * The task "replace" uses an array where the key is the value to be searched
  * for, and the value is an array of additional attributes for the task, which
  * normally contain at least "type" (pear-config/package-info) and "to", which
  * specifies the value to replace it with.
- * 
+ *
  * The task "eol" uses an array where the key is a filename pattern to be
  * matched, and the value is the target platform's EOL to be used for those
  * file names (windows/unix).
- * 
+ *
  * Unrecognized tasks are ignored.
- * 
+ *
  * @var array
  */
 $config = array(

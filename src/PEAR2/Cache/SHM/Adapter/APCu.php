@@ -12,7 +12,7 @@
  * @author    Vasil Rangelov <boen.robot@gmail.com>
  * @copyright 2011 Vasil Rangelov
  * @license   http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
- * @version   GIT: $Id$
+ * @version   GIT: $Format:%x24Commit:%H%x24$
  * @link      http://pear2.php.net/PEAR2_Cache_SHM
  */
 /**
@@ -21,9 +21,14 @@
 namespace PEAR2\Cache\SHM\Adapter;
 
 /**
- * Throws exceptions from this namespace, and extends from this class.
+ * Extends from this class.
  */
 use PEAR2\Cache\SHM;
+
+/**
+ * Throws this exception.
+ */
+use PEAR2\Cache\SHM\InvalidArgumentException;
 
 /**
  * {@link APC::getIterator()} returns this object.
@@ -41,6 +46,11 @@ use ArrayObject;
  */
 class APCu extends SHM
 {
+    /**
+     * Bitmask, used in exception codes to denote the adapter type.
+     */
+    const CODE_MASK = 0x06000000;
+
     /**
      * ID of the current storage.
      *
@@ -259,16 +269,19 @@ class APCu extends SHM
         if (apcu_exists($fullKey)) {
             $value = apcu_fetch($fullKey, $success);
             if (!$success) {
-                throw new SHM\InvalidArgumentException(
+                throw new InvalidArgumentException(
                     'Unable to fetch key. ' .
                     'Key has either just now expired or (if no TTL was set) ' .
                     'is possibly in a race condition with another request.',
-                    100
+                    static::CODE_MASK | InvalidArgumentException::CODE_FETCH_FAIL
                 );
             }
             return $value;
         }
-        throw new SHM\InvalidArgumentException('No such key in cache', 101);
+        throw new InvalidArgumentException(
+            'No such key in cache',
+            static::CODE_MASK | InvalidArgumentException::CODE_NOKEY
+        );
     }
 
     /**
@@ -305,7 +318,7 @@ class APCu extends SHM
         if (!$success) {
             throw new SHM\InvalidArgumentException(
                 'Unable to increase the value. Are you sure the value is int?',
-                102
+                static::CODE_MASK | InvalidArgumentException::CODE_INC_FAIL
             );
         }
         return $newValue;
@@ -333,7 +346,7 @@ class APCu extends SHM
         if (!$success) {
             throw new SHM\InvalidArgumentException(
                 'Unable to decrease the value. Are you sure the value is int?',
-                103
+                static::CODE_MASK | InvalidArgumentException::CODE_DEC_FAIL
             );
         }
         return $newValue;
